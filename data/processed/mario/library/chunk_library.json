@@ -1,0 +1,3753 @@
+{
+  "format_version": 1,
+  "tile_names": [
+    "empty",
+    "solid",
+    "brick",
+    "used_block",
+    "coin",
+    "goomba",
+    "question_block_coin",
+    "question_block_empty",
+    "pipe_top_left",
+    "pipe_top_right",
+    "pipe_body_left",
+    "pipe_body_right",
+    "player",
+    "flagpole"
+  ],
+  "train_level_ids": [
+    "mario-1/1-1",
+    "mario-1/1-2",
+    "mario-1/1-3",
+    "mario-1/2-1",
+    "mario-1/3-1",
+    "mario-1/3-3",
+    "mario-1/5-1",
+    "mario-1/6-1",
+    "mario-1/6-2",
+    "mario-1/6-3",
+    "mario-1/7-1",
+    "mario-1/8-1"
+  ],
+  "heldout_level_ids": [
+    "mario-1/4-1",
+    "mario-1/4-2",
+    "mario-1/5-3"
+  ],
+  "metadata": {
+    "level_sets": [
+      "mario-1"
+    ],
+    "chunk_widths": [
+      16
+    ],
+    "stride_tiles": 8,
+    "ending_columns": 16,
+    "seed": 42,
+    "library_config_hash": "cbb7174131940a5a"
+  },
+  "chunks": [
+    {
+      "chunk_id": 0,
+      "family": "start",
+      "level_id": "mario-1/1-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16
+      }
+    },
+    {
+      "chunk_id": 1,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 2,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 3,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27
+      }
+    },
+    {
+      "chunk_id": 4,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 5,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 6,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 7,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23
+      }
+    },
+    {
+      "chunk_id": 8,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 18,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 9,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 25,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 10,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 80,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 11,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 12,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 13,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 14,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 15,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 16,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 2,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 42,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 17,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 136,
+      "entry_height": 4,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 43
+      }
+    },
+    {
+      "chunk_id": 18,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 38
+      }
+    },
+    {
+      "chunk_id": 19,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 152,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 32
+      }
+    },
+    {
+      "chunk_id": 20,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 21,
+      "family": "middle",
+      "level_id": "mario-1/1-1",
+      "column_offset": 168,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 22,
+      "family": "ending",
+      "level_id": "mario-1/1-1",
+      "column_offset": 186,
+      "entry_height": 7,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 46
+      }
+    },
+    {
+      "chunk_id": 23,
+      "family": "start",
+      "level_id": "mario-1/1-2",
+      "column_offset": 0,
+      "entry_height": 12,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 42,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 24,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 53,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 25,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 70,
+        "coin": 1,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 26,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 24,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 64,
+        "coin": 1,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 27,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 32,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 55,
+        "coin": 6,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 28,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 65,
+        "coin": 6,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 29,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 78,
+        "coin": 4,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 30,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 75,
+        "coin": 5,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 31,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 71,
+        "coin": 1,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 32,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 59,
+        "coin": 4,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 33,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 80,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 41,
+        "coin": 6
+      }
+    },
+    {
+      "chunk_id": 34,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 88,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 39,
+        "coin": 2,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 35,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 46,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 36,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 104,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 47,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 37,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 38,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 38,
+      "family": "middle",
+      "level_id": "mario-1/1-2",
+      "column_offset": 120,
+      "entry_height": 0,
+      "exit_height": 3,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 39,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 39,
+      "family": "ending",
+      "level_id": "mario-1/1-2",
+      "column_offset": 142,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 40,
+      "family": "start",
+      "level_id": "mario-1/1-3",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 14
+      }
+    },
+    {
+      "chunk_id": 41,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 15,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 42,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 16,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 19,
+        "coin": 4,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 43,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 24,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 18,
+        "coin": 4,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 44,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 32,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 13,
+        "coin": 4,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 45,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 40,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 46,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 19,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 47,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 15,
+        "coin": 3,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 48,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 10,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 49,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 72,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 8,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 50,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 80,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 9,
+        "coin": 6
+      }
+    },
+    {
+      "chunk_id": 51,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 12,
+        "coin": 4,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 52,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 96,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 13,
+        "coin": 3,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 53,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 104,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 13,
+        "coin": 5,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 54,
+      "family": "middle",
+      "level_id": "mario-1/1-3",
+      "column_offset": 112,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 55,
+      "family": "ending",
+      "level_id": "mario-1/1-3",
+      "column_offset": 134,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 49
+      }
+    },
+    {
+      "chunk_id": 56,
+      "family": "start",
+      "level_id": "mario-1/2-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 25
+      }
+    },
+    {
+      "chunk_id": 57,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 58,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 16,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 35,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 59,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 60,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 61,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 40,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 62,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 25,
+        "enemy": 6
+      }
+    },
+    {
+      "chunk_id": 63,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 29,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 64,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 65,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 66,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 80,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 67,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 68,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 96,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 25,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 69,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 70,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 44,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 71,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 120,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 72,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 13,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 73,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 136,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 74,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 75,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 152,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 76,
+      "family": "middle",
+      "level_id": "mario-1/2-1",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 25,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 77,
+      "family": "ending",
+      "level_id": "mario-1/2-1",
+      "column_offset": 181,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37
+      }
+    },
+    {
+      "chunk_id": 78,
+      "family": "start",
+      "level_id": "mario-1/3-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 19,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 79,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 80,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 29,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 81,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 82,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 32,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 83,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 40,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 84,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 85,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 86,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 87,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 72,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 29,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 88,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 80,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 89,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 88,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 90,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 96,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 40,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 91,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37
+      }
+    },
+    {
+      "chunk_id": 92,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23
+      }
+    },
+    {
+      "chunk_id": 93,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 44
+      }
+    },
+    {
+      "chunk_id": 94,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 43,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 95,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 136,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 96,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 97,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 152,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "coin": 1,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 98,
+      "family": "middle",
+      "level_id": "mario-1/3-1",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 32,
+        "coin": 1,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 99,
+      "family": "ending",
+      "level_id": "mario-1/3-1",
+      "column_offset": 181,
+      "entry_height": 6,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 54,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 100,
+      "family": "start",
+      "level_id": "mario-1/3-3",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 14
+      }
+    },
+    {
+      "chunk_id": 101,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 15,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 102,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 16,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 17,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 103,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 24,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "coin": 6
+      }
+    },
+    {
+      "chunk_id": 104,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 32,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 24,
+        "coin": 5,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 105,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 40,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 24,
+        "coin": 5,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 106,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 48,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 18,
+        "coin": 5,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 107,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 56,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "coin": 3,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 108,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 26,
+        "coin": 4,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 109,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 19,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 110,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 80,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 111,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 19,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 112,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 96,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "coin": 4,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 113,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 104,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 14,
+        "coin": 1,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 114,
+      "family": "middle",
+      "level_id": "mario-1/3-3",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 17,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 115,
+      "family": "ending",
+      "level_id": "mario-1/3-3",
+      "column_offset": 133,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 18
+      }
+    },
+    {
+      "chunk_id": 116,
+      "family": "start",
+      "level_id": "mario-1/5-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 117,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 118,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 119,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 19,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 120,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 121,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 40,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 122,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 123,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 6
+      }
+    },
+    {
+      "chunk_id": 124,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 125,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 25,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 126,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 80,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23
+      }
+    },
+    {
+      "chunk_id": 127,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 128,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 19,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 129,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 19,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 130,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 131,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 132,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 133,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 136,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 134,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 135,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 152,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 136,
+      "family": "middle",
+      "level_id": "mario-1/5-1",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 18,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 137,
+      "family": "ending",
+      "level_id": "mario-1/5-1",
+      "column_offset": 182,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 29
+      }
+    },
+    {
+      "chunk_id": 138,
+      "family": "start",
+      "level_id": "mario-1/6-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16
+      }
+    },
+    {
+      "chunk_id": 139,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23
+      }
+    },
+    {
+      "chunk_id": 140,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 34
+      }
+    },
+    {
+      "chunk_id": 141,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 24,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 142,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 32,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 143,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 144,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 145,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 31,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 146,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 64,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 147,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 49
+      }
+    },
+    {
+      "chunk_id": 148,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 80,
+      "entry_height": 6,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 46
+      }
+    },
+    {
+      "chunk_id": 149,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 88,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "coin": 3,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 150,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 96,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "coin": 3,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 151,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 6,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33
+      }
+    },
+    {
+      "chunk_id": 152,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 2,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37
+      }
+    },
+    {
+      "chunk_id": 153,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 120,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21
+      }
+    },
+    {
+      "chunk_id": 154,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 41
+      }
+    },
+    {
+      "chunk_id": 155,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 136,
+      "entry_height": 2,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 43,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 156,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 144,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 14,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 157,
+      "family": "middle",
+      "level_id": "mario-1/6-1",
+      "column_offset": 152,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 32
+      }
+    },
+    {
+      "chunk_id": 158,
+      "family": "ending",
+      "level_id": "mario-1/6-1",
+      "column_offset": 168,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 41
+      }
+    },
+    {
+      "chunk_id": 159,
+      "family": "start",
+      "level_id": "mario-1/6-2",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 160,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 32,
+        "coin": 1,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 161,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 39,
+        "coin": 1,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 162,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 24,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 35,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 163,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 32,
+      "entry_height": 3,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 164,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 36,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 165,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 39,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 166,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 36,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 167,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 168,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 44,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 169,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 80,
+      "entry_height": 3,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 36,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 170,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 88,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 34,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 171,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 43,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 172,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 35,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 173,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 174,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 120,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 175,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 176,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 136,
+      "entry_height": 0,
+      "exit_height": 5,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 38,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 177,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 144,
+      "entry_height": 2,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 46,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 178,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 152,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 179,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 3,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 180,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 168,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 42,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 181,
+      "family": "middle",
+      "level_id": "mario-1/6-2",
+      "column_offset": 176,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 36,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 182,
+      "family": "ending",
+      "level_id": "mario-1/6-2",
+      "column_offset": 199,
+      "entry_height": 7,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 55
+      }
+    },
+    {
+      "chunk_id": 183,
+      "family": "start",
+      "level_id": "mario-1/6-3",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14
+      }
+    },
+    {
+      "chunk_id": 184,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "coin": 1
+      }
+    },
+    {
+      "chunk_id": 185,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 17,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 186,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 24,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 15,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 187,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "coin": 7
+      }
+    },
+    {
+      "chunk_id": 188,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 13,
+        "coin": 5
+      }
+    },
+    {
+      "chunk_id": 189,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 48,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 11
+      }
+    },
+    {
+      "chunk_id": 190,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 56,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 12,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 191,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 64,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 10,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 192,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 72,
+      "entry_height": 0,
+      "exit_height": 0,
+      "gap_at_left": true,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 17,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 193,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 80,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 194,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 88,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 195,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 15,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 196,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 104,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 15
+      }
+    },
+    {
+      "chunk_id": 197,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 15,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 198,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 19,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 199,
+      "family": "middle",
+      "level_id": "mario-1/6-3",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 17,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 200,
+      "family": "ending",
+      "level_id": "mario-1/6-3",
+      "column_offset": 149,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 201,
+      "family": "start",
+      "level_id": "mario-1/7-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 18
+      }
+    },
+    {
+      "chunk_id": 202,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 203,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 204,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 205,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 206,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 20,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 207,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28
+      }
+    },
+    {
+      "chunk_id": 208,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 209,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 29,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 210,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 36,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 211,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 80,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 212,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 88,
+      "entry_height": 1,
+      "exit_height": 4,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 213,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 214,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 215,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 216,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 217,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 32,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 218,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 136,
+      "entry_height": 1,
+      "exit_height": 7,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 44
+      }
+    },
+    {
+      "chunk_id": 219,
+      "family": "middle",
+      "level_id": "mario-1/7-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 6,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 54
+      }
+    },
+    {
+      "chunk_id": 220,
+      "family": "start",
+      "level_id": "mario-1/8-1",
+      "column_offset": 0,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 221,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 8,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 222,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 16,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 223,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 24,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 23,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 224,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 32,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 12,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 225,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 40,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 12,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 226,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 48,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 15,
+        "coin": 1,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 227,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 56,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "coin": 1,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 228,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 64,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 31,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 229,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 72,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 27,
+        "coin": 1,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 230,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 80,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 231,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 88,
+      "entry_height": 5,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "coin": 3,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 232,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 96,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 28,
+        "coin": 2,
+        "enemy": 6
+      }
+    },
+    {
+      "chunk_id": 233,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 104,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 20,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 234,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 112,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 235,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 120,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 236,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 128,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 237,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 136,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 238,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 144,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 239,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 152,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 20,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 240,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 160,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 11,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 241,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 168,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 242,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 176,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 23
+      }
+    },
+    {
+      "chunk_id": 243,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 184,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 244,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 192,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 245,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 200,
+      "entry_height": 1,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 246,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 208,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 10,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 247,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 216,
+      "entry_height": 0,
+      "exit_height": 4,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 14,
+        "coin": 2,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 248,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 224,
+      "entry_height": 1,
+      "exit_height": 6,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 30,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 249,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 232,
+      "entry_height": 4,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 33,
+        "enemy": 3
+      }
+    },
+    {
+      "chunk_id": 250,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 240,
+      "entry_height": 6,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 21,
+        "enemy": 5
+      }
+    },
+    {
+      "chunk_id": 251,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 248,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 252,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 256,
+      "entry_height": 1,
+      "exit_height": 5,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 253,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 264,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 37,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 254,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 272,
+      "entry_height": 6,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 24,
+        "coin": 3
+      }
+    },
+    {
+      "chunk_id": 255,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 280,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 10,
+        "coin": 2
+      }
+    },
+    {
+      "chunk_id": 256,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 288,
+      "entry_height": 0,
+      "exit_height": 1,
+      "gap_at_left": true,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 17,
+        "coin": 1,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 257,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 296,
+      "entry_height": 3,
+      "exit_height": 0,
+      "gap_at_left": false,
+      "gap_at_right": true,
+      "category_counts": {
+        "solid": 15,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 258,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 304,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 7,
+        "coin": 4
+      }
+    },
+    {
+      "chunk_id": 259,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 312,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 12,
+        "coin": 2,
+        "enemy": 1
+      }
+    },
+    {
+      "chunk_id": 260,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 320,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 16,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 261,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 328,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 22,
+        "enemy": 4
+      }
+    },
+    {
+      "chunk_id": 262,
+      "family": "middle",
+      "level_id": "mario-1/8-1",
+      "column_offset": 336,
+      "entry_height": 1,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 26,
+        "enemy": 2
+      }
+    },
+    {
+      "chunk_id": 263,
+      "family": "ending",
+      "level_id": "mario-1/8-1",
+      "column_offset": 357,
+      "entry_height": 7,
+      "exit_height": 1,
+      "gap_at_left": false,
+      "gap_at_right": false,
+      "category_counts": {
+        "solid": 38
+      }
+    }
+  ]
+}

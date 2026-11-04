@@ -1,0 +1,17 @@
+.git
+.venv
+.env
+.cache
+.mypy_cache
+.pytest_cache
+.ruff_cache
+paper
+manuscript
+submission
+vendor/mario/build
+vendor/mario/fatjar
+vendor/mario/target
+vendor/mario/mario-bridge.jar
+**/__pycache__
+*.pyc
+*.log

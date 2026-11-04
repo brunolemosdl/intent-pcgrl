@@ -1,0 +1,140 @@
+{
+  "agent": "robinBaumgarten",
+  "num_levels": 120,
+  "bridge_win_rate": 0.6583333333333333,
+  "grid": [
+    {
+      "jump_height": 3,
+      "jump_reach": 4,
+      "tp": 29,
+      "fp": 4,
+      "tn": 37,
+      "fn": 50,
+      "accuracy": 0.55,
+      "false_playable_rate": 0.0976,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 3,
+      "jump_reach": 5,
+      "tp": 50,
+      "fp": 11,
+      "tn": 30,
+      "fn": 29,
+      "accuracy": 0.6667,
+      "false_playable_rate": 0.2683,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 3,
+      "jump_reach": 6,
+      "tp": 56,
+      "fp": 14,
+      "tn": 27,
+      "fn": 23,
+      "accuracy": 0.6917,
+      "false_playable_rate": 0.3415,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 3,
+      "jump_reach": 7,
+      "tp": 63,
+      "fp": 16,
+      "tn": 25,
+      "fn": 16,
+      "accuracy": 0.7333,
+      "false_playable_rate": 0.3902,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 4,
+      "jump_reach": 4,
+      "tp": 47,
+      "fp": 9,
+      "tn": 32,
+      "fn": 32,
+      "accuracy": 0.6583,
+      "false_playable_rate": 0.2195,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 4,
+      "jump_reach": 5,
+      "tp": 64,
+      "fp": 14,
+      "tn": 27,
+      "fn": 15,
+      "accuracy": 0.7583,
+      "false_playable_rate": 0.3415,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 4,
+      "jump_reach": 6,
+      "tp": 70,
+      "fp": 27,
+      "tn": 14,
+      "fn": 9,
+      "accuracy": 0.7,
+      "false_playable_rate": 0.6585,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 4,
+      "jump_reach": 7,
+      "tp": 71,
+      "fp": 35,
+      "tn": 6,
+      "fn": 8,
+      "accuracy": 0.6417,
+      "false_playable_rate": 0.8537,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 5,
+      "jump_reach": 4,
+      "tp": 50,
+      "fp": 11,
+      "tn": 30,
+      "fn": 29,
+      "accuracy": 0.6667,
+      "false_playable_rate": 0.2683,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 5,
+      "jump_reach": 5,
+      "tp": 65,
+      "fp": 19,
+      "tn": 22,
+      "fn": 14,
+      "accuracy": 0.725,
+      "false_playable_rate": 0.4634,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 5,
+      "jump_reach": 6,
+      "tp": 70,
+      "fp": 27,
+      "tn": 14,
+      "fn": 9,
+      "accuracy": 0.7,
+      "false_playable_rate": 0.6585,
+      "meets_cap": false
+    },
+    {
+      "jump_height": 5,
+      "jump_reach": 7,
+      "tp": 71,
+      "fp": 35,
+      "tn": 6,
+      "fn": 8,
+      "accuracy": 0.6417,
+      "false_playable_rate": 0.8537,
+      "meets_cap": false
+    }
+  ],
+  "recommended": null
+}

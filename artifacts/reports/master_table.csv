@@ -1,0 +1,26 @@
+run,system,reward_mean,reward_ci95,intent_error_mean,n
+e3_ruler,beam_search,6.8699,"[6.75, 6.99]",0.138,36
+e3_ruler,greedy_intent,6.1782,"[5.86, 6.46]",0.2081,36
+e3_ruler,random_legal,6.0214,"[5.65, 6.35]",0.2175,36
+e3_ruler,corpus_replay,6.0563,"[5.89, 6.22]",0.3382,36
+e3_ruler,markov,5.8473,"[5.59, 6.10]",0.2895,36
+e4_seed42,ppo,7.8187,"[7.76, 7.87]",0.0756,36
+e4_seed42,ppo_best_of_n,7.8992,"[7.84, 7.95]",0.0617,36
+e4_seed42,beam_search,6.8699,"[6.75, 6.99]",0.138,36
+e4_seed1042,ppo,7.793,"[7.72, 7.86]",0.0732,36
+e4_seed1042,ppo_best_of_n,7.8914,"[7.83, 7.95]",0.0675,36
+e4_seed1042,beam_search,6.9246,"[6.81, 7.04]",0.1328,36
+e4_seed2042,ppo,7.7942,"[7.73, 7.86]",0.0767,36
+e4_seed2042,ppo_best_of_n,7.9189,"[7.87, 7.97]",0.0648,36
+e4_seed2042,beam_search,6.9123,"[6.78, 7.03]",0.1288,36
+e8_compose_only_seed42,ppo_best_of_n,7.9261,"[7.87, 7.98]",0.0754,36
+e8_polished_seed42,ppo_best_of_n_polished,7.7112,"[7.60, 7.82]",0.0455,36
+e8_extremes_twophase,ppo_best_of_n,7.5512,"[7.33, 7.74]",0.0777,18
+e8_extremes_twophase,ppo_best_of_n_polished,7.356,"[7.18, 7.53]",0.0454,18
+e8_extremes_twophase,beam_search,6.313,"[6.11, 6.50]",0.18,18
+e8_extremes_compose_only,ppo_best_of_n,7.4935,"[7.29, 7.68]",0.1114,18
+final10m_seed42,ppo,8.1173,"[8.07, 8.16]",0.0347,36
+final10m_seed42,ppo_best_of_n,8.1412,"[8.10, 8.18]",0.0319,36
+final10m_seed42,ppo_best_of_n_polished,8.047,"[7.93, 8.14]",0.0291,36
+final10m_seed42,beam_search,6.8699,"[6.75, 6.99]",0.138,36
+e7c_llm_final10m,ppo,7.6989,"[7.60, 7.79]",0.0814,36

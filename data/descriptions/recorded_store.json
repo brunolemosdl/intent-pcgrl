@@ -1,0 +1,2681 @@
+{
+  "00bdf141d8173e746913ed65ddff39b5aa55f5295c6eef60b7f4b5df9ec1a170": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:54.742882+00:00",
+    "description": "A level with some enemies, many coins, few blocks, no pipes, many gaps, a flat path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: some enemies (0.4), many coins (0.7), few blocks (0.2), no pipes (0.05), many gaps (0.7), flat path => very low verticality (0.05); 'some smoothness' => moderate path_smoothness (0.4); many platforms (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.7,
+      0.2,
+      0.05,
+      0.7,
+      0.05,
+      0.4,
+      0.7
+    ]
+  },
+  "01646d2ee49df137b0e688cd8a9c0ae62131bacbd6ed7691f373ccf8ef8606e9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:34.692535+00:00",
+    "description": "A level with as many enemies as possible, many coins, some blocks, as many pipes as possible, some gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit quantities: maximum enemies/pipes (~0.95), many coins (~0.7), some blocks/gaps/platforms (~0.4). Flat path implies very low verticality (~0.05). Rough path implies low path_smoothness (~0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.7,
+      0.4,
+      0.95,
+      0.4,
+      0.05,
+      0.05,
+      0.4
+    ]
+  },
+  "01d3368f4c1c6732b6768122811805caceaae5c60aaab7047c712c6c286ccea7": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:51.010666+00:00",
+    "description": "Mostly ground running with the occasional goomba.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mostly ground running implies low verticality and fairly smooth path; occasional goomba implies low enemy density. Other aspects not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.2,
+      0.7,
+      0.55
+    ]
+  },
+  "01d95adc76c0e00f81176b4d3f76452e4ae39748521da14316ad511b9f78d2dd": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:24.050328+00:00",
+    "description": "A level with few enemies, some coins, some blocks, some pipes, no gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'few enemies'->0.2; 'some' coins/blocks/pipes->0.4 each; 'no gaps' set to minimum achievable (p05) 0.11; 'hilly path' implies high verticality 0.7; 'smooth path' implies high path_smoothness 0.7; 'many platforms'->0.95.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.4,
+      0.4,
+      0.11,
+      0.7,
+      0.7,
+      0.95
+    ]
+  },
+  "01fd5669c4083c9d72e3b093ef48a312a289ca1027265c87176167c90eafb466": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:03.740882+00:00",
+    "description": "A level with as many enemies as possible, many coins, some blocks, many pipes, as many gaps as possible, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: 'as many enemies as possible'->high (clamped to p95 0.88); 'many coins'->0.60 (p95); 'some blocks'->0.40; 'many pipes'->0.70 (p95); 'as many gaps as possible'->0.61 (p95); 'flat path'->low verticality 0.05; 'rough path'->low smoothness 0.20; 'some platforms'->0.40.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.6,
+      0.4,
+      0.7,
+      0.61,
+      0.05,
+      0.2,
+      0.4
+    ]
+  },
+  "060d2433f9661e49dfd9df64fc446762a355850b905cbb8e3571eac607b50145": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:21.484585+00:00",
+    "description": "A level with few enemies, many coins, many blocks, many pipes, some gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'few'->0.2, 'many'->0.7, 'some'->0.4; 'hilly' implies higher verticality, 'smooth path' implies higher path_smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.7,
+      0.7,
+      0.7,
+      0.4,
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "06a9fda76d7684612fee1e5e569493fc451161b75cca704cfc4e92e101fb7d75": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:54.574885+00:00",
+    "description": "A level with many pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only 'many pipes' is specified, so pipe_density is increased to a high value; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "0783ef461f01b994dbdcf93379b24a92d09b1cffc33f279580ce19c2712b7e93": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:59.151122+00:00",
+    "description": "A level with some enemies, many coins, few blocks, no pipes, many gaps, a flat path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped described intensities: some enemies (~0.4), many coins (~p95=0.6), few blocks (~0.2), no pipes (~0.05), many gaps (capped at p95=0.61), flat path => very low verticality (~0.05), some smoothness (~0.4), many platforms (~0.95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.2,
+      0.05,
+      0.61,
+      0.05,
+      0.4,
+      0.95
+    ]
+  },
+  "078c2702322b9207d7296ee425acca5fd90fe239f9844d0862f279ac6f6309ad": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:47.567799+00:00",
+    "description": "A level with many enemies, no coins, as many blocks as possible, many pipes, many gaps, a flat path, a smooth path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/pipes -> 0.7; no coins -> 0.05; as many blocks/platforms as possible -> 0.95 each; many gaps pushed to upper achievable range (capped at p95=0.61); flat path -> very low verticality (0.05) and smooth path -> high path_smoothness (0.95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.05,
+      0.95,
+      0.7,
+      0.61,
+      0.05,
+      0.95,
+      0.95
+    ]
+  },
+  "0844cda0828be759f6ba0c5be9de29a9878b0a3e3b54544391de92ef7737a303": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:32.433588+00:00",
+    "description": "A level with few enemies, no coins, as many blocks as possible, no pipes, few gaps, a mountainous path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: few enemies (0.2), no coins/pipes (~0.05), maximum blocks (0.95), few gaps (0.2), mountainous path implies very high verticality (0.95), some smoothness taken as moderate (0.4), many platforms (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.05,
+      0.95,
+      0.05,
+      0.2,
+      0.95,
+      0.4,
+      0.7
+    ]
+  },
+  "09f8b2a8b87a6238a32d3d65bd91134020b8a443467b79505827b4cfa427970c": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:12.170101+00:00",
+    "description": "A level with many enemies, many coins, some blocks, few pipes, no gaps, a mountainous path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: many enemies/coins -> high (coin capped at p95=0.60); some blocks -> moderate; few pipes/platforms -> low; no gaps -> set to p05 (0.11); mountainous path -> very high verticality; some smoothness -> moderate path_smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.6,
+      0.4,
+      0.2,
+      0.11,
+      0.95,
+      0.4,
+      0.2
+    ]
+  },
+  "0b4ff89f550aa15ebd9840ae03c66fbd618f0261ef15cc3e6ab11eba6a6cc68b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:12.803671+00:00",
+    "description": "Sparse enemies but every one placed to hurt.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Sparse enemies\" implies low enemy density; no other level elements are mentioned, so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "0c03b9217abf40ab79cf1c9b6a7c2cdf9284bc2ddf415d30b786db9e81bbad9d": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:15.247262+00:00",
+    "description": "A level with as many enemies as possible, as many coins as possible, as many blocks as possible, few pipes, no gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Maximize enemies/coins/blocks (capped to achievable p95); few pipes; no gaps -> minimal gap difficulty; flat path -> low verticality; rough path -> low smoothness; some platforms -> moderate platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.6,
+      0.95,
+      0.2,
+      0.11,
+      0.05,
+      0.2,
+      0.4
+    ]
+  },
+  "0e334494c2729ffcb1df883dbce6f77310ef36f817f1e943072ba22fd18e2e73": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:30.352343+00:00",
+    "description": "A level with many coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only coin density is specified as 'many' (set high within p95); all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.6,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "1245af32db9f05fc3c317001e77693e83c589b1563b0dd2e6eb132fa14673792": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:27.462972+00:00",
+    "description": "A level with many enemies, many coins, no blocks, as many pipes as possible, no gaps, a hilly path, some smoothness, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Many enemies/coins; no blocks; maximum pipes; no gaps; hilly implies high verticality; 'some smoothness' and 'some platforms' imply moderate values.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.7,
+      0.05,
+      0.95,
+      0.05,
+      0.7,
+      0.4,
+      0.4
+    ]
+  },
+  "175eab72c43df63b447ececd2c7a7f1aeb46d497e5be5bb27cca99b71a7c0431": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:07.848124+00:00",
+    "description": "A level with as many enemies as possible, some coins, some blocks, some pipes, some gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped phrases: 'as many enemies as possible'->high (clamped to p95=0.88); 'some' coins/blocks/pipes/gaps->0.4; 'hilly path'->higher verticality (0.7); 'some smoothness'->0.4; 'many platforms'->0.7.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "179b02c9fd6b2c1d954f1d680b0e7ab9cbe488428afa30efa12e9569fb866827": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:25.521063+00:00",
+    "description": "A level with as many enemies as possible, as many coins as possible, as many blocks as possible, few pipes, no gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Explicit: maximum enemies/coins/blocks; few pipes; no gaps; flat path (low verticality); rough path (low smoothness); some platforms (moderate platform usage).",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.95,
+      0.95,
+      0.2,
+      0.05,
+      0.05,
+      0.05,
+      0.4
+    ]
+  },
+  "197a1401b8bed8c0face3b216661d9019a674ca9218697f1397536e189566d92": {
+    "clamped": false,
+    "created_at": "2026-06-11T13:07:35.500737+00:00",
+    "description": "A easy map with a lot of enemies.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cA lot of enemies\u201d implies high enemy density; \u201ceasy map\u201d suggests lower gap difficulty. Other dimensions are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.3,
+      0.2,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "1a9615a9ba8c552c844e1d176634897d47bb98e6a9242ae142d1e37f4cb0c800": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:15.387223+00:00",
+    "description": "A level with some enemies, some coins, some blocks, some pipes, some gaps, a flat path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped repeated 'some' to ~0.4 for enemies/coins/blocks/pipes/gaps/smoothness; 'flat path' implies low verticality; 'many platforms' implies high platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.11,
+      0.4,
+      0.7
+    ]
+  },
+  "1b57470971854ed5f6deda47b99da887406b88408c4b8bbc31f87bbedc129d65": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:29.584694+00:00",
+    "description": "A level with no enemies, as many coins as possible, as many blocks as possible, many pipes, some gaps, a flat path, a rough path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: 'no enemies'->0.05, 'as many ... as possible' for coins/blocks/platforms->0.95, 'many pipes'->0.7, 'some gaps'->0.4, 'flat path' implies very low verticality->0.05, 'rough path' implies low smoothness->0.05.",
+    "source": "openai_compatible",
+    "vector": [
+      0.05,
+      0.95,
+      0.95,
+      0.7,
+      0.4,
+      0.05,
+      0.05,
+      0.95
+    ]
+  },
+  "1e4d701c23d0774a3584a28b951ed174c7342aee7d62c6efe09c7b8f75272a16": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:24.421528+00:00",
+    "description": "A level with few coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only coin density is specified: 'few coins' -> low coin_density. All other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.2,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "2033e56918aee71bb1b379c65bfba504abc8eedd06fdd8daf95ffe4c5f94b576": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:01.353516+00:00",
+    "description": "A level with many enemies, many coins, many blocks, some pipes, no gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/coins/blocks -> high; some pipes/platforms -> moderate; no gaps -> minimum within achievable range; flat path -> very low verticality; rough path -> low smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.6,
+      0.7,
+      0.4,
+      0.11,
+      0.05,
+      0.2,
+      0.4
+    ]
+  },
+  "222b8f4551fa6bfed1dd12ae6656cf281f7924253dc171412c0454317c5ca62a": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:10.125243+00:00",
+    "description": "A staircase to the sky with brutal jumps.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Staircase to the sky\" implies very high verticality with frequent abrupt elevation changes (low smoothness). \"Brutal jumps\" implies extreme gap difficulty. Other elements not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.95,
+      0.95,
+      0.2,
+      0.55
+    ]
+  },
+  "2287ab04ec81155072538015ada4581b554eedc7b5e97b6ac2ebf75f521af442": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:43.991708+00:00",
+    "description": "Packed with enemies and wide pits; a real challenge.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cPacked with enemies\u201d implies very high enemy density; \u201cwide pits\u201d implies higher gap difficulty. Other dimensions not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.4,
+      0.5,
+      0.3,
+      0.7,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "24506058d36bd37d83cc601b419e576d25d36e93c24e53959023b6a9f0452eea": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:56.495645+00:00",
+    "description": "Hard mode: many enemies, many gaps, rough terrain.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cMany enemies\u201d -> high enemy density (0.7). \u201cMany gaps\u201d -> high gap difficulty (0.7). \u201cRough terrain\u201d implies uneven traversal -> low path smoothness (0.2). Unmentioned dimensions set to corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.3,
+      0.7,
+      0.65,
+      0.2,
+      0.55
+    ]
+  },
+  "26acf0ecd14c10d8c58075c4663abc6e66296a5a2b2e21adc021521b2c8e54ca": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:58.564242+00:00",
+    "description": "A level with some enemies, some coins, many blocks, many pipes, few gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' to ~0.4, 'many' to ~0.7, 'few' to ~0.2; 'hilly path' implies higher verticality, and 'some smoothness' sets moderate path_smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.7,
+      0.7,
+      0.2,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "271b597bea00d90906c1cf645a6b49104f9af942a2d8409ccf454da335fb3400": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:04.611731+00:00",
+    "description": "An obstacle course of pipes and platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mentions an obstacle course featuring many pipes and significant use of platforms; other aspects not specified use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.7
+    ]
+  },
+  "28841ad7a02cc0f8238c0f877c18dddae8d895dab59e82a6fcb0a62921048be1": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:14.523863+00:00",
+    "description": "A level with some enemies, many coins, few blocks, as many pipes as possible, many gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: some enemies (~0.4), many coins (clamped to p95 0.6), few blocks (~0.2), max pipes (clamped to p95 0.7), many gaps (clamped to p95 0.61), hilly path -> high verticality (~0.7), some smoothness (~0.4), many platforms (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.2,
+      0.7,
+      0.61,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "2a04fc7e4288b917a496effccdda5ec4b7e88999f7752e194a3596af0f4ac035": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:43.672702+00:00",
+    "description": "A level with few enemies, some coins, some blocks, as many pipes as possible, many gaps, a hilly path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: few enemies->0.2; some coins/blocks->0.4 each; as many pipes as possible capped at p95->0.7; many gaps capped near p95->0.6; hilly path->higher verticality 0.7; some smoothness->0.4; few platforms->0.2.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.4,
+      0.7,
+      0.6,
+      0.7,
+      0.4,
+      0.2
+    ]
+  },
+  "2c2d585591a469bb77f5f63f421102382ba4a221507effa32300b83e233f2d76": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:17.073571+00:00",
+    "description": "A level with many enemies, many coins, no blocks, some pipes, no gaps, a flat path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies (0.7), many coins (capped at p95=0.6), no blocks (~0.05), some pipes (0.4), no gaps (set to p05=0.11), flat path => very low verticality (0.05), some smoothness (0.4), few platforms (0.2).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.6,
+      0.05,
+      0.4,
+      0.11,
+      0.05,
+      0.4,
+      0.2
+    ]
+  },
+  "2e7973dc7261a2b77ab0c54b1b2d31df15127dc21e01e479ad0a8308b3302c31": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:47.891877+00:00",
+    "description": "Mostly ground running with the occasional goomba.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Occasional goomba\" implies few enemies (low enemy density). Other dimensions not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "345782ff40335cb055653b6390548eb46d4747fe540e280dc84d8960ef0b8e4b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:08.148500+00:00",
+    "description": "Maximum chaos: everything everywhere all at once.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Maximum chaos\" implies extreme amounts of all elements (enemies, coins, blocks, pipes, gaps, vertical movement, and platform reliance) with very uneven traversal, so path smoothness is minimal.",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.95,
+      0.95,
+      0.95,
+      0.95,
+      0.95,
+      0.05,
+      0.95
+    ]
+  },
+  "347e0e6731ab7dfacb047bab76fc84f3cd0dbdf83bd7c2f04626124bde3ec1aa": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:56.521602+00:00",
+    "description": "A level with many enemies, many coins, many blocks, some pipes, no gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Many enemies/coins/blocks; some pipes and platforms; no gaps; flat but rough (low smoothness) path.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.7,
+      0.7,
+      0.4,
+      0.05,
+      0.05,
+      0.2,
+      0.4
+    ]
+  },
+  "3a9d8184aed078df6269d97fc7f816a35bf469127a5eb9d3b186a617df6851c6": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:19.574957+00:00",
+    "description": "A garden of pipes with coins tucked between them.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Garden of pipes\" implies many pipes; \"coins tucked between them\" implies many coins. Other aspects not mentioned use corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.7,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "3afd39d94732159d999e61fc473b7fdaba4aafe586fe94577ee59b3cb505bfe0": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:15.339338+00:00",
+    "description": "A level with as many enemies as possible, many coins, some blocks, many pipes, as many gaps as possible, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'as many enemies/gaps as possible' to extreme (0.95), 'many coins/pipes' to 0.7, 'some blocks/platforms' to 0.4; 'flat path' implies very low verticality (0.05) and 'rough path' implies very low path_smoothness (0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.7,
+      0.4,
+      0.7,
+      0.95,
+      0.05,
+      0.05,
+      0.4
+    ]
+  },
+  "3f20aedb66a8c48dd0b1f688b7080e3e41b967dd3606f14cde456585a789771c": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:13.078643+00:00",
+    "description": "A level with few enemies, no coins, few blocks, as many pipes as possible, as many gaps as possible, a flat path, some smoothness, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: few enemies/blocks (~0.2), no coins (~0.05), maximum pipes/gaps/platforms (~0.95). 'Flat path' implies very low verticality (~0.05). 'Some smoothness' implies moderate path_smoothness (~0.4).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.05,
+      0.2,
+      0.95,
+      0.95,
+      0.05,
+      0.4,
+      0.95
+    ]
+  },
+  "46b84d0aa87bf0e80b4178fd3640624a33a240f8d94cf01851b68a16d9c12528": {
+    "clamped": false,
+    "created_at": "2026-06-11T13:22:41.840474+00:00",
+    "description": "Um nivel que \u00e9 apenas uma linha reta.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cApenas uma linha reta\u201d implica caminho totalmente plano (verticalidade muito baixa) e sem mudan\u00e7as bruscas de altura (path_smoothness muito alta). As demais dimens\u00f5es n\u00e3o foram mencionadas, ent\u00e3o ficam nos valores padr\u00e3o do corpus.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.05,
+      0.95,
+      0.55
+    ]
+  },
+  "4815c2684d4c8e599b1b91905eb76635953ab781d09ed88ced94c2a331b9cbc0": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:00.113122+00:00",
+    "description": "A level with as many enemies as possible, few coins, no blocks, few pipes, few gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped phrases: 'as many enemies as possible'->0.95, 'few coins'->0.2, 'no blocks'->0.05, 'few pipes'->0.2, 'few gaps'->0.2, 'hilly path' implies high verticality->0.7, 'some smoothness'->0.4, 'many platforms'->0.7.",
+    "source": "openai_compatible",
+    "vector": [
+      0.95,
+      0.2,
+      0.05,
+      0.2,
+      0.2,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "4a90056745336bcc4c7a96a64890156db1add103fadf2edd5f71fb951a7bd6dc": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:21.957173+00:00",
+    "description": "Rolling hills, few hazards, plenty to collect.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Rolling hills imply higher verticality; few hazards imply lower gap difficulty; plenty to collect implies higher coin density. Other dimensions are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.7,
+      0.5,
+      0.3,
+      0.2,
+      0.7,
+      0.4,
+      0.55
+    ]
+  },
+  "4aeba4ccd44f3877b8c87b3343716c67b3ee8792b1ac51a4dd4fe10ad93f4bcb": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:28.002016+00:00",
+    "description": "A level with some enemies, some coins, some blocks, some pipes, some gaps, a flat path, some smoothness, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped each explicitly mentioned 'some' to ~0.4; 'flat path' implies very low verticality (~0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.05,
+      0.4,
+      0.4
+    ]
+  },
+  "4b1063ab04140631d101625c89685521babd0cc0a13faff06a3d25377a8a2189": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:19.446646+00:00",
+    "description": "A level with some enemies, many coins, many blocks, as many pipes as possible, some gaps, a hilly path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped qualifiers: some enemies/gaps/platforms -> 0.4; many coins/blocks -> 0.7; as many pipes as possible -> 0.95; hilly path -> higher verticality (0.7); rough/uneven path -> low path_smoothness (0.2).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.7,
+      0.7,
+      0.95,
+      0.4,
+      0.7,
+      0.2,
+      0.4
+    ]
+  },
+  "4bd4f276af57ee55ab998f7c854f15e10872816db8c078d3c0bab0f4250009f0": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:02.836203+00:00",
+    "description": "A smooth, gentle ride with sparse decorations.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cSmooth, gentle ride\u201d implies a more even traversal path (higher path_smoothness). \u201cSparse decorations\u201d implies fewer optional collectibles/objects like coins and blocks; other aspects not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.2,
+      0.2,
+      0.3,
+      0.4,
+      0.65,
+      0.7,
+      0.55
+    ]
+  },
+  "4cc2f24cb19873f07cdca4dcd6cfa68db20d88d7500d0b7e51aea5c62cc652bf": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:53.385136+00:00",
+    "description": "Hard mode: many enemies, many gaps, rough terrain.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cMany enemies\u201d -> high enemy density; \u201cmany gaps\u201d -> very high gap difficulty (clamped to achievable p95); \u201crough terrain\u201d -> low path smoothness. Unmentioned dimensions set to corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.3,
+      0.61,
+      0.65,
+      0.2,
+      0.55
+    ]
+  },
+  "4ee701967ba25cdf90b98699bb183b7291cbed2bd5d839b4dde963a22c5dff64": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:08.049567+00:00",
+    "description": "A level with few enemies.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Few enemies\" implies low enemy density; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "4eeb11387d4d90fd8b40cbae7627aa6d0c8ab030e8a595609e171745ceecc7a0": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:08.423192+00:00",
+    "description": "A level with few enemies, some coins, few blocks, many pipes, some gaps, a flat path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: few enemies/blocks -> 0.2; some coins/gaps/smoothness -> 0.4; many pipes/platforms -> 0.7; flat path -> very low verticality (0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.2,
+      0.7,
+      0.4,
+      0.05,
+      0.4,
+      0.7
+    ]
+  },
+  "508ec9401fc790925af9bded1c65008fa780a1b5190e5a7b0cc3e1a82cac2421": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:08.469605+00:00",
+    "description": "A level with some enemies, many coins, many blocks, as many pipes as possible, some gaps, a hilly path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: some enemies/gaps/platforms -> 0.4; many coins/blocks -> 0.6/0.7; as many pipes as possible capped near p95 -> 0.7; hilly path -> higher verticality (0.7); rough path -> low smoothness (0.2).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.7,
+      0.7,
+      0.4,
+      0.7,
+      0.2,
+      0.4
+    ]
+  },
+  "511f3a5415e4241ab7cce1d8eda3f9f8bc1c063ce4365ac546cd2ff8f737e580": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:17.661411+00:00",
+    "description": "A level with some enemies, some coins, some blocks, some pipes, some gaps, a mountainous path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' to ~0.4 for enemies/coins/blocks/pipes/gaps/smoothness; 'mountainous path' implies higher verticality (~0.7); 'many platforms' implies higher platform usage (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "520d715bfdd6ada6b3caa1a73e422b61df8bdd4794413da82294044b6c85efa9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:47.533855+00:00",
+    "description": "Lots of pipes everywhere, like a plumbing yard.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Lots of pipes everywhere\" implies high pipe density; all other dimensions are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "5215df8b550b4f51855659c0670077026c6644d457b3a8f7527c37c8badec67f": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:29.647825+00:00",
+    "description": "A level with no enemies, as many coins as possible, few blocks, no pipes, many gaps, a flat path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: 'no enemies'->low (clipped to p05), 'as many coins as possible'->high (clipped to p95), 'few blocks'->low, 'no pipes'->0, 'many gaps'->high (clipped to p95), 'flat path'->very low verticality, 'smooth path'->very high smoothness, 'many platforms'->very high platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.6,
+      0.2,
+      0.0,
+      0.61,
+      0.05,
+      0.95,
+      0.95
+    ]
+  },
+  "52285ff978ef65fe997a6dd23934d26ca7e813e2aa421e6984ca9c2b2817ced8": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:31.927095+00:00",
+    "description": "A level with some enemies, as many coins as possible, few blocks, some pipes, few gaps, a mountainous path, a rough path, no platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some enemies'->0.4; 'as many coins as possible' capped to p95->0.6; 'few blocks'->0.2; 'some pipes'->0.4; 'few gaps'->0.2; 'mountainous path' implies very high verticality->0.95; 'rough path' implies low smoothness->0.2; 'no platforms'->0.05.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.2,
+      0.4,
+      0.2,
+      0.95,
+      0.2,
+      0.05
+    ]
+  },
+  "52f88f6ddcc7a4bbd13bf4109d683c769bc8bbcb7f6ecb153340e625da6a967c": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:52.212152+00:00",
+    "description": "A level with some pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only 'some pipes' is specified, so pipe density is set to moderate (~0.4); all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.4,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "53f38b486b038eca23390d3695cace69d5b5552c04a0549995b5beec8d073859": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:47.378211+00:00",
+    "description": "A level with no pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only 'no pipes' is specified, so pipe_density is set to ~none (0.05); all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.05,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "55c056dbb226526f1cf3af6b3e5793265d694fd6f2ce8ed7de2c4a5220c1d357": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:10.957510+00:00",
+    "description": "A level with some enemies.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only enemy amount is specified as 'some' \u2192 moderate enemy density; all other dimensions left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "56f6c500f31b269a5971e4e849911b26c6e0472776984b94d0f2bd12ef6ffa6e": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:36.011346+00:00",
+    "description": "A level with no blocks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"No blocks\" implies minimal interactive_block_density; all other dimensions are unspecified so set to corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.05,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "576b912c6a31e4c155453eb3282a4fb7320c298af921d4d79ccebaf36c5e7701": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:57.222034+00:00",
+    "description": "No coins, no blocks, just running and jumping over pits.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Explicitly no coins and no blocks; emphasis on running/jumping over pits implies frequent/wide gaps. Other dimensions not mentioned kept at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.05,
+      0.05,
+      0.3,
+      0.7,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "58acbffbe150ae4bfe5cd3da8c56cbbaed12486e93766a267ba7ce13127b330e": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:45.928849+00:00",
+    "description": "A peaceful stroll: no enemies, no gaps, just a few coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Explicitly states no enemies (very low enemy density), no gaps (very low gap difficulty), and only a few coins (low coin density). Other aspects not mentioned use corpus-default values.",
+    "source": "openai_compatible",
+    "vector": [
+      0.05,
+      0.2,
+      0.5,
+      0.3,
+      0.05,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "5d6ed853e82d9db8c06660524f652c30bce0d4b64513976f2588f3d052d97711": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:52.320194+00:00",
+    "description": "A level with some enemies, some coins, some blocks, few pipes, few gaps, a flat path, a rough path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' to ~0.4 for enemies/coins/blocks; 'few' to ~0.2 for pipes/gaps; 'flat path' implies very low verticality; 'rough path' implies low smoothness; 'many platforms' implies high platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.2,
+      0.2,
+      0.05,
+      0.2,
+      0.7
+    ]
+  },
+  "62096e726190e30a2e87eebf8c7ccfbb8b20a7ae40a80f66158ada65beccbeb5": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:27.329376+00:00",
+    "description": "A level with few enemies, many coins, no blocks, many pipes, few gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit descriptors: few enemies/gaps -> low; many coins/pipes/platforms -> high (capped at p95 where needed); no blocks -> near-min; hilly -> higher verticality; smooth -> higher path_smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.6,
+      0.05,
+      0.7,
+      0.2,
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "62cc42e2a0c8345851b4fd9c14105fa7ae0cdfb8c88ffebcecf5c723ae51d9e9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:46.194645+00:00",
+    "description": "A level with many enemies, few coins, some blocks, no pipes, few gaps, a hilly path, a smooth path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies (0.7), few coins (0.2), some blocks (0.4), no pipes (~0.05), few gaps (0.2), hilly path implies higher verticality (0.7), smooth path implies high path_smoothness (0.7), as many platforms as possible implies extreme platform usage (0.95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.2,
+      0.4,
+      0.05,
+      0.2,
+      0.7,
+      0.7,
+      0.95
+    ]
+  },
+  "6369af6e0bb7ab4af87fbc363272e5cdf48491b1d1621eef70dca58cbfe98398": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:17.954035+00:00",
+    "description": "Bridges over endless chasms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Endless chasms\" implies extremely wide/frequent pits (very high gap difficulty). Other aspects not mentioned, so defaults applied.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.95,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "6434ae9c68946436a860b5e00512bea4579b1cd6077e875b4b7370c285300e29": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:06.316126+00:00",
+    "description": "Classic first level feel: balanced everything.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cBalanced everything\u201d doesn\u2019t specify any one dimension, so all values are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "65e713512ede5779509e1798b9293439d8d55d41a30497729047782147f3049d": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:10.029840+00:00",
+    "description": "A level with some enemies, no coins, no blocks, as many pipes as possible, as many gaps as possible, a hilly path, a rough path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some enemies' to moderate enemy density; 'no coins/blocks' to near-minimum; 'as many pipes/gaps/platforms as possible' to high end within achievable p95 targets; 'hilly path' to high verticality; 'rough path' to low path smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.05,
+      0.05,
+      0.7,
+      0.61,
+      0.7,
+      0.2,
+      1.0
+    ]
+  },
+  "6c18c4ee16e6770e1b5882e5bf432d6356d61c6d4eacfb0fce608e444575334d": {
+    "clamped": false,
+    "created_at": "2026-06-11T13:21:26.734422+00:00",
+    "description": "Um n\u00edvel f\u00e1cil com muitos inimigos, poucas plataformas, nenhum cano e bem linear.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Muitos inimigos\" -> enemy_density alta. \"Poucas plataformas\" -> platform_usage baixa. \"Nenhum cano\" -> pipe_density m\u00ednima. \"Bem linear\" implica pouca verticalidade e caminho mais suave; \"f\u00e1cil\" sugere gaps menos dif\u00edceis.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.05,
+      0.2,
+      0.2,
+      0.7,
+      0.2
+    ]
+  },
+  "6e17830ed1dbd2c464a1a4ac3e42f379ea84719391d8746f608961a2b258e65b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:54.575040+00:00",
+    "description": "A level with some enemies, as many coins as possible, many blocks, some pipes, as many gaps as possible, a hilly path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped adjectives: some enemies/pipes/smoothness -> ~0.4; as many coins/gaps as possible -> set to p95 caps (coins 0.60, gaps 0.61); many blocks -> ~0.7; hilly path -> higher verticality (~0.7); few platforms -> ~0.2.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.7,
+      0.4,
+      0.61,
+      0.7,
+      0.4,
+      0.2
+    ]
+  },
+  "6e5580c751ed58f4d2127e0e2d0bf61e65a99a0c535819350ebfc732c47b3797": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:58.814797+00:00",
+    "description": "Coin heaven with barely any danger.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cCoin heaven\u201d implies extremely high coin density; \u201cbarely any danger\u201d implies very low enemy density. Other aspects not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.05,
+      0.95,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "75e396268c1cfe475680b1cc258f2a2bf329a8e980afd7bf63ae601faefe4b31": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:16.667888+00:00",
+    "description": "A garden of pipes with coins tucked between them.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Garden of pipes\" implies many pipes; \"coins tucked between them\" implies high coin density. Other aspects not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.6,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "79fe01c980963012e9d2e30351e66daa218b0ef277cd0f5c4c5f591bee716d93": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:44.539027+00:00",
+    "description": "Lots of pipes everywhere, like a plumbing yard.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Lots of pipes everywhere\" implies high pipe density; other aspects not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "7c96a2168c5740420e4e1527009eda36170e0d8d4b7d50b327e8c22640a6a6f9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:01.206185+00:00",
+    "description": "A level with few enemies, no coins, few blocks, as many pipes as possible, as many gaps as possible, a flat path, some smoothness, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: few enemies/blocks (~0.2), no coins (~0.05), maximum pipes/platforms (capped to p95: 0.7 and 0.95), maximum gaps (capped to p95: 0.61), flat path => very low verticality (~0.05); 'some smoothness' interpreted as moderate smoothness (~0.4).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.05,
+      0.2,
+      0.7,
+      0.61,
+      0.05,
+      0.4,
+      0.95
+    ]
+  },
+  "7d457d545e14fa27d95ff0a081895198ac01f84aa44bb5291c8fd8ee047f84dc": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:52.655660+00:00",
+    "description": "Question blocks and bricks at every step.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Question blocks and bricks at every step\" implies extremely high interactive block density; all other dimensions are not mentioned, so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.95,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "7e621bbc91a3a198179a735a327eab9b0f2d55957ffdcc68bec903b45aea4de1": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:56.696480+00:00",
+    "description": "A level with many enemies, few coins, few blocks, no pipes, many gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: many enemies/platforms/gaps -> ~0.7 (gaps capped to p95=0.61); few coins/blocks -> ~0.2; no pipes -> ~0.05; hilly path -> higher verticality (~0.7); smooth path -> higher path_smoothness (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.2,
+      0.2,
+      0.05,
+      0.61,
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "7e64b00672b6f7a81720d8f9939147441ca2a02d8d0b5483f98483aa3de8dfb4": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:14.980670+00:00",
+    "description": "Bridges over endless chasms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Endless chasms\" implies very frequent/wide pits (high gap difficulty). No other elements are specified, so defaults apply.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.61,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "82b5a464ea8a259782d104231ff0a8c1d6bb3910fcc3ec86ed9c3f821811431b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:20.809419+00:00",
+    "description": "Make it weird.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Make it weird\" doesn\u2019t clearly specify any of the eight dimensions (enemies/coins/blocks/pipes/gaps/verticality/smoothness/platform reliance), so all values stay at corpus-typical defaults per instructions.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "82ebd43678e69657c114b73069e3d1aaebab3cd6a66ff5d1f87906476596543e": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:14.406666+00:00",
+    "description": "A speedrunner's dream: flat and empty.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cFlat\u201d implies minimal verticality and very smooth path; \u201cempty\u201d implies minimal enemies. Other elements not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.05,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.05,
+      0.95,
+      0.55
+    ]
+  },
+  "87232c0e8e010eb97815ee50a051058d0f6314599e1b64668088ecba4a2d15bd": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:02.914282+00:00",
+    "description": "A level with no enemies.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Explicitly states no enemies, so enemy density set to the minimum achievable range; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "889bab9f737eebdf2be342b7108027e839e861caaae6313d87faa73ed8a19215": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:04.795675+00:00",
+    "description": "Maximum chaos: everything everywhere all at once.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Maximum chaos\" implies pushing all controllable elements toward the high end: lots of enemies, coins, blocks, pipes, frequent/wide gaps, heavy vertical movement with abrupt changes (low smoothness), and extensive platform reliance.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.6,
+      0.95,
+      0.7,
+      0.61,
+      0.95,
+      0.05,
+      0.95
+    ]
+  },
+  "892cb4e71c1cf51309398dbc64d189d40dc13a9cc9c997969110d8b0ac356fbd": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:52.441253+00:00",
+    "description": "A level with many enemies, few coins, few blocks, no pipes, many gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/gaps/platforms -> 0.7; few coins/blocks -> 0.2; no pipes -> 0.05; hilly and smooth path imply high verticality and high path smoothness (0.7 each).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.2,
+      0.2,
+      0.05,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "8a93678236fb6ae09d4e055b02a184a7ed8fd780158e93ec35a26399b661f310": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:30.264914+00:00",
+    "description": "A level with no enemies, no coins, few blocks, no pipes, some gaps, a hilly path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: no enemies/coins/pipes -> near-min (clamped to achievable p05 where needed); few blocks/platforms -> low (~0.2); some gaps -> moderate (~0.4); hilly path -> higher verticality (~0.7); some smoothness -> moderate (~0.4).",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.05,
+      0.2,
+      0.05,
+      0.4,
+      0.7,
+      0.4,
+      0.2
+    ]
+  },
+  "8abe8121a0e1321bf613f1c5561cb857776fc15f53408de9a50bd21626a7ea19": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:56.998362+00:00",
+    "description": "A level with as many pipes as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cAs many pipes as possible\u201d implies maximum pipe density; all other dimensions are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "8c096d1d0dd0b3def3c45b10de0758bdb17c152c1f2cb5eb275f8f6b0a1d4060": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:38.236613+00:00",
+    "description": "A level with few blocks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cFew blocks\u201d implies low interactive_block_density; all other dimensions unspecified so set to defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.2,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "922d158b724d13404455c82c1831165d6e2995a777d7013f4d5dc82b10a6e5c9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:49.653090+00:00",
+    "description": "Question blocks and bricks at every step.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Question blocks and bricks at every step\" implies extremely high interactive block density; all other dimensions are left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.95,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "93b620ac0c24fbb2dba432c369761d479ad4969608e0985c9a880a642c7060f3": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:13.222781+00:00",
+    "description": "A level with many enemies.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Many enemies\" implies high enemy density; all other dimensions are unspecified so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "97708a7b0c5296aacdcc63ffa2600f0b04a3c12ecca0c9a3ebf636dda7273fd8": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:22.282825+00:00",
+    "description": "A level with no coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Description specifies no coins -> very low coin density; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.05,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "97af4b412395703537193c12aaab5cedea3a662fa885716b156194ba4a453867": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:26.172931+00:00",
+    "description": "A level with many enemies, some coins, some blocks, some pipes, many gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped keywords: many enemies/platforms/gaps -> ~0.7 (gaps clamped to p95=0.61); some coins/blocks/pipes/smoothness -> ~0.4; hilly path -> higher verticality (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.4,
+      0.4,
+      0.61,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "98cd568bc97950eb11e0aa8347590b24a3e0008fca37ecaaa609864ac5155cbf": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:46.058617+00:00",
+    "description": "A vertical climbing stage full of floating platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Vertical climbing\" implies very high verticality; \"full of floating platforms\" implies very high platform usage. Other dimensions not mentioned use corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.95,
+      0.4,
+      0.95
+    ]
+  },
+  "9c548679a161100cdece0c3a5ebc9896d5a0b5b07d6e8fb6869040eea02a0ebb": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:17.318754+00:00",
+    "description": "A level with no enemies, many coins, some blocks, many pipes, as many gaps as possible, a hilly path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped directly from description: no enemies (very low), many coins/pipes (high), some blocks/platforms (moderate), maximum gaps (very high), hilly path (high verticality), rough path (low smoothness).",
+    "source": "openai_compatible",
+    "vector": [
+      0.05,
+      0.7,
+      0.4,
+      0.7,
+      0.95,
+      0.7,
+      0.2,
+      0.4
+    ]
+  },
+  "9ccf54efc13779366610f89f757c121fd01f03bc0b51617d72ce80474579d277": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:07.821082+00:00",
+    "description": "A staircase to the sky with brutal jumps.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cStaircase to the sky\u201d implies very high verticality and frequent upward traversal via platforms/steps; \u201cbrutal jumps\u201d implies high gap difficulty and less smooth path (more abrupt height changes). Other elements not mentioned use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.61,
+      0.95,
+      0.2,
+      0.7
+    ]
+  },
+  "9e280ebcbcb25a2a8b4e83bd60123d24f0411d02aa40c4c41c540c50a5371677": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:33.534392+00:00",
+    "description": "A level with as many coins as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"As many coins as possible\" implies maximum coin density; set to the achievable p95 (0.60). All other dimensions are unmentioned, so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.6,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "9e30c87407e509b187b74d97a2ca9c3792c003329dce42cb5e7537779896d26f": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:17.734965+00:00",
+    "description": "A level with many enemies, many coins, no blocks, as many pipes as possible, no gaps, a hilly path, some smoothness, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: 'many enemies'->0.7, 'many coins' pushed to p95=0.6, 'no blocks'->0.05, 'as many pipes as possible' capped at p95=0.7, 'no gaps' set to p05=0.11, 'hilly path'->high verticality ~0.7, 'some smoothness'->0.4, 'some platforms'->0.4.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.6,
+      0.05,
+      0.7,
+      0.11,
+      0.7,
+      0.4,
+      0.4
+    ]
+  },
+  "9f971d1366a0edcc78a8362431271e414e7c5e73727e6b302f8d3ae64ffac0f9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:44.026637+00:00",
+    "description": "A level with many enemies, no coins, as many blocks as possible, many pipes, many gaps, a flat path, a smooth path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/pipes/gaps -> 0.7; no coins -> 0.05; as many blocks/platforms as possible -> 0.95; flat path -> very low verticality (0.05); smooth path -> high path_smoothness (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.05,
+      0.95,
+      0.7,
+      0.7,
+      0.05,
+      0.7,
+      0.95
+    ]
+  },
+  "a3dc3fecb0b3016b4db1fb00909b643e95d392506b99562ca0b60e7a5a70c83d": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:13.354359+00:00",
+    "description": "A level with some enemies, as many coins as possible, some blocks, some pipes, some gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' to ~0.4 for enemies/blocks/pipes/gaps; 'as many coins as possible' to the achievable high end (p95=0.60); 'hilly path' to high verticality (~0.7); 'some smoothness' to moderate path_smoothness (~0.4); 'many platforms' to high platform usage (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "a678cef5185e4e745d6b19c26c0b4dfe04b29e9f2f1b1f481583b0f994107cae": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:23.183489+00:00",
+    "description": "A level with as many enemies as possible, some coins, many blocks, no pipes, some gaps, a flat path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped phrases to intensities: 'as many enemies as possible' -> high (clipped to p95=0.88); 'some coins' -> 0.4; 'many blocks' -> 0.7; 'no pipes' -> 0.05; 'some gaps' -> 0.4; 'flat path' -> low verticality (0.05); 'smooth path' -> high smoothness (0.95); 'many platforms' -> 0.7.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.4,
+      0.7,
+      0.05,
+      0.4,
+      0.05,
+      0.95,
+      0.7
+    ]
+  },
+  "a6ba62853650efd28ea7901a00554d28e8f983e7593892f38a954b5746a9c978": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:28.124123+00:00",
+    "description": "A level with some coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only coins were mentioned ('some coins'), so coin_density is set to moderate; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "a6d9c4c31555a58d1e2443da605c3b90664555a12c2ecdfbff8dc23511b97f55": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:10.011355+00:00",
+    "description": "A level with some enemies, no coins, some blocks, some pipes, some gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' to ~0.4 for enemies/blocks/pipes/gaps; 'no coins' to ~0.05; 'hilly path' implies higher verticality (~0.7); 'some smoothness' ~0.4; 'many platforms' ~0.7.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.05,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "a88db89d6ac782b4af2203314631486b4c18aa54f2bd78879393ed15b4f3ea9b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:36.139627+00:00",
+    "description": "A level with many enemies, many coins, some blocks, no pipes, many gaps, a flat path, a smooth path, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/coins/gaps -> high (coins capped at p95=0.60; gaps capped at p95=0.61), some blocks -> moderate, no pipes -> near-min, flat path -> very low verticality, smooth path -> high smoothness, few platforms -> low platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.6,
+      0.4,
+      0.05,
+      0.61,
+      0.05,
+      0.7,
+      0.2
+    ]
+  },
+  "aa73c694cd65e9bdf7c0d873ec1dd48fc6658b2ae7041cc0b554f4ddf8601df8": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:11.269776+00:00",
+    "description": "A speedrunner's dream: flat and empty.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Flat\" implies very low verticality and very high path smoothness; \"empty\" implies minimal enemies, coins, blocks, pipes, platforms, and gaps.",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.05,
+      0.08,
+      0.05,
+      0.11,
+      0.05,
+      0.95,
+      0.05
+    ]
+  },
+  "aad096750031dda9011dd1b9152b8a806cd67b2c251617ce958697b574f9a1f9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:38.409396+00:00",
+    "description": "A flat, easy level with many coins and no gaps.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cFlat\u201d implies very low verticality and very smooth path; \u201cmany coins\u201d sets high coin density (capped at p95=0.60); \u201cno gaps\u201d maps to minimal gap difficulty (set to p05=0.11 to stay in achievable range). Other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.6,
+      0.5,
+      0.3,
+      0.11,
+      0.05,
+      0.95,
+      0.55
+    ]
+  },
+  "ad99d3f1471251c922a3c978f36242ecfa2c12bb55413986d5471fd5994f05be": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:15.822650+00:00",
+    "description": "A level with as many enemies as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"As many enemies as possible\" implies near-maximum enemy density (kept within achievable p95). All other dimensions are unspecified, so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "ae2a74c9d58b47e2eff3919b8240e0bbece664f9474da4fbf05e72bb46704924": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:39.450161+00:00",
+    "description": "A level with few enemies, some coins, some blocks, as many pipes as possible, many gaps, a hilly path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: few enemies (0.2), some coins/blocks (0.4 each), as many pipes as possible (0.95), many gaps (0.7), hilly path implies high verticality (0.7), some smoothness (0.4), few platforms (0.2).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.4,
+      0.95,
+      0.7,
+      0.7,
+      0.4,
+      0.2
+    ]
+  },
+  "afcd95d36fa396b9977bb93edf6f52a9f83fbc4d652a6c71e59e82c4f84f90e0": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:49.809007+00:00",
+    "description": "A level with few pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only pipe frequency is specified: 'few pipes' -> low pipe_density (~0.2). All other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.2,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "b50ef458583f4817ee433a3d1ef8b5d0bae7b82001e388c73c71984cde230c18": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:06.520420+00:00",
+    "description": "A level with many enemies, some coins, many blocks, few pipes, no gaps, a flat path, a smooth path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/blocks\u21920.7, some coins/platforms\u21920.4, few pipes\u21920.2, no gaps\u21920.05, flat path\u2192low verticality (0.05), smooth path\u2192high path_smoothness (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.7,
+      0.2,
+      0.05,
+      0.05,
+      0.7,
+      0.4
+    ]
+  },
+  "b654fb1fc896305568674d3ca5ca59d7ca8594d5efdaebd523a39e7da9a2a665": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:18.634172+00:00",
+    "description": "Rolling hills, few hazards, plenty to collect.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Rolling hills implies higher verticality with a relatively smooth path; few hazards implies easier/rarer gaps; plenty to collect implies high coin density. Other dimensions not specified use defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.6,
+      0.5,
+      0.3,
+      0.2,
+      0.7,
+      0.7,
+      0.55
+    ]
+  },
+  "b829382e31d3b92ecc31af29dfa6aed70f5a42890067e17af379f7a890602fc1": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:21.770903+00:00",
+    "description": "A level with some enemies, some coins, some blocks, some pipes, some gaps, a hilly path, some smoothness, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped each 'some' to ~0.4. 'Hilly path' implies high verticality (~0.7). 'As many platforms as possible' implies near-maximum platform usage (~0.95, kept within achievable p95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.95
+    ]
+  },
+  "ba1fa921b8d4c7d192a9f9686e7cf67c1811ba1f5faf64b134f48b16ed673e54": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:55.347124+00:00",
+    "description": "Coin heaven with barely any danger.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Coin heaven\" implies very high coin density; \"barely any danger\" implies very low enemy presence and easier/safer gaps. Other aspects not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.6,
+      0.5,
+      0.3,
+      0.11,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "c1c2407c065f0da0024711a346bc380e8e6c12c00094e481267003631627b14a": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:00.905956+00:00",
+    "description": "No coins, no blocks, just running and jumping over pits.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Explicitly no coins and no blocks; focus is on running/jumping over pits, implying frequent/wider gaps. Other dimensions not mentioned use corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.05,
+      0.05,
+      0.3,
+      0.7,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "c32dbe42e2a557da18d254a16b05fb31ccb8c1b7dfa435bcd636a89370d44f0d": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:40.998614+00:00",
+    "description": "A level with many enemies, some coins, as many blocks as possible, many pipes, no gaps, a mountainous path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped textual intensities: many enemies/pipes/platforms\u21920.7; some coins\u21920.4; as many blocks as possible\u21920.95; no gaps\u2192set to achievable minimum (p05=0.11); mountainous path\u2192high verticality (0.95); smooth path\u2192high path_smoothness (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.95,
+      0.7,
+      0.11,
+      0.95,
+      0.7,
+      0.7
+    ]
+  },
+  "c5a663b2c2a81058e0481a552ebdc82662a862551d1553865797cade59bd4645": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:36.349293+00:00",
+    "description": "A level with many enemies, some coins, as many blocks as possible, many pipes, no gaps, a mountainous path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: 'many enemies/pipes/platforms'->0.7, 'some coins'->0.4, 'as many blocks as possible'->0.95, 'no gaps'->0.05, 'mountainous path'->high verticality (0.95), 'smooth path'->high path_smoothness (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.95,
+      0.7,
+      0.05,
+      0.95,
+      0.7,
+      0.7
+    ]
+  },
+  "c79943b51b48018985c7c959b4ffb8310845f92822761e10b9f0f3554eafd22f": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:23.806392+00:00",
+    "description": "A level with few enemies, some coins, as many blocks as possible, some pipes, few gaps, a flat path, some smoothness, no platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: few enemies (0.2), some coins/pipes (0.4), max blocks (0.95), few gaps (0.2), flat path => very low verticality (0.05); 'some smoothness' kept moderate (0.4); no platforms (0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.95,
+      0.4,
+      0.2,
+      0.05,
+      0.4,
+      0.05
+    ]
+  },
+  "c88539d23009ceccbd0cb4dfcadd4fd69a56bafcbe811e469a31e35698c64681": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:09.412153+00:00",
+    "description": "Underground vibes: tight, blocky, and full of bricks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cFull of bricks\u201d implies very high interactive block density. No other dimensions were clearly specified, so defaults apply.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.95,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "ca239dcd91d55c087f26d8747574d30f805904d319fe7cfddc4a6adecddffcb4": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:19.594786+00:00",
+    "description": "A level with some enemies, some coins, some blocks, some pipes, some gaps, a hilly path, some smoothness, no platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped all explicit 'some' mentions to ~0.4. 'Hilly path' implies higher verticality (~0.7). 'No platforms' implies minimal platform usage (~0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.05
+    ]
+  },
+  "caa84981bbd3f37e5e32325324daa4cc4e4bef57126042685a1cc6f5d6a7fd6c": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:45.073289+00:00",
+    "description": "A level with as many blocks as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"As many blocks as possible\" directly implies maximal interactive/brick/question block presence; other aspects are unspecified so defaults apply.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.95,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "cb2e419cd207d6cf0e92e2c45bf99f021c773193b3b4cc6fe682a09da38deced": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:07.848737+00:00",
+    "description": "A level with few enemies, some coins, few blocks, many pipes, some gaps, a flat path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit quantifiers: few enemies/blocks (~0.2), some coins/gaps/smoothness (~0.4), many pipes/platforms (~0.7). 'Flat path' implies very low verticality (~0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.2,
+      0.7,
+      0.4,
+      0.05,
+      0.4,
+      0.7
+    ]
+  },
+  "cf834682fe1bc83ce90723acadf31c03ba9c8d36838aea70c6379d3027b62390": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:10.828515+00:00",
+    "description": "A level with few enemies, many coins, many blocks, many pipes, some gaps, a hilly path, a smooth path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit descriptors: few enemies (~0.2), many coins/blocks/pipes/platforms (~0.7; coins capped at p95=0.60), some gaps (~0.4), hilly path implies higher verticality (~0.7), smooth path implies higher path_smoothness (~0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.6,
+      0.7,
+      0.7,
+      0.4,
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "d1eb75e2fcd67c7b7fd9e63a039dc01b5a7ee6a07d6bda3e6ec9244ea3fc2287": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:59.034983+00:00",
+    "description": "A smooth, gentle ride with sparse decorations.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cSmooth, gentle ride\u201d implies a more even traversal path (higher path_smoothness). \u201cSparse decorations\u201d implies fewer placed decorative elements like blocks (lower interactive_block_density). Other dimensions not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.2,
+      0.3,
+      0.4,
+      0.65,
+      0.7,
+      0.55
+    ]
+  },
+  "d3ceada255ea50b42084c09d8333563e01dac03c24839ddd1b7e97565be02d2b": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:03.734367+00:00",
+    "description": "A level with as many enemies as possible, few coins, no blocks, few pipes, few gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped phrases: 'as many enemies as possible' -> high (clipped to p95=0.88); 'few coins/pipes/gaps' -> ~0.2; 'no blocks' -> ~0.05; 'hilly path' -> higher verticality (~0.7); 'some smoothness' -> moderate (~0.4); 'many platforms' -> ~0.7.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.2,
+      0.05,
+      0.2,
+      0.2,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "d4ae5f6cc8cd3e4dc830da659062eaf5b702ce6a03ba79feca1801fd8baace47": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:02.537897+00:00",
+    "description": "Classic first level feel: balanced everything.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Balanced everything\" implies corpus-typical, classic baseline settings across all dimensions (no specific increases/decreases mentioned).",
+    "source": "openai_compatible",
+    "vector": [
+      0.52,
+      0.4,
+      0.61,
+      0.3,
+      0.32,
+      0.67,
+      0.41,
+      0.57
+    ]
+  },
+  "d54000020e7ff6edc7f745af6aeab8d4361a617d0f3399611a6067c21bd1174a": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:54.551519+00:00",
+    "description": "A hilly course with some coins and a couple of pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Hilly course implies higher verticality. 'Some coins' implies moderate coin density. 'A couple of pipes' implies few pipes. Other dimensions not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.2,
+      0.4,
+      0.7,
+      0.4,
+      0.55
+    ]
+  },
+  "d772ff9bb72ce7b8cdf77d7c868f832bc5225cc84b20b988a315d2ef4e2e9855": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:39:04.389428+00:00",
+    "description": "A level with no enemies, some coins, some blocks, some pipes, some gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: no enemies (set to p05=0.08), some coins/blocks/pipes/gaps (~0.4 each), hilly path implies higher verticality (~0.7), some smoothness (~0.4), many platforms implies very high platform usage (~0.95 within p95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.7,
+      0.4,
+      0.95
+    ]
+  },
+  "d7ac47539c16d8c131bb58f4ce6059a2a09fcd09c6b34d3a2213569033dce7ed": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:06.051552+00:00",
+    "description": "A level with no enemies, many coins, some blocks, many pipes, as many gaps as possible, a hilly path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: no enemies\u2192min within p05 (0.08); many coins/pipes\u2192p95 (0.60/0.70); some blocks/platforms\u21920.40; as many gaps as possible\u2192p95 (0.61); hilly path\u2192high verticality (0.70); rough path\u2192low smoothness (0.20).",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.6,
+      0.4,
+      0.7,
+      0.61,
+      0.7,
+      0.2,
+      0.4
+    ]
+  },
+  "da263e106ab78b1ed6a3023c086caf94bd3b1de63e7f10a4eb0f31e63495367a": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:13.187328+00:00",
+    "description": "A level with few enemies, some coins, as many blocks as possible, some pipes, few gaps, a flat path, some smoothness, no platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped descriptors: few enemies/gaps/platforms -> ~0.2/~0.2/~0.05; some coins/pipes/smoothness -> ~0.4; as many blocks as possible -> ~0.95; flat path implies very low verticality (~0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.95,
+      0.4,
+      0.2,
+      0.05,
+      0.4,
+      0.05
+    ]
+  },
+  "da2fd7b4d9cf55af6b60c903f51d1ad52829ebf41671bac32b5630a1c53362cc": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:42:10.880874+00:00",
+    "description": "A level with some enemies, some coins, many blocks, many pipes, few gaps, a hilly path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' enemies/coins to moderate (0.4); 'many' blocks/pipes/platforms to high (0.7); 'few gaps' to low (0.2); 'hilly path' to high verticality (0.7); 'some smoothness' to moderate path smoothness (0.4).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.7,
+      0.7,
+      0.2,
+      0.7,
+      0.4,
+      0.7
+    ]
+  },
+  "dcb69e978dcece7df4dcdb333c2ab5fb8bc68d18be309e4e135d4e26aae08228": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:33.989936+00:00",
+    "description": "A level with some enemies, as many coins as possible, as many blocks as possible, many pipes, as many gaps as possible, a mountainous path, some smoothness, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some enemies' to moderate-low; set coins/blocks/gaps to near-max within achievable p95; 'many pipes' to high; 'mountainous path' to very high verticality; 'some smoothness' and 'some platforms' to moderate.",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.6,
+      0.95,
+      0.7,
+      0.61,
+      0.95,
+      0.4,
+      0.4
+    ]
+  },
+  "dcbd7294755c9464f9d0061973d04874fef1435866fb429e2cddeb216a2e5afc": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:25.154683+00:00",
+    "description": "A level with some enemies, few coins, some blocks, some pipes, some gaps, a flat path, a smooth path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped: some enemies/blocks/pipes/gaps -> 0.4; few coins -> 0.2; flat path -> very low verticality (0.05); smooth path -> high path_smoothness (0.7); as many platforms as possible -> 0.95 (kept within p95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.2,
+      0.4,
+      0.4,
+      0.4,
+      0.05,
+      0.7,
+      0.95
+    ]
+  },
+  "de95336d156ffd3cbadb6d3c20b5d1a9304f59fd4b03a1e7000245e824ab53fb": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:40.655052+00:00",
+    "description": "A level with some blocks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Only 'some blocks' is mentioned, implying a moderate interactive block density (~0.4). All other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.4,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "e310799dd67da2b6eaca19a236c52bfc5099e689dddf12bbe1cdde5534e985ff": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:50.379154+00:00",
+    "description": "A level with some enemies, as many coins as possible, many blocks, some pipes, as many gaps as possible, a hilly path, some smoothness, few platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped stated quantities: some enemies/pipes (~0.4), many blocks (~0.7), maximum coins and gaps (~0.95), hilly path implies high verticality (~0.7), some smoothness (~0.4), few platforms (~0.2).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.95,
+      0.7,
+      0.4,
+      0.95,
+      0.7,
+      0.4,
+      0.2
+    ]
+  },
+  "e4add46944811d8d8e3d112b72692440bdcaeb4a04f29c6ff56fdc7ea88adfb8": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:49.317801+00:00",
+    "description": "A vertical climbing stage full of floating platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Described as a vertical climbing stage (very high verticality) and full of floating platforms (very high platform usage). Other dimensions not mentioned use corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.95,
+      0.4,
+      0.95
+    ]
+  },
+  "e52d513cf8db6e715f92dd0dfc99ec16be1072ea0b6fc61645b479083d11134a": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:11.932075+00:00",
+    "description": "Underground vibes: tight, blocky, and full of bricks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cFull of bricks\u201d strongly implies many interactive blocks; no other quantities (enemies, coins, pipes, gaps, verticality/platforming) are clearly specified.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.7,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "e758c11cff15a290817ca0e3df6ae752b21ce4e98ec76cb89414055866191f3e": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:31.567682+00:00",
+    "description": "A level with as many enemies as possible, many coins, some blocks, as many pipes as possible, some gaps, a flat path, a rough path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'as many as possible' enemies/pipes to p95 caps; 'many coins' to p95; 'some blocks/gaps/platforms' to ~0.4; 'flat path' implies very low verticality; 'rough path' implies low smoothness.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.6,
+      0.4,
+      0.7,
+      0.4,
+      0.05,
+      0.2,
+      0.4
+    ]
+  },
+  "e9816d3537f90c4c8ead6d0cc6e27f179749a560529cd48c0a3bfd4a0cc38e5f": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:29.311071+00:00",
+    "description": "A level with few enemies, no coins, as many blocks as possible, no pipes, few gaps, a mountainous path, some smoothness, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'few enemies' to low enemy density, 'no coins/pipes' to near-min values, 'as many blocks as possible' to very high interactive block density (kept within achievable range), 'few gaps' to low gap difficulty, 'mountainous path' to very high verticality, 'some smoothness' to moderate path smoothness, and 'many platforms' to high platform usage.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.05,
+      0.95,
+      0.05,
+      0.2,
+      0.95,
+      0.4,
+      0.7
+    ]
+  },
+  "ea1c581b3322efdf78c0f6c54df57a9722449669f8f9e512a5579a82b95c2ed1": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:40.141802+00:00",
+    "description": "Packed with enemies and wide pits; a real challenge.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Packed with enemies\" implies very high enemy density; \"wide pits\" and \"a real challenge\" imply high gap difficulty. Other aspects weren\u2019t mentioned, so defaults are used.",
+    "source": "openai_compatible",
+    "vector": [
+      0.88,
+      0.4,
+      0.5,
+      0.3,
+      0.61,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "ec10649e61367fa82144b7e676a4cc8be07045646fe690621cb8cbd6e1ecf99f": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:48.238746+00:00",
+    "description": "A level with some enemies, some coins, some blocks, few pipes, few gaps, a flat path, a rough path, many platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped 'some' enemies/coins/blocks to moderate (0.4); 'few' pipes/gaps to low (0.2); 'flat path' to very low verticality (0.05); 'rough path' to low smoothness (0.2); 'many platforms' to high platform usage (0.7).",
+    "source": "openai_compatible",
+    "vector": [
+      0.4,
+      0.4,
+      0.4,
+      0.2,
+      0.2,
+      0.05,
+      0.2,
+      0.7
+    ]
+  },
+  "ecb5252d7ebbd466fdfdf30c90e55d71a44a82659029e40706bf351a8b177111": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:41:16.257624+00:00",
+    "description": "Sparse enemies but every one placed to hurt.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\u201cSparse enemies\u201d implies few enemies (low enemy_density). No other level elements are mentioned, so defaults apply.",
+    "source": "openai_compatible",
+    "vector": [
+      0.2,
+      0.4,
+      0.5,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "ecea06d7e2e8300d2307fff7bf52521f2d9cefc925cb9a9eb360b6e6db06c068": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:20.103026+00:00",
+    "description": "A level with no enemies, many coins, few blocks, as many pipes as possible, many gaps, a flat path, some smoothness, no platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped phrases: 'no enemies'->very low (clamped to p05=0.08), 'many coins'->high (p95=0.60), 'few blocks'->low (0.2), 'as many pipes as possible'->max within range (p95=0.70), 'many gaps'->high (p95=0.61), 'flat path'->low verticality (0.05). 'some smoothness' interpreted as moderate smoothness (~0.4). 'no platforms'->very low (0.05).",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.6,
+      0.2,
+      0.7,
+      0.61,
+      0.05,
+      0.4,
+      0.05
+    ]
+  },
+  "ecf613bea00e79e9af96fb59ce2002a2b71e59d52be6be63bdb56f80a546ca15": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:38:42.953110+00:00",
+    "description": "A level with many blocks.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Many blocks\" implies high interactive_block_density; all other dimensions use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.7,
+      0.3,
+      0.4,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "f0c7f85de8b46406e6fc4a6c8064efc5eac1e3555abdc6bbbb6d7fdd443f4947": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:00.591036+00:00",
+    "description": "An obstacle course of pipes and platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Described as an obstacle course featuring many pipes and substantial reliance on platforms; other aspects not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.7,
+      0.4,
+      0.65,
+      0.4,
+      0.7
+    ]
+  },
+  "f4506d57a2bf7466e03d41651482b784940bfbaa2fc196596ee7b6346b60fbe4": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:11:23.171980+00:00",
+    "description": "Something that would scare a speedrunner.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Interpreted as a high-stress, precision-demanding level for fast play: frequent/wide pits (high gap difficulty) and many enemies; other elements not specified, so left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.5,
+      0.3,
+      0.61,
+      0.65,
+      0.4,
+      0.55
+    ]
+  },
+  "f80088f5e5d46d0573dff2f02c61c5cf6221e615e9c4a8fad6075d4436e9c1b3": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:06.133785+00:00",
+    "description": "A level with many enemies, some coins, many blocks, few pipes, no gaps, a flat path, a smooth path, some platforms.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies/blocks->0.7; some coins/platforms->0.4; few pipes->0.2; no gaps clamped to achievable p05->0.11; flat path->low verticality 0.05; smooth path->high path_smoothness 0.95.",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.4,
+      0.7,
+      0.2,
+      0.11,
+      0.05,
+      0.95,
+      0.4
+    ]
+  },
+  "f94cc6a60cd6794ce7543986a695be27920fac204a765492d2226307131760f9": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:43:26.873960+00:00",
+    "description": "A level with no enemies, as many coins as possible, as many blocks as possible, many pipes, some gaps, a flat path, a rough path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Set per description: no enemies (clamped to p05=0.08), maximum coins/blocks/platforms (kept within p95: coins 0.60, blocks 0.95, platforms 0.95), many pipes (0.70), some gaps (0.40), flat path implies low verticality (0.05), rough path implies low smoothness (0.20).",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.6,
+      0.95,
+      0.7,
+      0.4,
+      0.05,
+      0.2,
+      0.95
+    ]
+  },
+  "f966f73a58ccc04ace0e1a0828e2490475b9e934241fe675454a33fa0d4f38a2": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:51.420378+00:00",
+    "description": "A hilly course with some coins and a couple of pipes.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"Hilly\" implies higher verticality; \"some coins\" implies moderate coin density; \"a couple of pipes\" implies few pipes. Other dimensions not mentioned use corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.4,
+      0.5,
+      0.2,
+      0.4,
+      0.7,
+      0.4,
+      0.55
+    ]
+  },
+  "faac4a87b1969ff27f0c6ccd5d1029b522fbbb3ae9ff9fbee89e708bdedb2680": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:09:49.942159+00:00",
+    "description": "A level with many enemies, few coins, some blocks, no pipes, few gaps, a hilly path, a smooth path, as many platforms as possible.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Mapped explicit cues: many enemies (0.7), few coins (0.2), some blocks (0.4), no pipes (~0.05), few gaps (0.2), hilly path => high verticality (0.7), smooth path => high path_smoothness (0.7), as many platforms as possible => near-max platform usage (0.95, kept within p95).",
+    "source": "openai_compatible",
+    "vector": [
+      0.7,
+      0.2,
+      0.4,
+      0.05,
+      0.2,
+      0.7,
+      0.7,
+      0.95
+    ]
+  },
+  "fb23f2cc6e18111a27f7c21afb491bf27ec965eb7045f068118211faa0a0e695": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:40:38.419142+00:00",
+    "description": "A flat, easy level with many coins and no gaps.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "Flat implies very low verticality and relatively smooth path; many coins increases coin density; no gaps makes gap difficulty minimal. Other dimensions use corpus defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.5,
+      0.7,
+      0.5,
+      0.3,
+      0.05,
+      0.05,
+      0.7,
+      0.55
+    ]
+  },
+  "fcfa2c8c4ac55b110a4450f4f60c895e947f1a209f06e588a968b7d658adfce4": {
+    "clamped": false,
+    "created_at": "2026-06-11T07:10:42.289567+00:00",
+    "description": "A peaceful stroll: no enemies, no gaps, just a few coins.",
+    "model": "gpt-5.2",
+    "prompt_version": "v1",
+    "rationale": "\"No enemies\" -> very low enemy density (kept within achievable p05). \"No gaps\" -> very low gap difficulty (within p05). \"Just a few coins\" -> low coin density. Unmentioned dimensions left at corpus-typical defaults.",
+    "source": "openai_compatible",
+    "vector": [
+      0.08,
+      0.2,
+      0.5,
+      0.3,
+      0.11,
+      0.65,
+      0.4,
+      0.55
+    ]
+  }
+}

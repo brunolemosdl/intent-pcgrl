@@ -1,0 +1,57 @@
+{
+  "translation_error_mean": 0.0529,
+  "ci95_low": 0.0415,
+  "ci95_high": 0.0667,
+  "n_scored": 46,
+  "n_total": 48,
+  "per_dim": {
+    "enemy_density": {
+      "mae": 0.0226,
+      "ci95_low": 0.0074,
+      "ci95_high": 0.0426,
+      "n": 46
+    },
+    "coin_density": {
+      "mae": 0.075,
+      "ci95_low": 0.0424,
+      "ci95_high": 0.1109,
+      "n": 46
+    },
+    "interactive_block_density": {
+      "mae": 0.0096,
+      "ci95_low": 0.0007,
+      "ci95_high": 0.023,
+      "n": 46
+    },
+    "pipe_density": {
+      "mae": 0.0359,
+      "ci95_low": 0.013,
+      "ci95_high": 0.062,
+      "n": 46
+    },
+    "gap_difficulty": {
+      "mae": 0.0787,
+      "ci95_low": 0.0511,
+      "ci95_high": 0.1091,
+      "n": 46
+    },
+    "verticality": {
+      "mae": 0.0706,
+      "ci95_low": 0.0457,
+      "ci95_high": 0.0974,
+      "n": 46
+    },
+    "path_smoothness": {
+      "mae": 0.0785,
+      "ci95_low": 0.0557,
+      "ci95_high": 0.1035,
+      "n": 46
+    },
+    "platform_usage": {
+      "mae": 0.0526,
+      "ci95_low": 0.02,
+      "ci95_high": 0.0907,
+      "n": 46
+    }
+  }
+}

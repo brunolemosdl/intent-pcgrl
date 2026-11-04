@@ -1,0 +1,61 @@
+dim,band,description,requested,translated,episode,seed,measured
+enemy_density,0,A level with no enemies.,0.05,0.08,0,42,0.1594
+enemy_density,0,A level with no enemies.,0.05,0.08,1,43,0.1594
+enemy_density,0,A level with no enemies.,0.05,0.08,2,44,0.1594
+enemy_density,1,A level with few enemies.,0.2,0.2,0,142,0.2391
+enemy_density,1,A level with few enemies.,0.2,0.2,1,143,0.2391
+enemy_density,1,A level with few enemies.,0.2,0.2,2,144,0.279
+enemy_density,2,A level with some enemies.,0.4,0.4,0,242,0.4384
+enemy_density,2,A level with some enemies.,0.4,0.4,1,243,0.3985
+enemy_density,2,A level with some enemies.,0.4,0.4,2,244,0.3985
+enemy_density,3,A level with many enemies.,0.7,0.7,0,342,0.7173
+enemy_density,3,A level with many enemies.,0.7,0.7,1,343,0.7173
+enemy_density,3,A level with many enemies.,0.7,0.7,2,344,0.7173
+enemy_density,4,A level with as many enemies as possible.,0.95,0.88,0,442,0.8369
+enemy_density,4,A level with as many enemies as possible.,0.95,0.88,1,443,0.8369
+enemy_density,4,A level with as many enemies as possible.,0.95,0.88,2,444,0.8767
+coin_density,0,A level with no coins.,0.05,0.05,0,10042,0.1207
+coin_density,0,A level with no coins.,0.05,0.05,1,10043,0.0603
+coin_density,0,A level with no coins.,0.05,0.05,2,10044,0.0603
+coin_density,1,A level with few coins.,0.2,0.2,0,10142,0.2413
+coin_density,1,A level with few coins.,0.2,0.2,1,10143,0.181
+coin_density,1,A level with few coins.,0.2,0.2,2,10144,0.2413
+coin_density,2,A level with some coins.,0.4,0.4,0,10242,0.362
+coin_density,2,A level with some coins.,0.4,0.4,1,10243,0.4224
+coin_density,2,A level with some coins.,0.4,0.4,2,10244,0.362
+coin_density,3,A level with many coins.,0.7,0.6,0,10342,0.543
+coin_density,3,A level with many coins.,0.7,0.6,1,10343,0.543
+coin_density,3,A level with many coins.,0.7,0.6,2,10344,0.543
+coin_density,4,A level with as many coins as possible.,0.95,0.6,0,10442,0.543
+coin_density,4,A level with as many coins as possible.,0.95,0.6,1,10443,0.543
+coin_density,4,A level with as many coins as possible.,0.95,0.6,2,10444,0.6034
+interactive_block_density,0,A level with no blocks.,0.05,0.05,0,20042,0.1094
+interactive_block_density,0,A level with no blocks.,0.05,0.05,1,20043,0.1094
+interactive_block_density,0,A level with no blocks.,0.05,0.05,2,20044,0.1094
+interactive_block_density,1,A level with few blocks.,0.2,0.2,0,20142,0.175
+interactive_block_density,1,A level with few blocks.,0.2,0.2,1,20143,0.1969
+interactive_block_density,1,A level with few blocks.,0.2,0.2,2,20144,0.2187
+interactive_block_density,2,A level with some blocks.,0.4,0.4,0,20242,0.3937
+interactive_block_density,2,A level with some blocks.,0.4,0.4,1,20243,0.3937
+interactive_block_density,2,A level with some blocks.,0.4,0.4,2,20244,0.3937
+interactive_block_density,3,A level with many blocks.,0.7,0.7,0,20342,0.7218
+interactive_block_density,3,A level with many blocks.,0.7,0.7,1,20343,0.7218
+interactive_block_density,3,A level with many blocks.,0.7,0.7,2,20344,0.6999
+interactive_block_density,4,A level with as many blocks as possible.,0.95,0.95,0,20442,0.9405
+interactive_block_density,4,A level with as many blocks as possible.,0.95,0.95,1,20443,0.9405
+interactive_block_density,4,A level with as many blocks as possible.,0.95,0.95,2,20444,0.9405
+pipe_density,0,A level with no pipes.,0.05,0.05,0,30042,0.156
+pipe_density,0,A level with no pipes.,0.05,0.05,1,30043,0.156
+pipe_density,0,A level with no pipes.,0.05,0.05,2,30044,0.156
+pipe_density,1,A level with few pipes.,0.2,0.2,0,30142,0.234
+pipe_density,1,A level with few pipes.,0.2,0.2,1,30143,0.234
+pipe_density,1,A level with few pipes.,0.2,0.2,2,30144,0.234
+pipe_density,2,A level with some pipes.,0.4,0.4,0,30242,0.39
+pipe_density,2,A level with some pipes.,0.4,0.4,1,30243,0.39
+pipe_density,2,A level with some pipes.,0.4,0.4,2,30244,0.39
+pipe_density,3,A level with many pipes.,0.7,0.7,0,30342,0.65
+pipe_density,3,A level with many pipes.,0.7,0.7,1,30343,0.676
+pipe_density,3,A level with many pipes.,0.7,0.7,2,30344,0.65
+pipe_density,4,A level with as many pipes as possible.,0.95,0.7,0,30442,0.65
+pipe_density,4,A level with as many pipes as possible.,0.95,0.7,1,30443,0.676
+pipe_density,4,A level with as many pipes as possible.,0.95,0.7,2,30444,0.676

@@ -1,0 +1,17 @@
+cell,replicate,level_G_grounding,level_S_style,level_N_best_of,translation_error_mean,e2e_intent_error_mean,n
+G_grounding-S_style-N_best_of-,0,-1,-1,-1,0.0375,0.068,22
+G_grounding-S_style-N_best_of-,1,-1,-1,-1,0.0375,0.0692,22
+G_grounding-S_style-N_best_of+,0,-1,-1,1,0.0375,0.063,22
+G_grounding-S_style-N_best_of+,1,-1,-1,1,0.0375,0.0628,22
+G_grounding-S_style+N_best_of-,0,-1,1,-1,0.0288,0.0578,12
+G_grounding-S_style+N_best_of-,1,-1,1,-1,0.0267,0.0558,12
+G_grounding-S_style+N_best_of+,0,-1,1,1,0.0288,0.0567,12
+G_grounding-S_style+N_best_of+,1,-1,1,1,0.0267,0.0561,12
+G_grounding+S_style-N_best_of-,0,1,-1,-1,0.046,0.0721,22
+G_grounding+S_style-N_best_of-,1,1,-1,-1,0.046,0.0736,22
+G_grounding+S_style-N_best_of+,0,1,-1,1,0.046,0.0706,22
+G_grounding+S_style-N_best_of+,1,1,-1,1,0.046,0.07,22
+G_grounding+S_style+N_best_of-,0,1,1,-1,0.0487,0.0747,12
+G_grounding+S_style+N_best_of-,1,1,1,-1,0.0632,0.0935,12
+G_grounding+S_style+N_best_of+,0,1,1,1,0.0487,0.0731,12
+G_grounding+S_style+N_best_of+,1,1,1,1,0.0632,0.0924,12

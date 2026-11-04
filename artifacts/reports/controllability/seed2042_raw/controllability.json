@@ -1,0 +1,62 @@
+{
+  "per_dim": {
+    "enemy_density": {
+      "mae": 0.0736,
+      "spearman_rho": 0.9835,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "coin_density": {
+      "mae": 0.0613,
+      "spearman_rho": 0.974,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "interactive_block_density": {
+      "mae": 0.0792,
+      "spearman_rho": 0.9782,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "pipe_density": {
+      "mae": 0.0479,
+      "spearman_rho": 0.9805,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "gap_difficulty": {
+      "mae": 0.0504,
+      "spearman_rho": 0.9812,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "verticality": {
+      "mae": 0.2018,
+      "spearman_rho": 0.7858,
+      "passes_mae": false,
+      "passes_rho": false,
+      "n": 70
+    },
+    "path_smoothness": {
+      "mae": 0.0998,
+      "spearman_rho": 0.9642,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    },
+    "platform_usage": {
+      "mae": 0.0623,
+      "spearman_rho": 0.9724,
+      "passes_mae": true,
+      "passes_rho": true,
+      "n": 70
+    }
+  },
+  "dims_passing": 7,
+  "dims_total": 8
+}

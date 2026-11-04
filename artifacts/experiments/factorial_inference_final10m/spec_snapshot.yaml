@@ -1,0 +1,26 @@
+name: factorial_inference
+kind: inference
+training: quick
+replicates: 2
+episodes: 1
+base_overrides:
+  generation.require_gameplay_bridge: false
+factors:
+- name: G_grounding
+  overrides_low:
+    translator.grounding: false
+  overrides_high:
+    translator.grounding: true
+- name: S_style
+  overrides_low:
+    param.description_style: handwritten
+  overrides_high:
+    param.description_style: templated
+- name: N_best_of
+  overrides_low:
+    generation.max_attempts: 1
+  overrides_high:
+    generation.max_attempts: 5
+responses:
+- translation_error_mean
+- e2e_intent_error_mean

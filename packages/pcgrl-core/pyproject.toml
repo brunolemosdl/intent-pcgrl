@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcgrl-core"
+version = "0.2.0"
+description = "PCGRL core domain, settings, and tile catalog"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

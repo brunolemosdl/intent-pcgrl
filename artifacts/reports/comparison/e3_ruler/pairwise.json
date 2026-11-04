@@ -1,0 +1,142 @@
+[
+  {
+    "a": "random_legal",
+    "b": "greedy_intent",
+    "metric": "terminal_reward",
+    "delta": -0.1567,
+    "p_value": 0.5189
+  },
+  {
+    "a": "random_legal",
+    "b": "greedy_intent",
+    "metric": "intent_error_mean",
+    "delta": 0.0094,
+    "p_value": 0.6036
+  },
+  {
+    "a": "random_legal",
+    "b": "beam_search",
+    "metric": "terminal_reward",
+    "delta": -0.8485,
+    "p_value": 0.0001
+  },
+  {
+    "a": "random_legal",
+    "b": "beam_search",
+    "metric": "intent_error_mean",
+    "delta": 0.0796,
+    "p_value": 0.0001
+  },
+  {
+    "a": "random_legal",
+    "b": "markov",
+    "metric": "terminal_reward",
+    "delta": 0.1741,
+    "p_value": 0.4463
+  },
+  {
+    "a": "random_legal",
+    "b": "markov",
+    "metric": "intent_error_mean",
+    "delta": -0.072,
+    "p_value": 0.0001
+  },
+  {
+    "a": "random_legal",
+    "b": "corpus_replay",
+    "metric": "terminal_reward",
+    "delta": -0.0349,
+    "p_value": 0.8629
+  },
+  {
+    "a": "random_legal",
+    "b": "corpus_replay",
+    "metric": "intent_error_mean",
+    "delta": -0.1206,
+    "p_value": 0.0001
+  },
+  {
+    "a": "greedy_intent",
+    "b": "beam_search",
+    "metric": "terminal_reward",
+    "delta": -0.6918,
+    "p_value": 0.0001
+  },
+  {
+    "a": "greedy_intent",
+    "b": "beam_search",
+    "metric": "intent_error_mean",
+    "delta": 0.0702,
+    "p_value": 0.0001
+  },
+  {
+    "a": "greedy_intent",
+    "b": "markov",
+    "metric": "terminal_reward",
+    "delta": 0.3309,
+    "p_value": 0.1024
+  },
+  {
+    "a": "greedy_intent",
+    "b": "markov",
+    "metric": "intent_error_mean",
+    "delta": -0.0814,
+    "p_value": 0.0001
+  },
+  {
+    "a": "greedy_intent",
+    "b": "corpus_replay",
+    "metric": "terminal_reward",
+    "delta": 0.1218,
+    "p_value": 0.4846
+  },
+  {
+    "a": "greedy_intent",
+    "b": "corpus_replay",
+    "metric": "intent_error_mean",
+    "delta": -0.13,
+    "p_value": 0.0001
+  },
+  {
+    "a": "beam_search",
+    "b": "markov",
+    "metric": "terminal_reward",
+    "delta": 1.0226,
+    "p_value": 0.0001
+  },
+  {
+    "a": "beam_search",
+    "b": "markov",
+    "metric": "intent_error_mean",
+    "delta": -0.1516,
+    "p_value": 0.0001
+  },
+  {
+    "a": "beam_search",
+    "b": "corpus_replay",
+    "metric": "terminal_reward",
+    "delta": 0.8136,
+    "p_value": 0.0001
+  },
+  {
+    "a": "beam_search",
+    "b": "corpus_replay",
+    "metric": "intent_error_mean",
+    "delta": -0.2002,
+    "p_value": 0.0001
+  },
+  {
+    "a": "markov",
+    "b": "corpus_replay",
+    "metric": "terminal_reward",
+    "delta": -0.209,
+    "p_value": 0.1848
+  },
+  {
+    "a": "markov",
+    "b": "corpus_replay",
+    "metric": "intent_error_mean",
+    "delta": -0.0486,
+    "p_value": 0.0134
+  }
+]

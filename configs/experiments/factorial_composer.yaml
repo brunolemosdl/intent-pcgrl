@@ -1,0 +1,36 @@
+# Training-time 2^4 factorial (plan §5a): every cell retrains at the quick
+# tier. Responses are evaluated per checkpoint over the target suite, no
+# bridge. Full design with r=2 -> 32 quick trainings (resumable per cell).
+name: factorial_composer
+kind: training
+training: quick
+replicates: 2
+episodes: 3
+factors:
+  - name: A_alignment_max
+    overrides_low:
+      reward.composer.alignment_max_weight: 0.0
+      reward.composer.alignment_mean_weight: 1.0
+    overrides_high:
+      reward.composer.alignment_max_weight: 0.4
+      reward.composer.alignment_mean_weight: 0.6
+  - name: B_style
+    overrides_low:
+      reward.composer.weight_style: 0.0
+    overrides_high:
+      reward.composer.weight_style: 2.0
+  - name: C_budget_mask
+    overrides_low:
+      environment.composer.intent_budget_mask: false
+    overrides_high:
+      environment.composer.intent_budget_mask: true
+  - name: D_duplication
+    overrides_low:
+      environment.composer.duplicate_window: 0
+      reward.composer.weight_duplicate: 0.0
+    overrides_high:
+      environment.composer.duplicate_window: 3
+      reward.composer.weight_duplicate: 1.0
+responses:
+  - intent_error_mean
+  - terminal_reward

@@ -1,0 +1,67 @@
+{
+  "ppo_best_of_n": {
+    "terminal_reward": {
+      "mean": 7.4935,
+      "std": 0.4188,
+      "n": 18,
+      "ci95_low": 7.292,
+      "ci95_high": 7.6781
+    },
+    "intent_error_mean": {
+      "mean": 0.1114,
+      "std": 0.0403,
+      "n": 18,
+      "ci95_low": 0.0931,
+      "ci95_high": 0.1306
+    },
+    "intent_error_max": {
+      "mean": 0.2541,
+      "std": 0.119,
+      "n": 18,
+      "ci95_low": 0.2034,
+      "ci95_high": 0.3126
+    },
+    "component_alignment": {
+      "mean": 0.8315,
+      "std": 0.0698,
+      "n": 18,
+      "ci95_low": 0.7978,
+      "ci95_high": 0.8614
+    },
+    "component_style": {
+      "mean": 0.5838,
+      "std": 0.0896,
+      "n": 18,
+      "ci95_low": 0.542,
+      "ci95_high": 0.6244
+    },
+    "component_playability": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n": 18,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0
+    },
+    "component_duplicate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 18,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0
+    },
+    "duplicate_rate": {
+      "mean": 0.037,
+      "std": 0.0641,
+      "n": 18,
+      "ci95_low": 0.0123,
+      "ci95_high": 0.0679
+    },
+    "wall_time_s": {
+      "mean": 39.0646,
+      "std": 45.7858,
+      "n": 18,
+      "ci95_low": 22.7468,
+      "ci95_high": 63.2131
+    }
+  }
+}

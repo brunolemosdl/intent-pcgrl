@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intent-pcgrl"
+version = "0.2.0"
+description = "Language-to-level Super Mario Bros. generation: an LLM writes eight intent targets, a MaskablePPO policy composes and edits the level"
+readme = "README.md"
+authors = [
+    { name = "Bruno Lemos", email = "bruno.lemos@dcc.ufmg.br" },
+    { name = "Luiz Chaimowicz", email = "chaimo@dcc.ufmg.br" },
+]
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+keywords = [
+    "pcgrl",
+    "procedural-content-generation",
+    "reinforcement-learning",
+    "large-language-models",
+    "mario",
+    "level-generation",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pcgrl-app",
+]
+
+[project.urls]
+Repository = "https://github.com/brunolemosdl/intent-pcgrl"
+"Interactive demo" = "https://brunolemosdl.github.io/intent-pcgrl-demo/"
+Issues = "https://github.com/brunolemosdl/intent-pcgrl/issues"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "types-PyYAML",
+    "imageio[ffmpeg]>=2.34",
+]
+
+[tool.setuptools]
+packages = []
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["packages"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+warn_unused_ignores = true
+explicit_package_bases = true
+mypy_path = "packages/pcgrl-core/src:packages/pcgrl-runtime/src:packages/pcgrl-rendering/src:packages/pcgrl-bridge/src:packages/pcgrl-learning/src:packages/pcgrl-app/src"
+exclude = ["build/", "source/"]
+
+[[tool.mypy.overrides]]
+module = [
+    "stable_baselines3.*",
+    "sb3_contrib.*",
+    "gymnasium.*",
+    "torch.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+pythonpath = [
+    "packages/pcgrl-core/src",
+    "packages/pcgrl-runtime/src",
+    "packages/pcgrl-rendering/src",
+    "packages/pcgrl-bridge/src",
+    "packages/pcgrl-learning/src",
+    "packages/pcgrl-app/src",
+]
+python_files = ["*.py"]
+python_functions = ["test_*"]

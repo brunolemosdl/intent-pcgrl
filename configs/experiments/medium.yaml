@@ -1,0 +1,16 @@
+# Steps recalibrated 2026-06-11 for the two-phase episode (~34 decisions vs ~10
+# compose-only): 3x the previous budget keeps the episode count comparable.
+training:
+  total_steps: 1500000
+  num_environments: 8
+  rollout_steps: 2048
+  batch_size: 512
+  num_epochs: 4
+  learning_rate: 0.0003
+  entropy_coefficient: 0.015
+  save_interval_steps: 300000
+  log_interval: 5
+evaluation:
+  eval_every_steps: 300000
+  eval_episodes: 3
+  num_runs: 2

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcgrl-rendering"
+version = "0.2.0"
+description = "PCGRL level rendering (PNG, ASCII, sprites)"
+requires-python = ">=3.11"
+dependencies = [
+    "pcgrl-core",
+    "pillow>=10.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

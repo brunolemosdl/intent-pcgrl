@@ -1,0 +1,264 @@
+experiment:
+  name: mario_ppo
+  seed: 42
+  artifacts_root: artifacts/runs
+  game: mario
+log:
+  level: info
+training:
+  gamma: 1.0
+  gae_lambda: 0.95
+  clip_range: 0.2
+  value_function_coefficient: 0.5
+  max_grad_norm: 0.5
+game:
+  width_tiles: 152
+  height_tiles: 14
+  tile_size_px: 16
+  area_type: overworld
+tiles:
+  empty: '-'
+  solid: X
+  brick: S
+  used_block: D
+  coin: o
+  goomba: g
+  question_block_coin: '?'
+  question_block_empty: Q
+  pipe_top_left: <
+  pipe_top_right: '>'
+  pipe_body_left: '['
+  pipe_body_right: ']'
+  player: M
+  flagpole: F
+aliases:
+  ground: solid
+  solid_block: solid
+  hole: empty
+  tube: pipe_top_left
+  question: question_block_coin
+  goal: flagpole
+categories:
+  solid_like:
+  - solid
+  - brick
+  - question_block_coin
+  - question_block_empty
+  - pipe_top_left
+  - pipe_top_right
+  - pipe_body_left
+  - pipe_body_right
+  enemies:
+  - goomba
+  pipes:
+  - pipe_top_left
+  - pipe_top_right
+  - pipe_body_left
+  - pipe_body_right
+  rewards:
+  - coin
+  - question_block_coin
+layout:
+  player:
+  - -2
+  - 1
+  flagpole:
+  - -2
+  - -2
+  ground_row: -1
+  fixed_regions:
+  - origin:
+    - -2
+    - 0
+    size:
+    - 2
+    - 3
+  - origin:
+    - -2
+    - -3
+    size:
+    - 2
+    - 3
+  fill_full_ground: true
+  ground_tile: solid
+validation:
+  min_solid_ratio: 0.063
+  max_solid_ratio: 0.4
+  min_pipe_height: 2
+  require_grounded_pipes: true
+  require_pipe_width_two: true
+  allow_floating_enemies: false
+  pipe_min_gap: 6
+  max_gap_width: 7
+  max_gap_count: 10
+  min_floating_platform_height: 3
+area_tiles:
+  overworld:
+  - empty
+  - solid
+  - brick
+  - coin
+  - goomba
+  - question_block_coin
+  - question_block_empty
+  - pipe_top_left
+  - pipe_top_right
+  - pipe_body_left
+  - pipe_body_right
+dataset:
+  corpus_root: data/raw/corpus/mario
+  processed_root: data/processed/mario
+model:
+  actor:
+    hidden_dim: 256
+  critic:
+    value_hidden_dim: 256
+reward:
+  gameplay:
+    enabled: true
+    cache: true
+metrics:
+  target_density:
+    enemy: 0.0118
+    coin: 0.0078
+    pipe: 0.0361
+    platform: 0.1701
+    block: 0.0215
+  target_density_ranges:
+    enemy:
+      min: 0.0
+      max: 0.0118
+    coin:
+      min: 0.0
+      max: 0.0078
+    pipe:
+      min: 0.0
+      max: 0.0361
+    platform:
+      min: 0.0
+      max: 0.1701
+    block:
+      min: 0.0
+      max: 0.0215
+  semantic:
+    coin_max_height_above_surface: 7
+    block_max_height_above_surface: 8
+    min_platform_width: 3
+  spatial:
+    segment_count: 8
+    concentration_threshold: 0.4
+  corpus_profile:
+    enabled: true
+    density_pct: 95
+    coin_height_max_pct: 90
+    block_height_max_pct: 90
+    platform_min_curve_threshold: 0.1
+    gap_width_pct: 90
+    gap_count_pct: 90
+    pipe_gap_pct: 25
+environment:
+  parallel_env_seed_stride: 997
+  composer:
+    # Edit-phase budget of the two-phase episode (macro-edits after the
+    # composition closes); 0 is an experiment-only compose-only ablation.
+    edit_budget: 24
+generation:
+  max_attempts: 5
+  require_gameplay_bridge: true
+  require_bridge_win: true
+  bridge_num_runs: 3
+  minimum_completion_ratio: 0.95
+  bridge_validation_start_fraction: 0.0
+  polish:
+    enabled: true
+    tolerance: 0.05
+    max_passes: 3
+evaluation:
+  agents:
+  - robinBaumgarten
+  - sergeyKarakovskiy
+  require_gameplay_bridge: true
+  timer_seconds: 30
+  mario_state: 0
+  num_runs: 5
+  benchmark_seeds:
+  - 11
+  - 22
+  - 33
+  benchmark_levels_per_seed: 10
+  target_suite:
+  - name: low_enemy
+    overrides:
+      enemy_density: 0.1
+  - name: high_enemy
+    overrides:
+      enemy_density: 0.9
+  - name: low_coin
+    overrides:
+      coin_density: 0.1
+  - name: high_coin
+    overrides:
+      coin_density: 0.9
+  - name: low_verticality
+    overrides:
+      verticality: 0.1
+  - name: high_verticality
+    overrides:
+      verticality: 0.9
+  - name: low_platform_usage
+    overrides:
+      platform_usage: 0.1
+  - name: high_platform_usage
+    overrides:
+      platform_usage: 0.9
+  - name: easy_level
+    overrides:
+      gap_difficulty: 0.1
+      enemy_density: 0.2
+      path_smoothness: 0.9
+  - name: hard_level
+    overrides:
+      gap_difficulty: 0.8
+      enemy_density: 0.8
+      path_smoothness: 0.4
+  - name: balanced_level
+    overrides:
+      enemy_density: 0.5
+      coin_density: 0.5
+      interactive_block_density: 0.5
+      pipe_density: 0.5
+      gap_difficulty: 0.5
+      verticality: 0.5
+      path_smoothness: 0.5
+      platform_usage: 0.5
+  - name: sparse_level
+    overrides:
+      enemy_density: 0.1
+      coin_density: 0.1
+      interactive_block_density: 0.15
+      pipe_density: 0.1
+      platform_usage: 0.15
+  eval_episodes: 3
+  benchmark_episodes: 50
+  eval_every_steps: 100000
+  minimum_agent_win_rate: 0.75
+  minimum_average_completion: 0.85
+default_target:
+  enemy_density: 0.5
+  coin_density: 0.4
+  interactive_block_density: 0.5
+  pipe_density: 0.3
+  gap_difficulty: 0.4
+  # Corpus-typical on the band-renormalised verticality scale
+  # ((0.75 - 0.41) / (0.92 - 0.41) from the old default).
+  verticality: 0.65
+  # Corpus-typical on the E5 band-renormalised scales (achievable medians:
+  # raw smoothness ~0.76 -> 0.40, raw platform usage ~0.23 -> 0.55).
+  path_smoothness: 0.40
+  platform_usage: 0.55
+translator:
+  # LLM bridge default: the user's configured key is OPENAI_API_KEY (.env).
+  # Override the provider or point base_url at a local server as needed.
+  provider: openai_compatible
+  model: gpt-5.2
+  mode: record

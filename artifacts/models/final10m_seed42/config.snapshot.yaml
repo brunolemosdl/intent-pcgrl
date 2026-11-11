@@ -1,0 +1,349 @@
+provenance:
+  dataset_meta_hash: 7a947df6e6f38b28138ce65694558aff
+  bridge_jar_hash: 2310955c3fccdd931874272e703e6e9a
+config:
+  experiment:
+    name: mario_ppo
+    seed: 42
+    artifacts_root: artifacts/runs
+    game: mario
+  log:
+    level: info
+  game:
+    width_tiles: 152
+    height_tiles: 14
+    tile_size_px: 16
+    area_type: overworld
+  tiles:
+    empty: '-'
+    solid: X
+    brick: S
+    used_block: D
+    coin: o
+    goomba: g
+    question_block_coin: '?'
+    question_block_empty: Q
+    pipe_top_left: <
+    pipe_top_right: '>'
+    pipe_body_left: '['
+    pipe_body_right: ']'
+    player: M
+    flagpole: F
+  aliases:
+    ground: solid
+    solid_block: solid
+    hole: empty
+    tube: pipe_top_left
+    question: question_block_coin
+    goal: flagpole
+  categories:
+    solid_like:
+    - solid
+    - brick
+    - question_block_coin
+    - question_block_empty
+    - pipe_top_left
+    - pipe_top_right
+    - pipe_body_left
+    - pipe_body_right
+    enemies:
+    - goomba
+    pipes:
+    - pipe_top_left
+    - pipe_top_right
+    - pipe_body_left
+    - pipe_body_right
+    rewards:
+    - coin
+    - question_block_coin
+  validation:
+    jump_height: 4
+    jump_reach: 5
+    min_solid_ratio: 0.063
+    max_solid_ratio: 0.4
+    min_pipe_height: 2
+    require_grounded_pipes: true
+    require_pipe_width_two: true
+    allow_floating_enemies: false
+    pipe_min_gap: 6
+    max_gap_width: 7
+    max_gap_count: 10
+    min_floating_platform_height: 3
+  layout:
+    player:
+    - -2
+    - 1
+    flagpole:
+    - -2
+    - -2
+    ground_row: -1
+    fixed_regions:
+    - origin:
+      - -2
+      - 0
+      size:
+      - 2
+      - 3
+    - origin:
+      - -2
+      - -3
+      size:
+      - 2
+      - 3
+    fill_full_ground: true
+    ground_tile: solid
+  area_tiles:
+    overworld:
+    - empty
+    - solid
+    - brick
+    - coin
+    - goomba
+    - question_block_coin
+    - question_block_empty
+    - pipe_top_left
+    - pipe_top_right
+    - pipe_body_left
+    - pipe_body_right
+  dataset:
+    corpus_root: data/raw/corpus/mario
+    processed_root: data/processed/mario
+  library:
+    level_sets:
+    - mario-1
+    output_root: data/processed/mario/library
+    chunk_widths:
+    - 16
+    stride_tiles: 8
+    max_chunks: 800
+    deduplicate: true
+    heldout_level_fraction: 0.2
+    ending_columns: 16
+    viability_episodes: 300
+  model:
+    actor:
+      hidden_dim: 256
+    critic:
+      value_hidden_dim: 256
+  training:
+    total_steps: 10000000
+    num_environments: 8
+    rollout_steps: 2048
+    batch_size: 1024
+    num_epochs: 6
+    learning_rate: 0.0002
+    gamma: 1.0
+    gae_lambda: 0.95
+    clip_range: 0.2
+    entropy_coefficient: 0.005
+    value_function_coefficient: 0.5
+    max_grad_norm: 0.5
+    log_interval: 20
+    save_interval_steps: 1000000
+  reward:
+    composer:
+      weight_alignment: 4.0
+      alignment_mean_weight: 0.6
+      alignment_max_weight: 0.4
+      weight_style: 2.0
+      style_pattern_size: 3
+      weight_playability: 3.0
+      weight_duplicate: 1.0
+    gameplay:
+      enabled: true
+      cache: true
+  metrics:
+    target_density:
+      enemy: 0.01179228896629246
+      coin: 0.007788433799368139
+      pipe: 0.03614702718741885
+      platform: 0.17011616713542327
+      block: 0.021484700920827073
+    target_density_ranges:
+      enemy:
+        min: 0.0
+        max: 0.01179228896629246
+      coin:
+        min: 0.0
+        max: 0.007788433799368139
+      pipe:
+        min: 0.0
+        max: 0.03614702718741885
+      platform:
+        min: 0.0
+        max: 0.17011616713542327
+      block:
+        min: 0.0
+        max: 0.021484700920827073
+    verticality_band:
+      min: 0.41
+      max: 0.92
+    path_smoothness_band:
+      min: 0.64
+      max: 0.93
+    platform_usage_band:
+      min: 0.11
+      max: 0.34
+    spatial:
+      segment_count: 8
+      concentration_threshold: 0.4
+    semantic:
+      coin_max_height_above_surface: 7
+      block_max_height_above_surface: 8
+      min_platform_width: 3
+    corpus_profile:
+      enabled: true
+      density_pct: 95
+      coin_height_max_pct: 90
+      block_height_max_pct: 90
+      platform_min_curve_threshold: 0.1
+      gap_width_pct: 90
+      gap_count_pct: 90
+      pipe_gap_pct: 25
+  environment:
+    composer:
+      duplicate_window: 3
+      require_start_family: true
+      require_ending_family: true
+      intent_budget_mask: true
+      width_slack_tiles: 8
+      edit_budget: 24
+      target_mix:
+        viability: 0.4
+        uniform: 0.4
+        corners: 0.2
+    parallel_env_seed_stride: 997
+  generation:
+    max_attempts: 5
+    require_gameplay_bridge: true
+    require_bridge_win: true
+    bridge_num_runs: 3
+    minimum_completion_ratio: 0.95
+    bridge_validation_start_fraction: 0.0
+    polish:
+      enabled: true
+      tolerance: 0.05
+      max_passes: 3
+  evaluation:
+    agents:
+    - robinBaumgarten
+    - sergeyKarakovskiy
+    require_gameplay_bridge: true
+    timer_seconds: 30
+    mario_state: 0
+    num_runs: 5
+    benchmark_seeds:
+    - 11
+    - 22
+    - 33
+    benchmark_levels_per_seed: 10
+    target_suite:
+    - name: low_enemy
+      overrides:
+        enemy_density: 0.1
+    - name: high_enemy
+      overrides:
+        enemy_density: 0.9
+    - name: low_coin
+      overrides:
+        coin_density: 0.1
+    - name: high_coin
+      overrides:
+        coin_density: 0.9
+    - name: low_verticality
+      overrides:
+        verticality: 0.1
+    - name: high_verticality
+      overrides:
+        verticality: 0.9
+    - name: low_platform_usage
+      overrides:
+        platform_usage: 0.1
+    - name: high_platform_usage
+      overrides:
+        platform_usage: 0.9
+    - name: easy_level
+      overrides:
+        gap_difficulty: 0.1
+        enemy_density: 0.2
+        path_smoothness: 0.9
+    - name: hard_level
+      overrides:
+        gap_difficulty: 0.8
+        enemy_density: 0.8
+        path_smoothness: 0.4
+    - name: balanced_level
+      overrides:
+        enemy_density: 0.5
+        coin_density: 0.5
+        interactive_block_density: 0.5
+        pipe_density: 0.5
+        gap_difficulty: 0.5
+        verticality: 0.5
+        path_smoothness: 0.5
+        platform_usage: 0.5
+    - name: sparse_level
+      overrides:
+        enemy_density: 0.1
+        coin_density: 0.1
+        interactive_block_density: 0.15
+        pipe_density: 0.1
+        platform_usage: 0.15
+    eval_episodes: 5
+    benchmark_episodes: 50
+    eval_every_steps: 1000000
+    minimum_agent_win_rate: 0.75
+    minimum_average_completion: 0.85
+    controllability:
+      sweep_values:
+      - 0.0
+      - 0.1
+      - 0.3
+      - 0.5
+      - 0.7
+      - 0.9
+      - 1.0
+      levels_per_value: 10
+      max_mae: 0.1
+      min_spearman: 0.8
+    calibration:
+      num_levels: 120
+      max_false_playable: 0.05
+      jump_height_candidates:
+      - 3
+      - 4
+      - 5
+      jump_reach_candidates:
+      - 4
+      - 5
+      - 6
+      - 7
+    tpkl_sizes:
+    - 2
+    - 3
+    - 4
+  interface:
+    refresh_ms: 50
+    viewport_size_px: 640
+    sidebar_width_px: 320
+    min_zoom: 0.25
+    max_zoom: 4.0
+    zoom_step: 1.15
+    default_target:
+      enemy_density: 0.5
+      coin_density: 0.4
+      interactive_block_density: 0.5
+      pipe_density: 0.3
+      gap_difficulty: 0.4
+      verticality: 0.65
+      path_smoothness: 0.4
+      platform_usage: 0.55
+  translator:
+    provider: openai_compatible
+    mode: record
+    model: gpt-5.2
+    max_tokens: 1024
+    base_url: null
+    api_key_env: null
+    store_path: data/descriptions/recorded_store.json
+    grounding: true

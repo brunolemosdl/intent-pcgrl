@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software or its artifacts, please cite the paper below."
+title: "intent-pcgrl: Bridging LLMs and PCGRL for Mario Level Generation"
+type: software
+authors:
+  - family-names: Lemos
+    given-names: Bruno
+    email: bruno.lemos@dcc.ufmg.br
+    orcid: "https://orcid.org/0009-0000-7906-1751"
+    affiliation: "Federal University of Minas Gerais (UFMG)"
+  - family-names: Chaimowicz
+    given-names: Luiz
+    email: chaimo@dcc.ufmg.br
+    orcid: "https://orcid.org/0000-0001-8156-9941"
+    affiliation: "Federal University of Minas Gerais (UFMG)"
+repository-code: "https://github.com/brunolemosdl/intent-pcgrl"
+url: "https://brunolemosdl.github.io/intent-pcgrl-demo/"
+license: MIT
+keywords:
+  - procedural content generation
+  - reinforcement learning
+  - large language models
+  - Super Mario Bros.
+preferred-citation:
+  type: conference-paper
+  title: "Did You Get the Level You Asked For? Bridging LLMs and PCGRL for Mario Level Generation"
+  authors:
+    - family-names: Lemos
+      given-names: Bruno
+    - family-names: Chaimowicz
+      given-names: Luiz
+  collection-title: "Proceedings of the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE)"
+  conference:
+    name: "AIIDE 2026"
+  year: 2026

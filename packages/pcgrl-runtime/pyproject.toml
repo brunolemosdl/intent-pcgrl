@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcgrl-runtime"
+version = "0.2.0"
+description = "PCGRL Gym environment, validators, rewards, and metrics"
+requires-python = ">=3.11"
+dependencies = [
+    "pcgrl-core",
+    "gymnasium>=0.29",
+    "numpy>=1.26",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

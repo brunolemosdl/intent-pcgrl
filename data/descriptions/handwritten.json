@@ -1,0 +1,173 @@
+[
+  {
+    "description": "A flat, easy level with many coins and no gaps.",
+    "overrides": {
+      "verticality": 0.05,
+      "path_smoothness": 0.95,
+      "gap_difficulty": 0.05,
+      "coin_density": 0.7,
+      "enemy_density": 0.2
+    }
+  },
+  {
+    "description": "Packed with enemies and wide pits; a real challenge.",
+    "overrides": {
+      "enemy_density": 0.95,
+      "gap_difficulty": 0.8
+    }
+  },
+  {
+    "description": "A peaceful stroll: no enemies, no gaps, just a few coins.",
+    "overrides": {
+      "enemy_density": 0.05,
+      "gap_difficulty": 0.05,
+      "coin_density": 0.2
+    }
+  },
+  {
+    "description": "Lots of pipes everywhere, like a plumbing yard.",
+    "overrides": {
+      "pipe_density": 0.7
+    }
+  },
+  {
+    "description": "A vertical climbing stage full of floating platforms.",
+    "overrides": {
+      "verticality": 0.9,
+      "platform_usage": 0.7
+    }
+  },
+  {
+    "description": "Mostly ground running with the occasional goomba.",
+    "overrides": {
+      "platform_usage": 0.15,
+      "enemy_density": 0.2
+    }
+  },
+  {
+    "description": "Question blocks and bricks at every step.",
+    "overrides": {
+      "interactive_block_density": 0.9
+    }
+  },
+  {
+    "description": "A hilly course with some coins and a couple of pipes.",
+    "overrides": {
+      "verticality": 0.7,
+      "coin_density": 0.4,
+      "pipe_density": 0.3
+    }
+  },
+  {
+    "description": "Hard mode: many enemies, many gaps, rough terrain.",
+    "overrides": {
+      "enemy_density": 0.7,
+      "gap_difficulty": 0.7,
+      "path_smoothness": 0.2
+    }
+  },
+  {
+    "description": "Coin heaven with barely any danger.",
+    "overrides": {
+      "coin_density": 0.9,
+      "enemy_density": 0.1,
+      "gap_difficulty": 0.1
+    }
+  },
+  {
+    "description": "No coins, no blocks, just running and jumping over pits.",
+    "overrides": {
+      "coin_density": 0.05,
+      "interactive_block_density": 0.05,
+      "gap_difficulty": 0.6
+    }
+  },
+  {
+    "description": "A smooth, gentle ride with sparse decorations.",
+    "overrides": {
+      "path_smoothness": 0.95,
+      "coin_density": 0.2,
+      "interactive_block_density": 0.2
+    }
+  },
+  {
+    "description": "An obstacle course of pipes and platforms.",
+    "overrides": {
+      "pipe_density": 0.7,
+      "platform_usage": 0.7
+    }
+  },
+  {
+    "description": "Classic first level feel: balanced everything.",
+    "overrides": {}
+  },
+  {
+    "description": "Maximum chaos: everything everywhere all at once.",
+    "overrides": {
+      "enemy_density": 0.95,
+      "coin_density": 0.95,
+      "interactive_block_density": 0.95,
+      "pipe_density": 0.95
+    }
+  },
+  {
+    "description": "A staircase to the sky with brutal jumps.",
+    "overrides": {
+      "verticality": 0.9,
+      "gap_difficulty": 0.8
+    }
+  },
+  {
+    "description": "Underground vibes: tight, blocky, and full of bricks.",
+    "overrides": {
+      "interactive_block_density": 0.7
+    }
+  },
+  {
+    "description": "A speedrunner's dream: flat and empty.",
+    "overrides": {
+      "verticality": 0.05,
+      "enemy_density": 0.05,
+      "coin_density": 0.05,
+      "interactive_block_density": 0.05,
+      "path_smoothness": 0.95
+    }
+  },
+  {
+    "description": "Sparse enemies but every one placed to hurt.",
+    "overrides": {
+      "enemy_density": 0.2
+    }
+  },
+  {
+    "description": "Bridges over endless chasms.",
+    "overrides": {
+      "gap_difficulty": 0.9,
+      "platform_usage": 0.7
+    }
+  },
+  {
+    "description": "A garden of pipes with coins tucked between them.",
+    "overrides": {
+      "pipe_density": 0.7,
+      "coin_density": 0.4
+    }
+  },
+  {
+    "description": "Rolling hills, few hazards, plenty to collect.",
+    "overrides": {
+      "verticality": 0.7,
+      "enemy_density": 0.2,
+      "gap_difficulty": 0.2,
+      "coin_density": 0.7
+    }
+  },
+  {
+    "description": "Make it weird.",
+    "overrides": null
+  },
+  {
+    "description": "Something that would scare a speedrunner.",
+    "overrides": null
+  }
+]

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, type-check and test (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: "**/pyproject.toml"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # CPU-only PyTorch keeps the runner image small; `make setup` reuses this venv.
+      - name: Install CPU PyTorch
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -U pip wheel
+          .venv/bin/pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install workspace packages
+        run: make setup
+
+      - name: Lint, type-check, CLI dry-runs and unit tests
+        run: make check
+
+      - name: Check formatting
+        run: .venv/bin/ruff format --check packages tests main.py
+
+      - name: Build the Mario gameplay bridge
+        run: make bridge
+
+      - name: Integration tests
+        run: make test-integration

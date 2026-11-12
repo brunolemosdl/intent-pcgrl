@@ -1,0 +1,26 @@
+{
+  "enemy_density": {
+    "spearman_rho": 0.9918,
+    "slope": 0.8064,
+    "r2": 0.9876,
+    "n": 15
+  },
+  "coin_density": {
+    "spearman_rho": 0.9694,
+    "slope": 0.5453,
+    "r2": 0.9079,
+    "n": 15
+  },
+  "interactive_block_density": {
+    "spearman_rho": 0.9936,
+    "slope": 0.9547,
+    "r2": 0.9947,
+    "n": 15
+  },
+  "pipe_density": {
+    "spearman_rho": 0.9667,
+    "slope": 0.6273,
+    "r2": 0.945,
+    "n": 15
+  }
+}

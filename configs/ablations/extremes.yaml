@@ -1,0 +1,47 @@
+# Corpus-hostile evaluation suite (E8): six corner targets outside what chunk
+# recombination can reach. Merge on top of the game config with
+# `--config configs/ablations/extremes.yaml`.
+evaluation:
+  target_suite:
+  - name: flat_empty
+    overrides:
+      enemy_density: 0.0
+      coin_density: 0.0
+      interactive_block_density: 0.0
+      pipe_density: 0.0
+      gap_difficulty: 0.0
+      verticality: 0.0
+      path_smoothness: 1.0
+      platform_usage: 0.0
+  - name: gaps_platforms
+    overrides:
+      enemy_density: 0.0
+      coin_density: 0.0
+      interactive_block_density: 0.0
+      pipe_density: 0.0
+      gap_difficulty: 1.0
+      verticality: 0.0
+      path_smoothness: 0.6
+      platform_usage: 1.0
+  - name: tall_smooth
+    overrides:
+      enemy_density: 0.2
+      coin_density: 0.3
+      interactive_block_density: 0.2
+      pipe_density: 0.1
+      gap_difficulty: 0.2
+      verticality: 1.0
+      path_smoothness: 1.0
+      platform_usage: 0.2
+  - name: zero_enemy_gap
+    overrides:
+      enemy_density: 0.0
+      gap_difficulty: 0.0
+  - name: max_coins_blocks
+    overrides:
+      coin_density: 1.0
+      interactive_block_density: 1.0
+  - name: max_enemies
+    overrides:
+      enemy_density: 1.0
+      gap_difficulty: 0.8

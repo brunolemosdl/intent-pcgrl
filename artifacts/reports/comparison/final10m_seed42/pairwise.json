@@ -1,0 +1,86 @@
+[
+  {
+    "a": "ppo",
+    "b": "ppo_best_of_n",
+    "metric": "terminal_reward",
+    "delta": -0.0532,
+    "p_value": 0.0773
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_best_of_n",
+    "metric": "intent_error_mean",
+    "delta": 0.0055,
+    "p_value": 0.0108
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_best_of_n_polished",
+    "metric": "terminal_reward",
+    "delta": 0.0366,
+    "p_value": 0.4204
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_best_of_n_polished",
+    "metric": "intent_error_mean",
+    "delta": 0.0106,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo",
+    "b": "beam_search",
+    "metric": "terminal_reward",
+    "delta": 1.225,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo",
+    "b": "beam_search",
+    "metric": "intent_error_mean",
+    "delta": -0.1014,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_best_of_n",
+    "b": "ppo_best_of_n_polished",
+    "metric": "terminal_reward",
+    "delta": 0.0898,
+    "p_value": 0.0399
+  },
+  {
+    "a": "ppo_best_of_n",
+    "b": "ppo_best_of_n_polished",
+    "metric": "intent_error_mean",
+    "delta": 0.0051,
+    "p_value": 0.0033
+  },
+  {
+    "a": "ppo_best_of_n",
+    "b": "beam_search",
+    "metric": "terminal_reward",
+    "delta": 1.2783,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_best_of_n",
+    "b": "beam_search",
+    "metric": "intent_error_mean",
+    "delta": -0.1069,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_best_of_n_polished",
+    "b": "beam_search",
+    "metric": "terminal_reward",
+    "delta": 1.1885,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_best_of_n_polished",
+    "b": "beam_search",
+    "metric": "intent_error_mean",
+    "delta": -0.112,
+    "p_value": 0.0001
+  }
+]

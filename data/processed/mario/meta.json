@@ -1,0 +1,35 @@
+{
+  "level_count": 37,
+  "tile_distribution_train": [
+    0.8764780972856759,
+    0.08067387798978769,
+    0.019643576995431334,
+    0.0,
+    0.0038548105348024725,
+    0.005156543939801129,
+    0.0008398280032249396,
+    0.0020071889277076056,
+    0.0016628594463853803,
+    0.0016544611663531308,
+    0.0040059795753829616,
+    0.00402277613544746,
+    0.0,
+    0.0
+  ],
+  "tile_catalog": {
+    "empty": "-",
+    "solid": "X",
+    "brick": "S",
+    "used_block": "D",
+    "coin": "o",
+    "goomba": "g",
+    "question_block_coin": "?",
+    "question_block_empty": "Q",
+    "pipe_top_left": "<",
+    "pipe_top_right": ">",
+    "pipe_body_left": "[",
+    "pipe_body_right": "]",
+    "player": "M",
+    "flagpole": "F"
+  }
+}

@@ -1,0 +1,49 @@
+suite,description,source,clamped,translation_error_mean,translation_error_max,error_enemy_density,error_coin_density,error_interactive_block_density,error_pipe_density,error_gap_difficulty,error_verticality,error_path_smoothness,error_platform_usage
+templated,"A level with many enemies, some coins, as many blocks as possible, many pipes, no gaps, a mountainous path, a smooth path, many platforms.",openai_compatible,False,0.0306,0.15,0.0,0.0,0.0,0.0,0.06,0.035,0.15,0.0
+templated,"A level with few enemies, some coins, some blocks, as many pipes as possible, many gaps, a hilly path, some smoothness, few platforms.",openai_compatible,False,0.0604,0.25,0.0,0.0,0.0,0.25,0.1,0.0333,0.1,0.0
+templated,"A level with many enemies, no coins, as many blocks as possible, many pipes, many gaps, a flat path, a smooth path, as many platforms as possible.",openai_compatible,False,0.049,0.2016,0.0,0.0,0.0,0.0,0.09,0.2016,0.1,0.0
+templated,"A level with many enemies, few coins, some blocks, no pipes, few gaps, a hilly path, a smooth path, as many platforms as possible.",openai_compatible,False,0.0229,0.15,0.0,0.0,0.0,0.0,0.0,0.0333,0.15,0.0
+templated,"A level with some enemies, some coins, some blocks, few pipes, few gaps, a flat path, a rough path, many platforms.",openai_compatible,False,0.0315,0.2016,0.0,0.0,0.0,0.0,0.0,0.2016,0.05,0.0
+templated,"A level with some enemies, as many coins as possible, many blocks, some pipes, as many gaps as possible, a hilly path, some smoothness, few platforms.",openai_compatible,False,0.1029,0.35,0.0,0.35,0.0,0.0,0.34,0.0333,0.1,0.0
+templated,"A level with many enemies, few coins, few blocks, no pipes, many gaps, a hilly path, a smooth path, many platforms.",openai_compatible,False,0.0342,0.15,0.0,0.0,0.0,0.0,0.09,0.0333,0.15,0.0
+templated,"A level with some enemies, many coins, few blocks, no pipes, many gaps, a flat path, some smoothness, many platforms.",openai_compatible,False,0.0927,0.25,0.0,0.1,0.0,0.0,0.09,0.2016,0.1,0.25
+templated,"A level with many enemies, many coins, many blocks, some pipes, no gaps, a flat path, a rough path, some platforms.",openai_compatible,False,0.0515,0.2016,0.0,0.1,0.0,0.0,0.06,0.2016,0.05,0.0
+templated,"A level with as many enemies as possible, few coins, no blocks, few pipes, few gaps, a hilly path, some smoothness, many platforms.",openai_compatible,False,0.0254,0.1,0.07,0.0,0.0,0.0,0.0,0.0333,0.1,0.0
+templated,"A level with many enemies, some coins, many blocks, few pipes, no gaps, a flat path, a smooth path, some platforms.",openai_compatible,False,0.0452,0.2016,0.0,0.0,0.0,0.0,0.06,0.2016,0.1,0.0
+templated,"A level with few enemies, some coins, few blocks, many pipes, some gaps, a flat path, some smoothness, many platforms.",openai_compatible,False,0.0377,0.2016,0.0,0.0,0.0,0.0,0.0,0.2016,0.1,0.0
+templated,"A level with some enemies, no coins, no blocks, as many pipes as possible, as many gaps as possible, a hilly path, a rough path, as many platforms as possible.",openai_compatible,False,0.0904,0.34,0.0,0.0,0.0,0.25,0.34,0.0333,0.05,0.05
+templated,"A level with many enemies, many coins, some blocks, few pipes, no gaps, a mountainous path, some smoothness, few platforms.",openai_compatible,False,0.0369,0.1,0.0,0.1,0.0,0.0,0.06,0.035,0.1,0.0
+templated,"A level with some enemies, many coins, few blocks, as many pipes as possible, many gaps, a hilly path, some smoothness, many platforms.",openai_compatible,False,0.0717,0.25,0.0,0.1,0.0,0.25,0.09,0.0333,0.1,0.0
+templated,"A level with many enemies, many coins, no blocks, some pipes, no gaps, a flat path, some smoothness, few platforms.",openai_compatible,False,0.0577,0.2016,0.0,0.1,0.0,0.0,0.06,0.2016,0.1,0.0
+templated,"A level with no enemies, many coins, few blocks, as many pipes as possible, many gaps, a flat path, some smoothness, no platforms.",openai_compatible,False,0.0965,0.25,0.03,0.1,0.0,0.25,0.09,0.2016,0.1,0.0
+templated,"A level with as many enemies as possible, some coins, many blocks, no pipes, some gaps, a flat path, a smooth path, many platforms.",openai_compatible,False,0.0465,0.2016,0.07,0.0,0.0,0.0,0.0,0.2016,0.1,0.0
+templated,"A level with some enemies, few coins, some blocks, some pipes, some gaps, a flat path, a smooth path, as many platforms as possible.",openai_compatible,False,0.044,0.2016,0.0,0.0,0.0,0.0,0.0,0.2016,0.15,0.0
+templated,"A level with few enemies, many coins, no blocks, many pipes, few gaps, a hilly path, a smooth path, many platforms.",openai_compatible,False,0.0354,0.15,0.0,0.1,0.0,0.0,0.0,0.0333,0.15,0.0
+templated,"A level with no enemies, as many coins as possible, few blocks, no pipes, many gaps, a flat path, a smooth path, many platforms.",openai_compatible,False,0.134,0.35,0.03,0.35,0.0,0.05,0.09,0.2016,0.1,0.25
+templated,"A level with some enemies, as many coins as possible, few blocks, some pipes, few gaps, a mountainous path, a rough path, no platforms.",openai_compatible,False,0.0544,0.35,0.0,0.35,0.0,0.0,0.0,0.035,0.05,0.0
+templated,"A level with some enemies, as many coins as possible, as many blocks as possible, many pipes, as many gaps as possible, a mountainous path, some smoothness, some platforms.",openai_compatible,False,0.1031,0.35,0.0,0.35,0.0,0.0,0.34,0.035,0.1,0.0
+templated,"A level with many enemies, many coins, some blocks, no pipes, many gaps, a flat path, a smooth path, few platforms.",openai_compatible,False,0.0677,0.2016,0.0,0.1,0.0,0.0,0.09,0.2016,0.15,0.0
+handwritten,"A flat, easy level with many coins and no gaps.",openai_compatible,False,0.0575,0.3,0.3,0.1,0.0,0.0,0.06,0.0,0.0,0.0
+handwritten,Packed with enemies and wide pits; a real challenge.,openai_compatible,False,0.0325,0.19,0.07,0.0,0.0,0.0,0.19,0.0,0.0,0.0
+handwritten,"A peaceful stroll: no enemies, no gaps, just a few coins.",openai_compatible,False,0.0113,0.06,0.03,0.0,0.0,0.0,0.06,0.0,0.0,0.0
+handwritten,"Lots of pipes everywhere, like a plumbing yard.",openai_compatible,False,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+handwritten,A vertical climbing stage full of floating platforms.,openai_compatible,False,0.0375,0.25,0.0,0.0,0.0,0.0,0.0,0.05,0.0,0.25
+handwritten,Mostly ground running with the occasional goomba.,openai_compatible,False,0.05,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.4
+handwritten,Question blocks and bricks at every step.,openai_compatible,False,0.0063,0.05,0.0,0.0,0.05,0.0,0.0,0.0,0.0,0.0
+handwritten,A hilly course with some coins and a couple of pipes.,openai_compatible,False,0.0125,0.1,0.0,0.0,0.0,0.1,0.0,0.0,0.0,0.0
+handwritten,"Hard mode: many enemies, many gaps, rough terrain.",openai_compatible,False,0.0113,0.09,0.0,0.0,0.0,0.0,0.09,0.0,0.0,0.0
+handwritten,Coin heaven with barely any danger.,openai_compatible,False,0.0413,0.3,0.02,0.3,0.0,0.0,0.01,0.0,0.0,0.0
+handwritten,"No coins, no blocks, just running and jumping over pits.",openai_compatible,False,0.0125,0.1,0.0,0.0,0.0,0.0,0.1,0.0,0.0,0.0
+handwritten,"A smooth, gentle ride with sparse decorations.",openai_compatible,False,0.0563,0.25,0.0,0.2,0.0,0.0,0.0,0.0,0.25,0.0
+handwritten,An obstacle course of pipes and platforms.,openai_compatible,False,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+handwritten,Classic first level feel: balanced everything.,openai_compatible,False,0.0325,0.11,0.02,0.0,0.11,0.0,0.08,0.02,0.01,0.02
+handwritten,Maximum chaos: everything everywhere all at once.,openai_compatible,False,0.2412,0.4,0.07,0.35,0.0,0.25,0.21,0.3,0.35,0.4
+handwritten,A staircase to the sky with brutal jumps.,openai_compatible,False,0.0738,0.2,0.0,0.0,0.0,0.0,0.19,0.05,0.2,0.15
+handwritten,"Underground vibes: tight, blocky, and full of bricks.",openai_compatible,False,0.0313,0.25,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0
+handwritten,A speedrunner's dream: flat and empty.,openai_compatible,False,0.1375,0.5,0.03,0.0,0.03,0.25,0.29,0.0,0.0,0.5
+handwritten,Sparse enemies but every one placed to hurt.,openai_compatible,False,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+handwritten,Bridges over endless chasms.,openai_compatible,False,0.055,0.29,0.0,0.0,0.0,0.0,0.29,0.0,0.0,0.15
+handwritten,A garden of pipes with coins tucked between them.,openai_compatible,False,0.025,0.2,0.0,0.2,0.0,0.0,0.0,0.0,0.0,0.0
+handwritten,"Rolling hills, few hazards, plenty to collect.",openai_compatible,False,0.0875,0.3,0.3,0.1,0.0,0.0,0.0,0.0,0.3,0.0
+handwritten,Make it weird.,openai_compatible,False,,,,,,,,,,
+handwritten,Something that would scare a speedrunner.,openai_compatible,False,,,,,,,,,,

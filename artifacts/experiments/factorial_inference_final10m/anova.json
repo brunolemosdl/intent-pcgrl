@@ -1,0 +1,92 @@
+{
+  "design": "full_2^k",
+  "n_runs": 16,
+  "translation_error_mean": [
+    {
+      "name": "G_grounding",
+      "effect": 0.018349999999999998,
+      "p_value": 0.0004997501249375312,
+      "order": 1
+    },
+    {
+      "name": "G_grounding:S_style",
+      "effect": 0.009850000000000005,
+      "p_value": 0.0765,
+      "order": 2
+    },
+    {
+      "name": "S_style",
+      "effect": 0.00010000000000000286,
+      "p_value": 0.947,
+      "order": 1
+    },
+    {
+      "name": "N_best_of",
+      "effect": 0.0,
+      "p_value": 1.0,
+      "order": 1
+    },
+    {
+      "name": "G_grounding:N_best_of",
+      "effect": 0.0,
+      "p_value": 1.0,
+      "order": 2
+    },
+    {
+      "name": "S_style:N_best_of",
+      "effect": 0.0,
+      "p_value": 1.0,
+      "order": 2
+    },
+    {
+      "name": "G_grounding:S_style:N_best_of",
+      "effect": 0.0,
+      "p_value": 1.0,
+      "order": 3
+    }
+  ],
+  "e2e_intent_error_mean": [
+    {
+      "name": "G_grounding",
+      "effect": 0.016325,
+      "p_value": 0.0004997501249375312,
+      "order": 1
+    },
+    {
+      "name": "G_grounding:S_style",
+      "effect": 0.01050000000000001,
+      "p_value": 0.067,
+      "order": 2
+    },
+    {
+      "name": "N_best_of",
+      "effect": -0.0025000000000000022,
+      "p_value": 0.674,
+      "order": 1
+    },
+    {
+      "name": "S_style:N_best_of",
+      "effect": 0.0016249999999999876,
+      "p_value": 0.787,
+      "order": 2
+    },
+    {
+      "name": "S_style",
+      "effect": 0.001350000000000004,
+      "p_value": 0.8,
+      "order": 1
+    },
+    {
+      "name": "G_grounding:S_style:N_best_of",
+      "effect": -0.0010249999999999981,
+      "p_value": 0.8645,
+      "order": 3
+    },
+    {
+      "name": "G_grounding:N_best_of",
+      "effect": 0.0005499999999999949,
+      "p_value": 0.915,
+      "order": 2
+    }
+  ]
+}

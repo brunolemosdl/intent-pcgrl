@@ -1,0 +1,6 @@
+# Compose-only ablation (E8): the episode ends when the composition closes,
+# so the policy trains and is evaluated without the edit phase. Merge on top
+# of the game config with `--config configs/ablations/compose_only.yaml`.
+environment:
+  composer:
+    edit_budget: 0

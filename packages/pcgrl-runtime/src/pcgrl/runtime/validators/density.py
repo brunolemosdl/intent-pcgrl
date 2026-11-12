@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Literal
 
+import numpy as np
+
 from pcgrl.core.domain.contract import ValidationResult, Violation
 from pcgrl.core.domain.level import LevelGrid
 from pcgrl.core.settings.schema import RuntimeConfig
@@ -20,7 +22,11 @@ class DensityValidator:
         """
         self._config = config
         self._catalog = catalog
-        self._solid_names = set(config.categories.get("solid_like", []))
+        self._solid_ids = [
+            catalog.id_for_name(name)
+            for name in config.categories.get("solid_like", [])
+            if name in catalog.name_to_id
+        ]
 
     def validate(self, level: LevelGrid) -> ValidationResult:
         """Measure solid ratio and emit violations when outside bounds.
@@ -31,13 +37,8 @@ class DensityValidator:
         Returns:
             Validation result; over-max is hard, under-min is soft.
         """
-        solid_ids = {
-            self._catalog.id_for_name(name)
-            for name in self._solid_names
-            if name in self._catalog.name_to_id
-        }
         total = level.width_tiles * level.height_tiles
-        solid_count = sum(int(tile_id) in solid_ids for tile_id in level.tiles.flatten())
+        solid_count = int(np.isin(level.tiles, self._solid_ids).sum())
         ratio = solid_count / max(1, total)
         min_ratio = self._config.validation.min_solid_ratio
         max_ratio = self._config.validation.max_solid_ratio

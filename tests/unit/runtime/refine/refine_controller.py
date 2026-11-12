@@ -31,23 +31,97 @@ def composed_level(config, catalog):
     return core.stitch_level(rollout_baseline("random_legal", core, target, rng))
 
 
-@pytest.mark.parametrize("name", sorted(_CORNERS))
-def test_refiner_converges_on_corner_targets(composed_level, config, catalog, name) -> None:
-    """Every benchmark corner ends within tolerance on all 8 dimensions.
+def test_touch_up_closes_count_errors_within_the_tile_budget(config, catalog) -> None:
+    """Small count errors are fixed with a handful of tile writes.
 
-    These four targets span the regions the chunk material alone cannot
-    reach (exact zeros, max gaps with platforms, the tall+smooth combo, and
-    the corpus-typical mid point)."""
-    refiner = IntentRefiner(config, catalog)
-    target = np.array(_CORNERS[name], dtype=np.float32)
-    result = refiner.refine(composed_level, target)
-    errors = {
-        key: abs(after - want)
-        for key, after, want in zip(
-            INTENT_KEYS, result.measured_after, target.tolist(), strict=True
-        )
-    }
-    assert result.converged, errors
+    The level matches its target except for three surplus enemies and two
+    missing coins: the kind of residue the edit phase leaves."""
+    level, ctx = _flat_level(config, catalog, enemies=(40, 70, 100))
+    target = _measured(level, config, catalog)
+    target[INTENT_KEYS.index("enemy_density")] = 0.0
+    target[INTENT_KEYS.index("coin_density")] = 2 / (
+        config.metrics.target_density_ranges.coin.max * ctx.area
+    )
+    result = IntentRefiner(config, catalog, max_tiles=32).refine(level, target)
+    assert result.converged
+    assert 0 < result.tiles_changed <= 32
+    assert int(np.isin(result.level.tiles, ctx.enemy_ids).sum()) == 0
+    assert int((result.level.tiles == ctx.coin_id).sum()) == 2
+
+
+def test_touch_up_spends_a_short_budget_on_what_fits(config, catalog) -> None:
+    """A budget smaller than the residue is spent tile by tile, not skipped.
+
+    Six coins are missing and four tile writes are allowed: four coins land
+    and the edit that asked for more is cut to the budget."""
+    level, ctx = _flat_level(config, catalog)
+    target = _measured(level, config, catalog)
+    target[INTENT_KEYS.index("coin_density")] = 6 / (
+        config.metrics.target_density_ranges.coin.max * ctx.area
+    )
+    result = IntentRefiner(config, catalog, max_tiles=4).refine(level, target)
+    assert int((result.level.tiles == ctx.coin_id).sum()) == 4
+    assert result.tiles_changed == 4
+
+
+def test_touch_up_takes_the_cheapest_effective_edit_first(config, catalog) -> None:
+    """With room for one fix only, the one that buys more error per tile wins.
+
+    The level is one enemy over its target and one pipe short. Removing the
+    enemy costs one tile, the short pipe four: a budget of three can afford
+    only the enemy, a budget of five fixes both."""
+    level, ctx = _flat_level(config, catalog, enemies=(40,))
+    target = _measured(level, config, catalog)
+    target[INTENT_KEYS.index("enemy_density")] = 0.0
+    target[INTENT_KEYS.index("pipe_density")] = 6 / (
+        config.metrics.target_density_ranges.pipe.max * ctx.area
+    )
+    short = IntentRefiner(config, catalog, max_tiles=3).refine(level, target)
+    assert int(np.isin(short.level.tiles, ctx.enemy_ids).sum()) == 0
+    assert not np.isin(short.level.tiles, list(ctx.pipe_ids)).any()
+    assert short.tiles_changed == 1
+    enough = IntentRefiner(config, catalog, max_tiles=5).refine(level, target)
+    assert int(np.isin(enough.level.tiles, ctx.enemy_ids).sum()) == 0
+    assert int(np.isin(enough.level.tiles, list(ctx.pipe_ids)).sum()) == 4
+    assert enough.tiles_changed == 5
+    assert enough.converged
+
+
+def test_touch_up_raises_the_summit_instead_of_a_new_hill(config, catalog) -> None:
+    """One row of missing amplitude costs one tile on the existing summit."""
+    from pcgrl.runtime.refine.context import target_amplitude
+
+    level, ctx = _flat_level(config, catalog)
+    tiles = level.tiles.copy()
+    height = tiles.shape[0]
+    for offset, stack in enumerate((2, 3, 4, 5, 6, 7, 8, 9, 9)):
+        tiles[height - stack :, 100 + offset] = ctx.solid_id
+    level = level.copy_with_tiles(tiles)
+    target = _measured(level, config, catalog)
+    target[INTENT_KEYS.index("verticality")] = 0.667
+    assert target_amplitude(0.667, config) == 9
+    result = IntentRefiner(config, catalog, max_tiles=32).refine(level, target)
+    accepted = [e.op for e in result.edits if e.accepted]
+    assert accepted == ["raise_summit"]
+    assert result.tiles_changed == 1
+    assert result.converged
+
+
+@pytest.mark.parametrize("budget", [8, 32])
+@pytest.mark.parametrize("name", sorted(_CORNERS))
+def test_touch_up_never_exceeds_the_tile_budget(
+    composed_level, config, catalog, name, budget
+) -> None:
+    """However far the target is, the touch-up keeps at most ``max_tiles`` writes.
+
+    A random composition is far from every corner; reshaping it is the edit
+    phase's job, so the bounded touch-up must stop instead of rebuilding the
+    level (pipe repairs are structural fixes and are not counted)."""
+    refiner = IntentRefiner(config, catalog, max_tiles=budget)
+    result = refiner.refine(composed_level, np.array(_CORNERS[name], dtype=np.float32))
+    kept = sum(e.cell_count for e in result.edits if e.accepted and e.dim != "repair")
+    assert kept <= budget
+    assert not any(e.accepted and e.cell_count > budget for e in result.edits if e.dim != "repair")
 
 
 def test_refiner_is_deterministic(composed_level, config, catalog) -> None:
@@ -83,9 +157,9 @@ def test_rejected_edits_are_reverted(composed_level, config, catalog, monkeypatc
     monkeypatch.setattr(
         gates.RefineGate,
         "check",
-        lambda self, tiles, baseline=frozenset(): (False, "forced"),
+        lambda self, tiles, baseline=frozenset(), min_reach=None: (False, "forced"),
     )
-    refiner = IntentRefiner(config, catalog, max_passes=1)
+    refiner = IntentRefiner(config, catalog)
     target = np.array(_CORNERS["user_flat_empty"], dtype=np.float32)
     result = refiner.refine(composed_level, target)
     gated = [e for e in result.edits if e.op not in ("remove_coins", "add_coins")]
@@ -104,50 +178,38 @@ def test_literal_flat_strips_sub_band_structure(config, catalog) -> None:
     target-driven cleanup must strip them anyway: a converged policy
     delivers banded zeros itself, leaving the polish nothing to react to
     while the level still shows relief."""
-    from pcgrl.runtime.refine.context import build_context
-
-    ctx = build_context(config, catalog)
-    height, width = config.game.height_tiles, config.game.width_tiles
-    tiles = np.full((height, width), ctx.empty_id, dtype=np.int16)
-    tiles[height - 2 :, :] = ctx.solid_id
-    tiles[height - 3, 50:56] = ctx.solid_id
-    tiles[height - 6, 80:84] = ctx.solid_id
-    tiles[ctx.player] = catalog.id_for_name("player")
-    tiles[ctx.flagpole] = catalog.id_for_name("flagpole")
-    from pcgrl.core.domain.level import AreaType, LevelGrid
-
-    level = LevelGrid(
-        tiles=tiles,
-        width_tiles=width,
-        height_tiles=height,
-        tile_size_px=16,
-        area_type=AreaType.OVERWORLD,
-    )
+    level, ctx = _flat_level(config, catalog)
+    height = config.game.height_tiles
+    floor = height - ctx.base_height
+    tiles = level.tiles.copy()
+    tiles[floor - 1, 50:56] = ctx.solid_id
+    tiles[floor - 4, 80:84] = ctx.solid_id
+    level = level.copy_with_tiles(tiles)
     target = np.array(_CORNERS["user_flat_empty"], dtype=np.float32)
     refiner = IntentRefiner(config, catalog)
-    before = refiner.refine(level, target).measured_before
-    assert abs(before[INTENT_KEYS.index("verticality")]) <= 0.05, (
+    result = refiner.refine(level, target)
+    assert abs(result.measured_before[INTENT_KEYS.index("verticality")]) <= 0.05, (
         "fixture must start sub-band, otherwise it does not exercise the cleanup"
     )
-    result = refiner.refine(level, target)
-    refined = result.level.tiles
-    above_ground = refined[: height - 2, :]
+    above_ground = result.level.tiles[:floor, :]
     visible = np.isin(above_ground, list(ctx.solid_like | set(ctx.pipe_ids)))
     assert not visible.any(), "sub-band mound or platform survived the cleanup"
     assert result.converged
+    assert result.tiles_changed == 10
 
 
 def _flat_level(config, catalog, enemies: tuple[int, ...] = ()):
-    """Flat ground from spawn to flag, with goombas at the given columns."""
+    """Flat corpus-style floor from spawn to flag, with goombas at the given columns."""
     from pcgrl.core.domain.level import AreaType, LevelGrid
     from pcgrl.runtime.refine.context import build_context
 
     ctx = build_context(config, catalog)
     height, width = config.game.height_tiles, config.game.width_tiles
     tiles = np.full((height, width), ctx.empty_id, dtype=np.int16)
-    tiles[height - 2 :, :] = ctx.solid_id
+    floor = height - ctx.base_height
+    tiles[floor:, :] = ctx.solid_id
     for column in enemies:
-        tiles[height - 3, column] = ctx.enemy_ids[0]
+        tiles[floor - 1, column] = ctx.enemy_ids[0]
     tiles[ctx.player] = catalog.id_for_name("player")
     tiles[ctx.flagpole] = catalog.id_for_name("flagpole")
     level = LevelGrid(
@@ -170,16 +232,20 @@ def _measured(level, config, catalog) -> np.ndarray:
 def test_refiner_never_returns_a_worse_level(composed_level, config, catalog, seed) -> None:
     """Polish never raises the overall intent error of its input.
 
-    Pipe repairs are structural fixes kept regardless of the error, so runs
-    that needed one are not compared."""
+    Pipe repairs are structural fixes kept regardless of the error, so the
+    comparison starts from the level with its seam-clipped pipes removed."""
     from pcgrl.runtime.refine import intent_objective
+    from pcgrl.runtime.refine.context import build_context
+    from pcgrl.runtime.refine.ops import apply_edit, plan_repair_pipes
 
+    tiles = composed_level.tiles.astype(np.int16).copy()
+    for edit in plan_repair_pipes(tiles, build_context(config, catalog)):
+        apply_edit(tiles, edit)
+    level = composed_level.copy_with_tiles(tiles)
     rng = np.random.default_rng(seed)
     target = rng.random(8).astype(np.float32)
     refiner = IntentRefiner(config, catalog)
-    result = refiner.refine(composed_level, target)
-    if any(e.dim == "repair" and e.accepted for e in result.edits):
-        pytest.skip("a pipe repair was required")
+    result = refiner.refine(level, target)
     effective = refiner.effective_target(target)
     before = intent_objective(np.asarray(result.measured_before), effective)
     after = intent_objective(np.asarray(result.measured_after), effective)
@@ -207,47 +273,11 @@ def test_flat_request_keeps_a_flat_level_flat(config, catalog) -> None:
     target = _measured(level, config, catalog)
     target[INTENT_KEYS.index("verticality")] = 0.05
     target[INTENT_KEYS.index("path_smoothness")] = 0.95
-    height = config.game.height_tiles
+    floor = config.game.height_tiles - ctx.base_height
     result = IntentRefiner(config, catalog).refine(level, target)
-    above_ground = np.isin(result.level.tiles[: height - 2, :], list(ctx.solid_like))
+    above_ground = np.isin(result.level.tiles[:floor, :], list(ctx.solid_like))
     assert not above_ground.any()
-    assert not any(e.op == "raise_hill" and e.accepted for e in result.edits)
-
-
-def test_literal_flat_request_settles_on_the_corpus_floor(config, catalog) -> None:
-    """A flat, empty, smooth request ends on the one-row floor of the corpus."""
-    from pcgrl.runtime.refine.ops import ground_heights
-
-    level, ctx = _flat_level(config, catalog)
-    target = np.array(_CORNERS["user_flat_empty"], dtype=np.float32)
-    result = IntentRefiner(config, catalog).refine(level, target)
-    heights = ground_heights(result.level.tiles.astype(np.int16), ctx)
-    settled = {h for column, h in enumerate(heights) if column not in ctx.protected_columns}
-    assert ctx.base_height == 1
-    assert settled == {ctx.base_height}
-    assert result.converged
-
-
-def test_clipped_pipe_the_path_climbs_on_becomes_ground(config, catalog) -> None:
-    """A half pipe that is the only step up a wall is repaired without removing it."""
-    from pcgrl.runtime.refine.gates import RefineGate
-
-    level, ctx = _flat_level(config, catalog)
-    tiles = level.tiles.astype(np.int16).copy()
-    floor = tiles.shape[0] - 2
-    tiles[floor - 8 : floor, 60:65] = ctx.solid_id
-    tiles[floor - 4, 59] = ctx.pipe_top_left
-    tiles[floor - 3 : floor, 59] = ctx.pipe_body_left
-    walled = level.copy_with_tiles(tiles)
-    gate = RefineGate(config, catalog)
-    assert "pipe.width" in gate.hard_rules(tiles)
-    target = _measured(walled, config, catalog)
-    result = IntentRefiner(config, catalog).refine(walled, target)
-    refined = result.level.tiles.astype(np.int16)
-    assert "pipe.width" not in gate.hard_rules(refined)
-    assert (refined[floor - 4 : floor, 59] == ctx.solid_id).all()
-    ok, reason = gate.check(refined)
-    assert ok, reason
+    assert not any(e.op in ("raise_hill", "raise_summit") and e.accepted for e in result.edits)
 
 
 def test_effective_target_reads_none_literally(config, catalog) -> None:

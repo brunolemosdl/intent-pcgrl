@@ -35,13 +35,13 @@ class RefineContext:
         pipe_body_left: Pipe body-left id.
         pipe_body_right: Pipe body-right id.
         solid_like: Tile ids the ground-height profile treats as solid.
+        base_height: Rows of plain ground the layout stands on (the corpus
+            floor is one row thick); terrain ops treat it as "flat".
         player: Resolved player spawn ``(row, col)``.
         flagpole: Resolved flagpole ``(row, col)``.
         protected: Cells edits must never write (endpoints + reserved regions).
         protected_columns: Columns containing protected cells; terrain ops skip
             them entirely so the endpoint platforms stay intact.
-        base_height: Rows of plain ground the layout stands on (the corpus
-            floor), where a literally flat request settles.
     """
 
     config: RuntimeConfig
@@ -60,11 +60,11 @@ class RefineContext:
     pipe_body_left: int
     pipe_body_right: int
     solid_like: frozenset[int]
+    base_height: int
     player: tuple[int, int]
     flagpole: tuple[int, int]
     protected: frozenset[tuple[int, int]]
     protected_columns: frozenset[int]
-    base_height: int
 
 
 def build_context(config: RuntimeConfig, catalog: TileCatalog) -> RefineContext:
@@ -111,11 +111,11 @@ def build_context(config: RuntimeConfig, catalog: TileCatalog) -> RefineContext:
         pipe_body_left=catalog.id_for_name("pipe_body_left"),
         pipe_body_right=catalog.id_for_name("pipe_body_right"),
         solid_like=frozenset(solid_like_ids(catalog, config)),
+        base_height=height - resolved.ground_row,
         player=resolved.player,
         flagpole=resolved.flagpole,
         protected=protected,
         protected_columns=frozenset(column for _, column in protected),
-        base_height=height - resolved.ground_row,
     )
 
 

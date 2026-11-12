@@ -5,12 +5,14 @@ import numpy as np
 from pcgrl.core.domain.level import LevelGrid
 from pcgrl.core.settings.schema import RuntimeConfig
 from pcgrl.core.tiles.catalog import TileCatalog
-from pcgrl.runtime.metrics.intent import compute_intent_vector
+from pcgrl.runtime.metrics.intent import INTENT_KEYS, compute_intent_vector
 from pcgrl.runtime.metrics.tpkl import (
     PatternReference,
     empty_pattern_key,
     style_score,
 )
+from pcgrl.runtime.refine.context import build_context
+from pcgrl.runtime.refine.corrections import is_literal_flat, relief_fraction
 from pcgrl.runtime.validators.reachability import reachable_cells
 
 _PARTIAL_PLAY_FACTOR = 0.5
@@ -31,6 +33,11 @@ class ComposerTerminalReward:
         scores ~0.7 style — a degenerate optimum. Components are returned
         separately for callback logging.
 
+        A literally flat request (verticality at the bottom of its band with
+        a near-maximal smoothness) is read literally: the band maps every
+        low amplitude to zero, so the share of the level still standing in
+        relief counts against the verticality term.
+
     """
 
     def __init__(
@@ -49,6 +56,7 @@ class ComposerTerminalReward:
         self._config = config
         self._catalog = catalog
         self._reference = pattern_reference
+        self._refine_ctx = build_context(config, catalog)
         settings = config.reward.composer
         self._exclude = empty_pattern_key(catalog.id_for_name("empty"), settings.style_pattern_size)
 
@@ -77,6 +85,10 @@ class ComposerTerminalReward:
         deltas = np.abs(
             np.asarray(measured, dtype=np.float64) - np.asarray(target, dtype=np.float64)
         )
+        if is_literal_flat(np.asarray(target)):
+            vertical = INTENT_KEYS.index("verticality")
+            relief = relief_fraction(np.asarray(level.tiles), self._refine_ctx)
+            deltas[vertical] = max(deltas[vertical], relief)
         alignment = settings.alignment_mean_weight * (1.0 - float(deltas.mean()))
         alignment += settings.alignment_max_weight * (1.0 - float(deltas.max()))
         style = style_score(

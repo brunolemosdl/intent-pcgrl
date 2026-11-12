@@ -4,185 +4,185 @@
   "intent_error_mean": [
     {
       "name": "B_style",
-      "effect": 0.006474999999999995,
-      "p_value": 0.016,
-      "order": 1
-    },
-    {
-      "name": "A_alignment_max",
-      "effect": -0.005999999999999978,
-      "p_value": 0.022,
-      "order": 1
-    },
-    {
-      "name": "C_budget_mask",
-      "effect": 0.005925,
-      "p_value": 0.024,
-      "order": 1
-    },
-    {
-      "name": "B_style:C_budget_mask:D_duplication",
-      "effect": -0.0037375000000000047,
-      "p_value": 0.1455,
-      "order": 3
-    },
-    {
-      "name": "A_alignment_max:C_budget_mask",
-      "effect": 0.0036500000000000005,
-      "p_value": 0.182,
-      "order": 2
-    },
-    {
-      "name": "A_alignment_max:B_style:C_budget_mask",
-      "effect": 0.003250000000000003,
-      "p_value": 0.211,
-      "order": 3
-    },
-    {
-      "name": "A_alignment_max:B_style",
-      "effect": 0.0021749999999999825,
-      "p_value": 0.4145,
-      "order": 2
-    },
-    {
-      "name": "A_alignment_max:C_budget_mask:D_duplication",
-      "effect": -0.0020374999999999976,
-      "p_value": 0.458,
-      "order": 3
-    },
-    {
-      "name": "D_duplication",
-      "effect": 0.0016624999999999973,
-      "p_value": 0.523,
+      "effect": 0.0034374999999999996,
+      "p_value": 0.004,
       "order": 1
     },
     {
       "name": "C_budget_mask:D_duplication",
-      "effect": 0.0013874999999999998,
-      "p_value": 0.5925,
+      "effect": -0.002037500000000001,
+      "p_value": 0.068,
       "order": 2
     },
     {
-      "name": "A_alignment_max:B_style:D_duplication",
-      "effect": 0.0011125000000000024,
-      "p_value": 0.6885,
+      "name": "C_budget_mask",
+      "effect": -0.0013874999999999998,
+      "p_value": 0.247,
+      "order": 1
+    },
+    {
+      "name": "A_alignment_max:B_style:C_budget_mask",
+      "effect": -0.001287499999999997,
+      "p_value": 0.292,
       "order": 3
     },
     {
-      "name": "B_style:D_duplication",
-      "effect": 0.0006625000000000103,
-      "p_value": 0.8075,
-      "order": 2
+      "name": "A_alignment_max:C_budget_mask:D_duplication",
+      "effect": 0.0012124999999999983,
+      "p_value": 0.3015,
+      "order": 3
+    },
+    {
+      "name": "A_alignment_max",
+      "effect": -0.0009375000000000008,
+      "p_value": 0.4205,
+      "order": 1
     },
     {
       "name": "B_style:C_budget_mask",
-      "effect": 0.0006250000000000006,
-      "p_value": 0.8145,
+      "effect": -0.000737500000000002,
+      "p_value": 0.542,
+      "order": 2
+    },
+    {
+      "name": "B_style:D_duplication",
+      "effect": -0.000737500000000002,
+      "p_value": 0.538,
+      "order": 2
+    },
+    {
+      "name": "D_duplication",
+      "effect": -0.0006875000000000006,
+      "p_value": 0.568,
+      "order": 1
+    },
+    {
+      "name": "A_alignment_max:C_budget_mask",
+      "effect": -0.0006374999999999992,
+      "p_value": 0.6205,
+      "order": 2
+    },
+    {
+      "name": "A_alignment_max:B_style",
+      "effect": -0.0006125000000000019,
+      "p_value": 0.596,
       "order": 2
     },
     {
       "name": "A_alignment_max:D_duplication",
-      "effect": 0.0003625000000000156,
-      "p_value": 0.89,
+      "effect": 0.0002625000000000023,
+      "p_value": 0.834,
       "order": 2
     },
     {
+      "name": "A_alignment_max:B_style:D_duplication",
+      "effect": 0.0002625000000000023,
+      "p_value": 0.8375,
+      "order": 3
+    },
+    {
+      "name": "B_style:C_budget_mask:D_duplication",
+      "effect": -0.0002625000000000023,
+      "p_value": 0.843,
+      "order": 3
+    },
+    {
       "name": "A_alignment_max:B_style:C_budget_mask:D_duplication",
-      "effect": 0.0003374999999999906,
-      "p_value": 0.896,
+      "effect": 0.00013749999999999873,
+      "p_value": 0.9185,
       "order": 4
     }
   ],
   "terminal_reward": [
     {
       "name": "B_style",
-      "effect": 1.14469375,
+      "effect": 0.8687187500000002,
       "p_value": 0.0004997501249375312,
       "order": 1
     },
     {
       "name": "A_alignment_max",
-      "effect": -0.2580687499999996,
-      "p_value": 0.2165,
+      "effect": -0.11388124999999949,
+      "p_value": 0.469,
       "order": 1
     },
     {
-      "name": "A_alignment_max:B_style:C_budget_mask",
-      "effect": -0.04600625000000047,
-      "p_value": 0.8105,
-      "order": 3
-    },
-    {
-      "name": "A_alignment_max:C_budget_mask",
-      "effect": -0.044768750000000246,
-      "p_value": 0.813,
+      "name": "A_alignment_max:B_style",
+      "effect": -0.05758125000000014,
+      "p_value": 0.7285,
       "order": 2
     },
     {
-      "name": "A_alignment_max:B_style:C_budget_mask:D_duplication",
-      "effect": -0.027356249999999527,
-      "p_value": 0.8835,
-      "order": 4
-    },
-    {
       "name": "B_style:C_budget_mask",
-      "effect": 0.02704374999999981,
-      "p_value": 0.881,
+      "effect": 0.05239375000000113,
+      "p_value": 0.736,
       "order": 2
     },
     {
       "name": "C_budget_mask:D_duplication",
-      "effect": -0.02629375000000067,
-      "p_value": 0.8825,
-      "order": 2
-    },
-    {
-      "name": "A_alignment_max:C_budget_mask:D_duplication",
-      "effect": 0.023606250000000273,
-      "p_value": 0.903,
-      "order": 3
-    },
-    {
-      "name": "A_alignment_max:B_style",
-      "effect": -0.02278125000000042,
-      "p_value": 0.9115,
+      "effect": 0.05224375000000059,
+      "p_value": 0.7375,
       "order": 2
     },
     {
       "name": "B_style:C_budget_mask:D_duplication",
-      "effect": -0.018631249999999433,
-      "p_value": 0.9205,
+      "effect": -0.036331249999999926,
+      "p_value": 0.808,
       "order": 3
     },
     {
+      "name": "A_alignment_max:C_budget_mask",
+      "effect": 0.029118750000000304,
+      "p_value": 0.8475,
+      "order": 2
+    },
+    {
       "name": "A_alignment_max:B_style:D_duplication",
-      "effect": -0.009931250000001057,
-      "p_value": 0.9575,
+      "effect": -0.02805625000000056,
+      "p_value": 0.839,
+      "order": 3
+    },
+    {
+      "name": "A_alignment_max:B_style:C_budget_mask",
+      "effect": 0.02704374999999981,
+      "p_value": 0.853,
       "order": 3
     },
     {
       "name": "C_budget_mask",
-      "effect": 0.00810625000000087,
-      "p_value": 0.963,
+      "effect": 0.025743749999999288,
+      "p_value": 0.8495,
       "order": 1
     },
     {
       "name": "A_alignment_max:D_duplication",
-      "effect": -0.007293749999999655,
-      "p_value": 0.961,
+      "effect": -0.01503124999999983,
+      "p_value": 0.9085,
       "order": 2
-    },
-    {
-      "name": "D_duplication",
-      "effect": -0.005068750000000399,
-      "p_value": 0.9775,
-      "order": 1
     },
     {
       "name": "B_style:D_duplication",
-      "effect": -0.00018124999999979963,
-      "p_value": 0.9995,
+      "effect": -0.012681250000000865,
+      "p_value": 0.924,
       "order": 2
+    },
+    {
+      "name": "A_alignment_max:B_style:C_budget_mask:D_duplication",
+      "effect": 0.006643750000000281,
+      "p_value": 0.9575,
+      "order": 4
+    },
+    {
+      "name": "A_alignment_max:C_budget_mask:D_duplication",
+      "effect": 0.00539375000000053,
+      "p_value": 0.972,
+      "order": 3
+    },
+    {
+      "name": "D_duplication",
+      "effect": 0.0053187499999989285,
+      "p_value": 0.9605,
+      "order": 1
     }
   ]
 }

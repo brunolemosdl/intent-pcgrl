@@ -1,0 +1,44 @@
+[
+  {
+    "a": "ppo",
+    "b": "ppo_random_edits",
+    "metric": "terminal_reward",
+    "delta": 0.2873,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_random_edits",
+    "metric": "intent_error_mean",
+    "delta": -0.0018,
+    "p_value": 0.2165
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_planner_edits",
+    "metric": "terminal_reward",
+    "delta": 0.1079,
+    "p_value": 0.001
+  },
+  {
+    "a": "ppo",
+    "b": "ppo_planner_edits",
+    "metric": "intent_error_mean",
+    "delta": -0.0078,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_random_edits",
+    "b": "ppo_planner_edits",
+    "metric": "terminal_reward",
+    "delta": -0.1793,
+    "p_value": 0.0001
+  },
+  {
+    "a": "ppo_random_edits",
+    "b": "ppo_planner_edits",
+    "metric": "intent_error_mean",
+    "delta": -0.006,
+    "p_value": 0.0053
+  }
+]

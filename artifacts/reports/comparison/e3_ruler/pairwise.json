@@ -3,140 +3,140 @@
     "a": "random_legal",
     "b": "greedy_intent",
     "metric": "terminal_reward",
-    "delta": -0.1567,
-    "p_value": 0.5189
+    "delta": -0.1252,
+    "p_value": 0.535
   },
   {
     "a": "random_legal",
     "b": "greedy_intent",
     "metric": "intent_error_mean",
-    "delta": 0.0094,
-    "p_value": 0.6036
+    "delta": 0.0408,
+    "p_value": 0.0849
   },
   {
     "a": "random_legal",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": -0.8485,
+    "delta": -0.762,
     "p_value": 0.0001
   },
   {
     "a": "random_legal",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": 0.0796,
+    "delta": 0.1215,
     "p_value": 0.0001
   },
   {
     "a": "random_legal",
     "b": "markov",
     "metric": "terminal_reward",
-    "delta": 0.1741,
-    "p_value": 0.4463
+    "delta": 0.2609,
+    "p_value": 0.1762
   },
   {
     "a": "random_legal",
     "b": "markov",
     "metric": "intent_error_mean",
-    "delta": -0.072,
-    "p_value": 0.0001
+    "delta": -0.0521,
+    "p_value": 0.0475
   },
   {
     "a": "random_legal",
     "b": "corpus_replay",
     "metric": "terminal_reward",
-    "delta": -0.0349,
-    "p_value": 0.8629
+    "delta": 0.1154,
+    "p_value": 0.5011
   },
   {
     "a": "random_legal",
     "b": "corpus_replay",
     "metric": "intent_error_mean",
-    "delta": -0.1206,
+    "delta": -0.0857,
     "p_value": 0.0001
   },
   {
     "a": "greedy_intent",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": -0.6918,
+    "delta": -0.6368,
     "p_value": 0.0001
   },
   {
     "a": "greedy_intent",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": 0.0702,
+    "delta": 0.0807,
     "p_value": 0.0001
   },
   {
     "a": "greedy_intent",
     "b": "markov",
     "metric": "terminal_reward",
-    "delta": 0.3309,
-    "p_value": 0.1024
+    "delta": 0.3861,
+    "p_value": 0.0455
   },
   {
     "a": "greedy_intent",
     "b": "markov",
     "metric": "intent_error_mean",
-    "delta": -0.0814,
+    "delta": -0.0929,
     "p_value": 0.0001
   },
   {
     "a": "greedy_intent",
     "b": "corpus_replay",
     "metric": "terminal_reward",
-    "delta": 0.1218,
-    "p_value": 0.4846
+    "delta": 0.2406,
+    "p_value": 0.1457
   },
   {
     "a": "greedy_intent",
     "b": "corpus_replay",
     "metric": "intent_error_mean",
-    "delta": -0.13,
+    "delta": -0.1265,
     "p_value": 0.0001
   },
   {
     "a": "beam_search",
     "b": "markov",
     "metric": "terminal_reward",
-    "delta": 1.0226,
+    "delta": 1.0229,
     "p_value": 0.0001
   },
   {
     "a": "beam_search",
     "b": "markov",
     "metric": "intent_error_mean",
-    "delta": -0.1516,
+    "delta": -0.1737,
     "p_value": 0.0001
   },
   {
     "a": "beam_search",
     "b": "corpus_replay",
     "metric": "terminal_reward",
-    "delta": 0.8136,
+    "delta": 0.8774,
     "p_value": 0.0001
   },
   {
     "a": "beam_search",
     "b": "corpus_replay",
     "metric": "intent_error_mean",
-    "delta": -0.2002,
+    "delta": -0.2072,
     "p_value": 0.0001
   },
   {
     "a": "markov",
     "b": "corpus_replay",
     "metric": "terminal_reward",
-    "delta": -0.209,
-    "p_value": 0.1848
+    "delta": -0.1455,
+    "p_value": 0.3388
   },
   {
     "a": "markov",
     "b": "corpus_replay",
     "metric": "intent_error_mean",
-    "delta": -0.0486,
-    "p_value": 0.0134
+    "delta": -0.0336,
+    "p_value": 0.1327
   }
 ]

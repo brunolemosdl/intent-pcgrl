@@ -1,6 +1,6 @@
 provenance:
   dataset_meta_hash: 7a947df6e6f38b28138ce65694558aff
-  bridge_jar_hash: 2310955c3fccdd931874272e703e6e9a
+  bridge_jar_hash: 02e170cfa8e2dd8f9fc4417574bfcc9f
 config:
   experiment:
     name: mario_ppo
@@ -208,6 +208,7 @@ config:
       intent_budget_mask: true
       width_slack_tiles: 8
       edit_budget: 0
+      edit_tolerance: 0.05
       target_mix:
         viability: 0.4
         uniform: 0.4
@@ -219,11 +220,10 @@ config:
     require_bridge_win: true
     bridge_num_runs: 3
     minimum_completion_ratio: 0.95
-    bridge_validation_start_fraction: 0.0
     polish:
       enabled: true
       tolerance: 0.05
-      max_passes: 3
+      max_tiles: 32
   evaluation:
     agents:
     - robinBaumgarten
@@ -322,22 +322,15 @@ config:
     - 2
     - 3
     - 4
-  interface:
-    refresh_ms: 50
-    viewport_size_px: 640
-    sidebar_width_px: 320
-    min_zoom: 0.25
-    max_zoom: 4.0
-    zoom_step: 1.15
-    default_target:
-      enemy_density: 0.5
-      coin_density: 0.4
-      interactive_block_density: 0.5
-      pipe_density: 0.3
-      gap_difficulty: 0.4
-      verticality: 0.65
-      path_smoothness: 0.4
-      platform_usage: 0.55
+  default_target:
+    enemy_density: 0.5
+    coin_density: 0.4
+    interactive_block_density: 0.5
+    pipe_density: 0.3
+    gap_difficulty: 0.4
+    verticality: 0.65
+    path_smoothness: 0.4
+    platform_usage: 0.55
   translator:
     provider: openai_compatible
     mode: record

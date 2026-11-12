@@ -174,3 +174,25 @@ def test_flood_without_player_or_start_is_empty(catalog) -> None:
     tiles = _grid(catalog, ["----", "XXXX"])
     assert reachable_cells(tiles, catalog).standable == frozenset()
     assert reachable_cells(tiles, catalog, start=(0, 0)).standable != frozenset()
+
+
+def test_reachable_cells_follows_edits_to_the_same_array(catalog) -> None:
+    """Results are kept by content, so an edited grid is flooded again."""
+    from pcgrl.runtime.validators.reachability import reachable_cells
+
+    tiles = _grid(
+        catalog,
+        [
+            "----------",
+            "----------",
+            "M---------",
+            "XXXXXXXXXX",
+        ],
+    )
+    before = reachable_cells(tiles, catalog).standable
+    assert (2, 9) in before
+    assert reachable_cells(tiles.copy(), catalog).standable == before
+    tiles[3, 3:] = catalog.id_for_name("empty")
+    after = reachable_cells(tiles, catalog).standable
+    assert (2, 9) not in after
+    assert after == _flood(tiles, catalog)

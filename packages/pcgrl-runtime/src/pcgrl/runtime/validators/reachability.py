@@ -12,6 +12,7 @@ from pcgrl.core.tiles.catalog import TileCatalog
 # the `calibrate` command. New code should pass them explicitly.
 _JUMP_HEIGHT = 4
 _JUMP_REACH = 5
+_RECENT_LIMIT = 8
 
 
 @dataclass(frozen=True)
@@ -151,6 +152,9 @@ def _flood(
     return visited
 
 
+_RECENT: dict[tuple[object, ...], ReachabilityMap] = {}
+
+
 def reachable_cells(
     level_or_tiles: object,
     catalog: TileCatalog,
@@ -171,12 +175,34 @@ def reachable_cells(
     Returns:
         ``ReachabilityMap`` with the frozen standable set.
     """
-    tiles = getattr(level_or_tiles, "tiles", level_or_tiles)
+    tiles = np.asarray(getattr(level_or_tiles, "tiles", level_or_tiles))
+    if start is None:
+        hits = np.argwhere(tiles == catalog.id_for_name("player"))
+        if hits.size:
+            start = (int(hits[0][0]), int(hits[0][1]))
+    # The gate, the intent metrics and the reward flood the same tiles back
+    # to back, so the last few results are kept by content.
+    key = (
+        tiles.shape,
+        tiles.dtype.str,
+        tiles.tobytes(),
+        id(catalog),
+        jump_height,
+        jump_reach,
+        start,
+    )
+    cached = _RECENT.get(key)
+    if cached is not None:
+        return cached
     standable = _flood(
-        tiles,  # type: ignore[arg-type]
+        tiles,
         catalog,
         jump_height=jump_height,
         jump_reach=jump_reach,
         start=start,
     )
-    return ReachabilityMap(standable=frozenset(standable))
+    result = ReachabilityMap(standable=frozenset(standable))
+    if len(_RECENT) >= _RECENT_LIMIT:
+        _RECENT.pop(next(iter(_RECENT)))
+    _RECENT[key] = result
+    return result

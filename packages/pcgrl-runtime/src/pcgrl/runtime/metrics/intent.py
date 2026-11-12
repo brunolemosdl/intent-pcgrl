@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import itertools
+from dataclasses import dataclass
+from functools import lru_cache
 
 import numpy as np
 
@@ -23,13 +25,66 @@ INTENT_KEYS = (
 
 GAP_BUDGET_PER_COLUMN = 1.0 / 24.0
 
+# Dimensions that count objects: "none" for them means zero objects.
+COUNT_KEYS = (
+    "enemy_density",
+    "coin_density",
+    "interactive_block_density",
+    "pipe_density",
+    "gap_difficulty",
+)
+# The language bridge writes "no"/"none" as ~0.05 (see its intensity mapping),
+# and 0.05 of a density cap is about one object, so count targets in this band
+# are read as zero.
+NONE_BAND = 0.05
+
+
+def target_value(target: np.ndarray, key: str) -> float:
+    """One target coordinate as the decimal it was written as.
+
+    Targets travel as float32, where 0.05 is stored as 0.0500000007; rounding
+    keeps threshold comparisons such as ``<= 0.05`` exact.
+    """
+    return round(float(target[INTENT_KEYS.index(key)]), 6)
+
+
+def effective_target(target: np.ndarray) -> np.ndarray:
+    """Intent vector the generator drives toward.
+
+    Count dimensions requested at or below ``NONE_BAND`` become zero; every
+    other coordinate is the request unchanged. The environment, the terminal
+    reward, the polish stage and the generation report all use this reading,
+    so "no enemies" means the same thing everywhere.
+
+    Args:
+        target: Requested intent vector in ``[0, 1]^8``.
+
+    Returns:
+        Float32 copy with the "none" band snapped to zero.
+    """
+    effective = np.asarray(target, dtype=np.float32).copy()
+    for key in COUNT_KEYS:
+        if target_value(effective, key) <= NONE_BAND:
+            effective[INTENT_KEYS.index(key)] = 0.0
+    return effective
+
+
+@lru_cache(maxsize=64)
+def _id_table(ids: frozenset[int]) -> np.ndarray:
+    """Boolean lookup table over tile ids (ids are small catalog indices)."""
+    table = np.zeros(max(ids) + 1, dtype=bool)
+    table[list(ids)] = True
+    return table
+
 
 def _count_names(tiles: np.ndarray, catalog: TileCatalog, names: set[str]) -> int:
     """Total tiles matching any of the given catalog names."""
-    ids = [catalog.id_for_name(name) for name in names if name in catalog.name_to_id]
+    ids = frozenset(catalog.id_for_name(name) for name in names if name in catalog.name_to_id)
     if not ids:
         return 0
-    return int(np.isin(tiles, ids).sum())
+    table = _id_table(ids)
+    inside = tiles < len(table)
+    return int((table[np.where(inside, tiles, 0)] & inside).sum())
 
 
 def _normalize_band(value: float, minimum: float, maximum: float) -> float:
@@ -43,16 +98,8 @@ def ground_height_profile(
     level: LevelGrid, catalog: TileCatalog, config: RuntimeConfig
 ) -> list[int]:
     """Per-column height of the bottom-contiguous solid stack (0 = floor gap)."""
-    solid_ids = solid_like_ids(catalog, config)
-    heights: list[int] = []
-    for column in range(level.width_tiles):
-        height = 0
-        for row in range(level.height_tiles - 1, -1, -1):
-            if int(level.tiles[row, column]) in solid_ids:
-                height += 1
-            else:
-                break
-        heights.append(height)
+    solid = np.isin(level.tiles, list(solid_like_ids(catalog, config)))
+    heights: list[int] = np.cumprod(solid[::-1], axis=0).sum(axis=0).tolist()
     return heights
 
 
@@ -93,10 +140,16 @@ def traversable_path_envelope(
         list[int | None]: Result of the operation.
     """
     ground = ground_height_profile(level, catalog, config)
+    spawn: tuple[int, int] | None = None
     if start is None:
-        start = _default_start(level, ground)
-    if start is None:
-        return [None] * level.width_tiles
+        spawn = _default_start(level, ground)
+        if spawn is None:
+            return [None] * level.width_tiles
+        # A generated level is flooded from its player tile, the cell the
+        # gates and the reward start from, so one flood serves all three;
+        # the virtual spawn next to it still counts as path.
+        hits = np.argwhere(level.tiles == catalog.id_for_name("player"))
+        start = (int(hits[0][0]), int(hits[0][1])) if hits.size else spawn
     reach = reachable_cells(
         level,
         catalog,
@@ -105,7 +158,8 @@ def traversable_path_envelope(
         start=start,
     )
     envelope: list[int | None] = [None] * level.width_tiles
-    for row, column in reach.standable:
+    cells = reach.standable if spawn is None else (*reach.standable, spawn)
+    for row, column in cells:
         height = level.height_tiles - 1 - row
         current = envelope[column]
         if current is None or height > current:
@@ -260,14 +314,70 @@ def compute_platform_usage(
     return _normalize_band(elevated / total, band_min, band_max)
 
 
-def compute_intent_vector(
+@dataclass(frozen=True)
+class IntentMeasurement:
+    """Measured intent vector plus the path geometry it was derived from.
+
+    Attributes:
+        vector: Float32 intent vector ordered as ``INTENT_KEYS``.
+        envelope: Per-column max standable height reachable from the spawn
+            (``None`` where no path exists).
+        ground: Per-column height of the bottom-contiguous solid stack.
+    """
+
+    vector: np.ndarray
+    envelope: tuple[int | None, ...]
+    ground: tuple[int, ...]
+
+    @property
+    def envelope_min(self) -> int:
+        """Lowest reachable standing height (the verticality baseline).
+
+        Amplitude targets are anchored on the measured envelope minimum, so
+        they hold for any floor the composition ends up with.
+        """
+        heights = [h for h in self.envelope if h is not None]
+        if heights:
+            return min(heights)
+        return min((h for h in self.ground if h > 0), default=1)
+
+    @property
+    def amplitude(self) -> int:
+        """Rows between the lowest and highest reachable standing heights."""
+        heights = [h for h in self.envelope if h is not None]
+        return max(heights) - min(heights) if heights else 0
+
+    @property
+    def path_columns(self) -> int:
+        """Number of columns the path envelope covers."""
+        return sum(1 for h in self.envelope if h is not None)
+
+    @property
+    def mean_step(self) -> float:
+        """Mean height step between consecutive path columns, in rows."""
+        heights = [h for h in self.envelope if h is not None]
+        if len(heights) < 2:
+            return 0.0
+        return sum(abs(b - a) for a, b in itertools.pairwise(heights)) / (len(heights) - 1)
+
+    @property
+    def elevated_columns(self) -> int:
+        """Path columns whose standing point sits above the ground stack."""
+        return sum(
+            1
+            for path, ground in zip(self.envelope, self.ground, strict=True)
+            if path is not None and path > ground
+        )
+
+
+def measure_intent(
     level: LevelGrid,
     catalog: TileCatalog,
     config: RuntimeConfig,
     *,
     start: tuple[int, int] | None = None,
-) -> np.ndarray:
-    """Compute the measured intent vector.
+) -> IntentMeasurement:
+    """Measure a level: intent vector, path envelope and ground profile.
 
     Args:
         level: Stitched or partial level grid.
@@ -276,7 +386,8 @@ def compute_intent_vector(
         start: Optional flood start override for corpus levels.
 
     Returns:
-        Float32 vector ordered as ``INTENT_KEYS``, each in ``[0, 1]``.
+        ``IntentMeasurement`` whose vector is ordered as ``INTENT_KEYS``,
+        each coordinate in ``[0, 1]``.
     """
     area = max(1, level.width_tiles * level.height_tiles)
     ranges = config.metrics.target_density_ranges
@@ -286,7 +397,7 @@ def compute_intent_vector(
     pipes = _count_names(level.tiles, catalog, set(config.categories.get("pipes", [])))
     ground = ground_height_profile(level, catalog, config)
     envelope = traversable_path_envelope(level, catalog, config, start=start)
-    return np.array(
+    vector = np.array(
         [
             _normalize_band(enemies / area, ranges.enemy.min, ranges.enemy.max),
             _normalize_band(coins / area, ranges.coin.min, ranges.coin.max),
@@ -318,3 +429,25 @@ def compute_intent_vector(
         ],
         dtype=np.float32,
     )
+    return IntentMeasurement(vector=vector, envelope=tuple(envelope), ground=tuple(ground))
+
+
+def compute_intent_vector(
+    level: LevelGrid,
+    catalog: TileCatalog,
+    config: RuntimeConfig,
+    *,
+    start: tuple[int, int] | None = None,
+) -> np.ndarray:
+    """Compute the measured intent vector.
+
+    Args:
+        level: Stitched or partial level grid.
+        catalog: Tile catalog.
+        config: Runtime configuration with density bands and jump physics.
+        start: Optional flood start override for corpus levels.
+
+    Returns:
+        Float32 vector ordered as ``INTENT_KEYS``, each in ``[0, 1]``.
+    """
+    return measure_intent(level, catalog, config, start=start).vector

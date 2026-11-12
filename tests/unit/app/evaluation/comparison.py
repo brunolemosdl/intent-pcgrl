@@ -26,12 +26,16 @@ def test_build_generate_fn_rejects_unknown_system(config) -> None:
         build_generate_fn(config, "definitely_not_a_system")
 
 
-def test_build_generate_fn_requires_checkpoint_for_ppo(config) -> None:
+@pytest.mark.parametrize(
+    "system",
+    ["ppo", "ppo_best_of_n", "ppo_best_of_n_polished", "ppo_random_edits", "ppo_planner_edits"],
+)
+def test_build_generate_fn_requires_checkpoint_for_ppo(config, system) -> None:
     """The ppo systems demand a checkpoint."""
     from pcgrl.app.evaluation.comparison import build_generate_fn
 
     with pytest.raises(ValueError, match="checkpoint"):
-        build_generate_fn(config, "ppo")
+        build_generate_fn(config, system)
 
 
 def test_run_comparison_writes_all_fragments(config, tmp_path) -> None:

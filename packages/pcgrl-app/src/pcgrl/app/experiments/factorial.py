@@ -14,9 +14,10 @@ from pcgrl.app.analysis.figures import effects_pareto
 from pcgrl.app.analysis.stats import factorial_effects
 from pcgrl.app.experiments.spec import FactorialSpec, apply_overrides, split_cell_params
 from pcgrl.core.helpers.path import ensure_dir, resolve_path
+from pcgrl.core.helpers.seed import seed_all
 from pcgrl.core.settings.schema import RuntimeConfig
 from pcgrl.core.tiles.catalog import load_catalog
-from pcgrl.runtime.metrics.intent import compute_intent_vector
+from pcgrl.runtime.metrics.intent import compute_intent_vector, effective_target
 
 logger = logging.getLogger(__name__)
 
@@ -138,6 +139,9 @@ def _stage_train(config: RuntimeConfig, spec: FactorialSpec, out_dir: Path) -> N
             continue
         logger.info("factorial train: %s", cell_dir.name)
         cell_config, _ = _cell_config(config, spec, row)
+        # Every cell starts from its own seed, so a resumed or partial run
+        # trains the same policies as an uninterrupted one.
+        seed_all(cell_config.experiment.seed)
         run_train(cell_config, run_dir=ensure_dir(cell_dir))
 
 
@@ -179,7 +183,9 @@ def _stage_evaluate(
         errors: list[float] = []
         rewards: list[float] = []
         for case_index, case in enumerate(cell_config.evaluation.target_suite):
-            target = np.array(cell_config.build_target_vector(**case.overrides), dtype=np.float32)
+            target = effective_target(
+                np.array(cell_config.build_target_vector(**case.overrides), dtype=np.float32)
+            )
             for episode in range(spec.episodes):
                 seed = cell_config.experiment.seed + 7_919 * case_index + episode
                 level = generate_fn(target, seed)
@@ -288,7 +294,7 @@ def _evaluate_inference_cell(
             seed = cell_config.experiment.seed + 7_919 * case_index + episode
             level = generate_fn(requested, seed)
             measured = compute_intent_vector(level, catalog, cell_config)
-            e2e_errors.append(float(np.abs(measured - reference).mean()))
+            e2e_errors.append(float(np.abs(measured - effective_target(reference)).mean()))
     result = {
         "cell": row["cell"],
         "replicate": row["replicate"],

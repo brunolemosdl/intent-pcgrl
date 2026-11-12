@@ -1,39 +1,39 @@
 {
   "ppo_best_of_n": {
     "terminal_reward": {
-      "mean": 7.9235,
-      "std": 0.1643,
+      "mean": 7.8912,
+      "std": 0.1835,
       "n": 36,
-      "ci95_low": 7.8678,
-      "ci95_high": 7.974
+      "ci95_low": 7.8297,
+      "ci95_high": 7.9477
     },
     "intent_error_mean": {
-      "mean": 0.0769,
-      "std": 0.0227,
+      "mean": 0.0764,
+      "std": 0.0278,
       "n": 36,
-      "ci95_low": 0.0697,
-      "ci95_high": 0.0845
+      "ci95_low": 0.0677,
+      "ci95_high": 0.0856
     },
     "intent_error_max": {
-      "mean": 0.1678,
-      "std": 0.0746,
+      "mean": 0.1705,
+      "std": 0.0785,
       "n": 36,
-      "ci95_low": 0.1463,
-      "ci95_high": 0.1941
+      "ci95_low": 0.1474,
+      "ci95_high": 0.1977
     },
     "component_alignment": {
-      "mean": 0.8867,
-      "std": 0.0406,
+      "mean": 0.886,
+      "std": 0.0456,
       "n": 36,
-      "ci95_low": 0.8727,
-      "ci95_high": 0.8988
+      "ci95_low": 0.8704,
+      "ci95_high": 0.8998
     },
     "component_style": {
-      "mean": 0.6883,
-      "std": 0.0407,
+      "mean": 0.6736,
+      "std": 0.0358,
       "n": 36,
-      "ci95_low": 0.6748,
-      "ci95_high": 0.7013
+      "ci95_low": 0.6616,
+      "ci95_high": 0.6851
     },
     "component_playability": {
       "mean": 1.0,
@@ -50,18 +50,18 @@
       "ci95_high": 0.0
     },
     "duplicate_rate": {
-      "mean": 0.0031,
-      "std": 0.0183,
+      "mean": 0.0093,
+      "std": 0.0307,
       "n": 36,
       "ci95_low": 0.0,
-      "ci95_high": 0.0093
+      "ci95_high": 0.0216
     },
     "wall_time_s": {
-      "mean": 35.1196,
-      "std": 24.5824,
+      "mean": 8.017,
+      "std": 2.4897,
       "n": 36,
-      "ci95_low": 28.1589,
-      "ci95_high": 43.8998
+      "ci95_low": 7.2225,
+      "ci95_high": 8.8681
     }
   }
 }

@@ -10,6 +10,7 @@ from pcgrl.runtime.refine.context import build_context
 from pcgrl.runtime.refine.gates import flood_reaches_flag, grid_from_tiles
 from pcgrl.runtime.refine.ops import (
     apply_edit,
+    clear_pipe,
     ground_heights,
     pipe_clusters,
     plan_add_pipe,
@@ -19,7 +20,6 @@ from pcgrl.runtime.refine.ops import (
     plan_fill_gaps,
     plan_flatten,
     plan_raise_hill,
-    plan_remove_pipes,
     plan_remove_tiles,
     plan_repair_pipes,
     plan_trim_pipes,
@@ -167,7 +167,22 @@ def test_repair_pipes_can_turn_clusters_into_ground(flat_tiles, ctx) -> None:
     assert (flat_tiles[height - 5 : height - 2, 70] == ctx.solid_id).all()
 
 
-def test_removed_pipe_drops_the_enemy_standing_on_it(flat_tiles, ctx) -> None:
+def _clear(tiles, ctx, cluster) -> None:
+    """Apply the removal of one pipe cluster."""
+    for row, col, tile in clear_pipe(tiles, ctx, cluster):
+        tiles[row, col] = tile
+
+
+def test_clear_pipe_removes_the_whole_cluster(flat_tiles, ctx) -> None:
+    """Pipe removal never leaves partial clusters behind."""
+    edits = plan_add_pipe(flat_tiles, ctx, pipe_height=3, columns=range(ctx.width))
+    apply_edit(flat_tiles, edits[0])
+    for cluster in pipe_clusters(flat_tiles, ctx):
+        _clear(flat_tiles, ctx, cluster)
+    assert not np.isin(flat_tiles, list(ctx.pipe_ids)).any()
+
+
+def test_clear_pipe_drops_the_enemy_standing_on_it(flat_tiles, ctx) -> None:
     """The enemy on a removed pipe lands where the pipe stood; none is lost."""
     apply_edit(
         flat_tiles, plan_add_pipe(flat_tiles, ctx, pipe_height=3, columns=range(ctx.width))[0]
@@ -178,8 +193,7 @@ def test_removed_pipe_drops_the_enemy_standing_on_it(flat_tiles, ctx) -> None:
     goomba = ctx.enemy_ids[0]
     flat_tiles[top - 1, right] = goomba
     enemies = int(np.isin(flat_tiles, list(ctx.enemy_ids)).sum())
-    for edit in plan_remove_pipes(flat_tiles, ctx, keep_tiles=0, columns=range(ctx.width)):
-        apply_edit(flat_tiles, edit)
+    _clear(flat_tiles, ctx, cluster)
     assert not np.isin(flat_tiles, list(ctx.pipe_ids)).any()
     assert int(np.isin(flat_tiles, list(ctx.enemy_ids)).sum()) == enemies
     assert flat_tiles[top - 1, right] == ctx.empty_id
@@ -204,26 +218,6 @@ def test_trim_pipes_brings_the_enemy_down_with_the_top(flat_tiles, ctx) -> None:
     assert flat_tiles[new_top - 1, right] == goomba
     assert flat_tiles[new_top, right] == ctx.pipe_top_right
     assert {row for row, _ in pipe_clusters(flat_tiles, ctx)[0]} == {bottom - 2, bottom - 1, bottom}
-
-
-def test_block_tiles_follow_the_config_order(config, ctx, catalog) -> None:
-    """Planners place blocks in the order the config lists them."""
-    listed = [
-        catalog.id_for_name(name)
-        for name in config.categories["solid_like"]
-        if catalog.id_for_name(name) in ctx.block_ids
-    ]
-    assert list(ctx.block_ids) == listed
-
-
-def test_remove_pipes_keeps_whole_clusters(flat_tiles, ctx) -> None:
-    """Pipe removal never leaves partial clusters behind."""
-    edits = plan_add_pipe(flat_tiles, ctx, pipe_height=3, columns=range(ctx.width))
-    apply_edit(flat_tiles, edits[0])
-    removals = plan_remove_pipes(flat_tiles, ctx, keep_tiles=0, columns=range(ctx.width))
-    for edit in removals:
-        apply_edit(flat_tiles, edit)
-    assert not np.isin(flat_tiles, list(ctx.pipe_ids)).any()
 
 
 def test_add_platform_is_mountable_and_raises_platform_usage(

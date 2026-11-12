@@ -4,7 +4,7 @@ corpus_replay carries no chunk ids, so its duplicate component is 0 by construct
 
 | system | terminal_reward (95% CI) | intent_error_mean | duplicate_rate | wall_time_s |
 |---|---|---|---|---|
-| ppo | 8.095 [8.049, 8.139] | 0.037 | 0.006 | 0.12 |
-| ppo_best_of_n | 8.148 [8.111, 8.184] | 0.031 | 0.012 | 201.69 |
-| ppo_best_of_n_polished | 8.058 [7.980, 8.129] | 0.026 | 0.012 | 45.67 |
-| beam_search | 6.870 [6.747, 6.989] | 0.138 | 0.006 | 1.24 |
+| ppo | 8.182 [8.138, 8.222] | 0.018 | 0.022 | 0.12 |
+| ppo_best_of_n | 8.245 [8.207, 8.279] | 0.017 | 0.025 | 10.48 |
+| ppo_best_of_n_polished | 8.247 [8.210, 8.280] | 0.017 | 0.025 | 3.33 |
+| beam_search | 6.934 [6.827, 7.039] | 0.131 | 0.009 | 0.93 |

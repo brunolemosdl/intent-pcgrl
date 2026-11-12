@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
+from functools import lru_cache
 
 import numpy as np
 
@@ -47,28 +49,35 @@ def revert_edit(tiles: np.ndarray, snapshot: tuple[tuple[int, int, int], ...]) -
         tiles[row, col] = old_id
 
 
+@lru_cache(maxsize=64)
+def _lookup(ids: frozenset[int]) -> np.ndarray:
+    """Boolean lookup table over tile ids (ids are small catalog indices)."""
+    table = np.zeros(max(ids, default=0) + 1, dtype=bool)
+    table[list(ids)] = True
+    return table
+
+
+def tile_mask(tiles: np.ndarray, ids: Iterable[int]) -> np.ndarray:
+    """Boolean grid of the cells holding any of ``ids`` (a table gather)."""
+    table = _lookup(frozenset(ids))
+    inside = tiles < len(table)
+    return table[np.where(inside, tiles, 0)] & inside
+
+
 def ground_heights(tiles: np.ndarray, ctx: RefineContext) -> list[int]:
     """Bottom-contiguous solid-stack height per column (0 = floor gap).
 
     Mirrors ``metrics.intent.ground_height_profile`` on a raw array.
     """
-    heights: list[int] = []
-    height = tiles.shape[0]
-    for column in range(tiles.shape[1]):
-        stack = 0
-        for row in range(height - 1, -1, -1):
-            if int(tiles[row, column]) in ctx.solid_like:
-                stack += 1
-            else:
-                break
-        heights.append(stack)
-    return heights
+    solid = tile_mask(tiles, ctx.solid_like)
+    stacks: list[int] = np.cumprod(solid[::-1], axis=0).sum(axis=0).tolist()
+    return stacks
 
 
 def _cells_of(tiles: np.ndarray, ids: tuple[int, ...], columns: range) -> list[tuple[int, int]]:
     """All ``(row, col)`` holding any of ``ids`` inside the column range, sorted."""
     found: list[tuple[int, int]] = []
-    rows, cols = np.nonzero(np.isin(tiles, list(ids)))
+    rows, cols = np.nonzero(tile_mask(tiles, ids))
     for row, col in zip(rows.tolist(), cols.tolist(), strict=False):
         if columns.start <= col < columns.stop:
             found.append((row, col))
@@ -88,15 +97,14 @@ def _keep_indices(total: int, keep: int) -> set[int]:
 
 def _column_has_pipe(tiles: np.ndarray, ctx: RefineContext, column: int) -> bool:
     """Whether any pipe tile occupies the column."""
-    return bool(np.isin(tiles[:, column], list(ctx.pipe_ids)).any())
+    return bool(tile_mask(tiles[:, column], ctx.pipe_ids).any())
 
 
 def terrain_columns(tiles: np.ndarray, ctx: RefineContext, columns: range) -> list[int]:
     """Columns terrain ops may rewrite: unprotected and pipe-free."""
+    has_pipe: list[bool] = np.any(tile_mask(tiles, ctx.pipe_ids), axis=0).tolist()
     return [
-        column
-        for column in columns
-        if column not in ctx.protected_columns and not _column_has_pipe(tiles, ctx, column)
+        column for column in columns if column not in ctx.protected_columns and not has_pipe[column]
     ]
 
 
@@ -106,11 +114,11 @@ def rewrite_stack(
     """Cell writes that move one column's ground stack to ``new_height``.
 
     Description:
-        Lowering empties the removed stack rows and drops a decoration
-        (enemy or coin) sitting on the old surface onto the new one; raising
-        writes solid over whatever occupied the added rows. Cells outside the
-        changed band are untouched, so platforms above the new surface
-        survive.
+        A decoration (enemy or coin) sitting on the old surface moves with
+        it: lowering empties the removed stack rows and drops it onto the new
+        surface, raising writes solid over the added rows and lifts it on
+        top when that cell is free. Cells outside the changed band are
+        untouched, so platforms above the new surface survive.
     """
     height = tiles.shape[0]
     current = 0
@@ -120,20 +128,25 @@ def rewrite_stack(
         else:
             break
     cells: list[tuple[int, int, int]] = []
+    old_surface = height - current - 1
+    new_surface = height - new_height - 1
+    decoration_ids = (*ctx.enemy_ids, ctx.coin_id)
     if new_height < current:
         for row in range(height - current, height - new_height):
             cells.append((row, column, ctx.empty_id))
-        old_surface = height - current - 1
-        new_surface = height - new_height - 1
         if old_surface >= 0:
             occupant = int(tiles[old_surface, column])
-            decoration_ids = (*ctx.enemy_ids, ctx.coin_id)
             if occupant in decoration_ids and (new_surface, column) not in ctx.protected:
                 cells.append((old_surface, column, ctx.empty_id))
                 cells.append((new_surface, column, occupant))
     elif new_height > current:
         for row in range(height - new_height, height - current):
             cells.append((row, column, ctx.solid_id))
+        if current > 0 and new_surface >= 0:
+            occupant = int(tiles[old_surface, column])
+            free = int(tiles[new_surface, column]) == ctx.empty_id
+            if occupant in decoration_ids and free and (new_surface, column) not in ctx.protected:
+                cells.append((new_surface, column, occupant))
     return cells
 
 
@@ -172,26 +185,40 @@ def plan_remove_tiles(
 def plan_remove_blocks(
     tiles: np.ndarray, ctx: RefineContext, *, keep: int, columns: range
 ) -> list[Edit]:
-    """Thin interactive blocks; stack-embedded blocks become plain solid.
+    """Remove interactive blocks down to ``keep``, whole rows first.
 
     Description:
-        A block inside the bottom-contiguous stack is load-bearing for the
-        ground profile, so it is swapped to ``solid`` (profile and envelope
-        unchanged); floating blocks are simply emptied.
+        Blocks go row by row: the shortest runs first, and a longer one
+        trimmed from its right end for the remainder, so the rows that stay
+        are still rows (thinning one evenly leaves a pattern the corpus does
+        not have). A block inside the bottom-contiguous stack is
+        load-bearing for the ground profile, so it is swapped to ``solid``
+        (profile and envelope unchanged); floating blocks are simply emptied.
     """
     cells = _cells_of(tiles, ctx.block_ids, columns)
-    if len(cells) <= keep:
+    surplus = len(cells) - keep
+    if surplus <= 0:
         return []
+    runs: list[list[tuple[int, int]]] = []
+    for row, col in sorted(cells):
+        if runs and runs[-1][-1] == (row, col - 1):
+            runs[-1].append((row, col))
+        else:
+            runs.append([(row, col)])
+    chosen: list[tuple[int, int]] = []
+    for run in sorted(runs, key=len):
+        if surplus <= 0:
+            break
+        taken = run if len(run) <= surplus else run[len(run) - surplus :]
+        chosen.extend(taken)
+        surplus -= len(taken)
     heights = ground_heights(tiles, ctx)
     height = tiles.shape[0]
-    kept = _keep_indices(len(cells), keep)
-    writes: list[tuple[int, int, int]] = []
-    for index, (row, col) in enumerate(cells):
-        if index in kept:
-            continue
-        in_stack = row >= height - heights[col]
-        writes.append((row, col, ctx.solid_id if in_stack else ctx.empty_id))
-    return [Edit(op="remove_blocks", cells=tuple(writes))] if writes else []
+    writes = tuple(
+        (row, col, ctx.solid_id if row >= height - heights[col] else ctx.empty_id)
+        for row, col in sorted(chosen, key=lambda cell: (cell[1], cell[0]))
+    )
+    return [Edit(op="remove_blocks", cells=writes)] if writes else []
 
 
 def pipe_clusters(
@@ -202,9 +229,7 @@ def pipe_clusters(
     One vectorised scan finds the few pipe cells; the BFS walks only that
     set (this helper runs inside the per-step edit-action mask).
     """
-    pipe_cells = {
-        (int(row), int(col)) for row, col in np.argwhere(np.isin(tiles, list(ctx.pipe_ids)))
-    }
+    pipe_cells = {(int(row), int(col)) for row, col in np.argwhere(tile_mask(tiles, ctx.pipe_ids))}
     seen: set[tuple[int, int]] = set()
     clusters: list[list[tuple[int, int]]] = []
     for row, col in sorted(pipe_cells):
@@ -255,9 +280,10 @@ def plan_repair_pipes(tiles: np.ndarray, ctx: RefineContext, *, solid: bool = Fa
     Chunk seams can merge or clip corpus pipes into shapes the pipe
     validator hard-rejects; composed levels arrive at the refiner with these
     pre-existing violations, so repair runs before any target-driven edit.
-    With ``solid`` the clusters turn into plain ground instead: the way out
-    for a clipped pipe the path climbs on, whose removal the reachability
-    gate refuses.
+    An enemy standing on a removed pipe goes with it (it would be left
+    floating). With ``solid`` the clusters turn into plain ground instead:
+    the way out for a clipped pipe the path climbs on, whose removal the
+    reachability gate refuses.
     """
     validation = ctx.config.validation
     height = tiles.shape[0]
@@ -276,32 +302,16 @@ def plan_repair_pipes(tiles: np.ndarray, ctx: RefineContext, *, solid: bool = Fa
             )
             malformed = not support
         if malformed and solid:
-            cells = tuple((row, col, ctx.solid_id) for row, col in cluster)
-            edits.append(Edit(op="repair_pipes", cells=cells))
+            cells = [(row, col, ctx.solid_id) for row, col in cluster]
+            edits.append(Edit(op="repair_pipes", cells=tuple(cells)))
         elif malformed:
-            edits.append(Edit(op="repair_pipes", cells=clear_pipe(tiles, ctx, cluster)))
-    return edits
-
-
-def plan_remove_pipes(
-    tiles: np.ndarray, ctx: RefineContext, *, keep_tiles: int, columns: range
-) -> list[Edit]:
-    """Remove whole pipe clusters until at most ``keep_tiles`` pipe tiles remain.
-
-    Removing partial clusters would trip the pipe-shape validator, so the
-    cluster is the atomic unit; smallest clusters are dropped first to land
-    as close to the budget as possible.
-    """
-    clusters = pipe_clusters(tiles, ctx, columns)
-    total = sum(len(cluster) for cluster in clusters)
-    if total <= keep_tiles:
-        return []
-    edits: list[Edit] = []
-    for cluster in sorted(clusters, key=len):
-        if total <= keep_tiles:
-            break
-        edits.append(Edit(op="remove_pipes", cells=clear_pipe(tiles, ctx, cluster)))
-        total -= len(cluster)
+            cells = [(row, col, ctx.empty_id) for row, col in cluster]
+            members = set(cluster)
+            for row, col in cluster:
+                above = (row - 1, col)
+                if row > 0 and above not in members and int(tiles[above]) in ctx.enemy_ids:
+                    cells.append((row - 1, col, ctx.empty_id))
+            edits.append(Edit(op="repair_pipes", cells=tuple(cells)))
     return edits
 
 
@@ -332,8 +342,9 @@ def plan_fill_gaps(
 ) -> list[Edit]:
     """Fill floor gaps, hardest first, until the raw score drops to target.
 
-    Each filled column rises to the lower of its two grounded shoulders
-    (minimum 2), keeping the seam walkable from both sides.
+    Each filled column rises to the lower of its two grounded shoulders,
+    keeping the seam walkable from both sides. A gap is left
+    alone when filling it would overshoot the target by more than it helps.
     """
     heights = ground_heights(tiles, ctx)
     reach = ctx.config.validation.jump_reach
@@ -344,9 +355,12 @@ def plan_fill_gaps(
     for start, width in sorted(runs, key=lambda run: -min(run[1], cap)):
         if score <= target_score:
             break
+        if min(width, cap) / cap >= 2 * (score - target_score):
+            continue
         left = heights[start - 1] if start > 0 else 0
         right = heights[start + width] if start + width < len(heights) else 0
-        fill = max(2, min(h for h in (left, right) if h > 0) if (left or right) else 2)
+        shoulders = [h for h in (left, right) if h > 0]
+        fill = max(ctx.base_height, min(shoulders, default=ctx.base_height))
         cells: list[tuple[int, int, int]] = []
         for column in range(start, start + width):
             cells.extend(rewrite_stack(tiles, ctx, column, fill))
@@ -424,46 +438,124 @@ def plan_trim_pipes(
     return edits
 
 
-def plan_smooth(
-    tiles: np.ndarray, ctx: RefineContext, *, max_step: int, columns: range
-) -> list[Edit]:
-    """Cut large height steps, then level narrow bumps and dips.
+# Widest plateau or dip the smoothing op levels: wider ones are terrain, not
+# bumps, and moving them would redraw the level.
+SMOOTH_MAX_WIDTH = 8
 
-    First pass clamps steps to ``max_step`` toward the lower neighbour;
-    second pass removes one- and two-column bumps/dips whose both sides sit
-    at the same height — the high-frequency relief that dominates the mean
-    envelope delta on corpus chunks.
+
+def find_bump(
+    heights: list[int],
+    eligible: set[int],
+    columns: range,
+    *,
+    keep_height: int | None = None,
+) -> tuple[int, int, int] | None:
+    """Narrowest ground bump or dip that starts in ``columns``.
+
+    Description:
+        A bump is a run of equal stacks standing above its grounded
+        neighbours, a dip one lying below both of them. Returns the run and
+        the neighbour height it would be levelled to. A bump at or above
+        ``keep_height`` comes down no further than it (the peak the
+        verticality target stands on).
+
+    Args:
+        heights: Ground stack height per column.
+        eligible: Columns terrain ops may rewrite.
+        columns: Column range the run must start in.
+        keep_height: Stack height that bumps are not cut below.
+
+    Returns:
+        ``(start, stop, new_height)`` or ``None`` when the range is level.
+    """
+    width = len(heights)
+    best: tuple[int, int, int, int] | None = None
+    start = columns.start
+    # A run already open to the left of the range belongs to the range before.
+    while start < columns.stop and start > 0 and heights[start] == heights[start - 1]:
+        start += 1
+    while start < columns.stop:
+        level = heights[start]
+        stop = start + 1
+        while stop < width and heights[stop] == level:
+            stop += 1
+        span = stop - start
+        run_ok = level > 0 and span <= SMOOTH_MAX_WIDTH
+        if run_ok and all(column in eligible for column in range(start, stop)):
+            left = heights[start - 1] if start > 0 else 0
+            right = heights[stop] if stop < width else 0
+            sides = [side for side in (left, right) if side > 0]
+            new_height = level
+            if sides and all(side < level for side in sides):
+                new_height = max(sides)
+                if keep_height is not None and level >= keep_height:
+                    new_height = max(new_height, keep_height)
+            elif len(sides) == 2 and all(side > level for side in sides):
+                new_height = min(sides)
+            if new_height != level and (best is None or span < best[0]):
+                best = (span, start, stop, new_height)
+        start = stop
+    return None if best is None else best[1:]
+
+
+def plan_smooth(
+    tiles: np.ndarray,
+    ctx: RefineContext,
+    *,
+    columns: range,
+    rows: int | None = None,
+    keep_height: int | None = None,
+) -> list[Edit]:
+    """Level the narrowest ground bumps and dips until ``rows`` steps are gone.
+
+    Description:
+        The mean step of the path only falls when a local peak comes down or
+        a local dip comes up; reshaping a slope leaves it unchanged. Each
+        pass takes the narrowest bump or dip (``find_bump``) and moves it
+        toward its neighbours, stopping once ``rows`` rows of height steps
+        have been removed, so smoothing never flattens more than the target
+        needs. One edit per levelled stretch keeps each independently gated.
+
+    Args:
+        tiles: Working tile array.
+        ctx: Shared refine context.
+        columns: Column range the levelled runs start in.
+        rows: Rows of height steps to remove; ``None`` levels every bump.
+        keep_height: Stack height that bumps are not cut below.
     """
     heights = ground_heights(tiles, ctx)
-    eligible = set(terrain_columns(tiles, ctx, columns))
+    work = list(heights)
+    reach = range(columns.start, min(len(work), columns.stop + SMOOTH_MAX_WIDTH))
+    eligible = set(terrain_columns(tiles, ctx, reach))
+    removed = 0
+    while rows is None or removed < rows:
+        bump = find_bump(work, eligible, columns, keep_height=keep_height)
+        if bump is None:
+            break
+        start, stop, new_height = bump
+        level = work[start]
+        left = work[start - 1] if start > 0 else 0
+        right = work[stop] if stop < len(work) else 0
+        two_sided = left > 0 and right > 0
+        move = abs(level - new_height)
+        if rows is not None:
+            # A two-sided bump sheds two rows of steps per row it moves.
+            move = min(move, max(1, -(-(rows - removed) // (2 if two_sided else 1))))
+        new_height = level - move if new_height < level else level + move
+        for column in range(start, stop):
+            work[column] = new_height
+        removed += move * (2 if two_sided else 1)
+    edits: list[Edit] = []
     cells: list[tuple[int, int, int]] = []
-    changed = dict(enumerate(heights))
-    for column in range(1, len(heights)):
-        left, right = changed[column - 1], changed[column]
-        if left == 0 or right == 0:
-            continue
-        if right - left > max_step and column in eligible:
-            new_height = left + max_step
-            cells.extend(rewrite_stack(tiles, ctx, column, new_height))
-            changed[column] = new_height
-        elif left - right > max_step and (column - 1) in eligible:
-            new_height = right + max_step
-            cells.extend(rewrite_stack(tiles, ctx, column - 1, new_height))
-            changed[column - 1] = new_height
-    for width in (1, 2):
-        for column in range(1, len(heights) - width):
-            left = changed[column - 1]
-            inner = [changed[column + offset] for offset in range(width)]
-            right = changed[column + width]
-            if left == 0 or right == 0 or left != right:
-                continue
-            if all(h != left and h > 0 for h in inner) and all(
-                column + offset in eligible for offset in range(width)
-            ):
-                for offset in range(width):
-                    cells.extend(rewrite_stack(tiles, ctx, column + offset, left))
-                    changed[column + offset] = left
-    return [Edit(op="smooth", cells=tuple(cells))] if cells else []
+    for column in reach:
+        if work[column] != heights[column]:
+            cells.extend(rewrite_stack(tiles, ctx, column, work[column]))
+        elif cells:
+            edits.append(Edit(op="smooth", cells=tuple(cells)))
+            cells = []
+    if cells:
+        edits.append(Edit(op="smooth", cells=tuple(cells)))
+    return edits
 
 
 def plan_remove_platforms(
@@ -472,6 +564,7 @@ def plan_remove_platforms(
     *,
     columns: range,
     above_height: int = 0,
+    keep_blocks: bool = False,
 ) -> list[Edit]:
     """Delete floating solid-like structures sitting above the ground stack.
 
@@ -486,27 +579,31 @@ def plan_remove_platforms(
         above_height: Only remove platforms whose standing height exceeds
             this (0 removes every floating platform); lets the verticality
             handler clear amplitude spikes while sparing low walkways.
+        keep_blocks: Leave bricks and question blocks in place (the caller
+            moves them instead, keeping the block count).
     """
-    heights = ground_heights(tiles, ctx)
+    heights = np.asarray(ground_heights(tiles, ctx))
     height = tiles.shape[0]
     removable = (ctx.solid_like - ctx.pipe_ids) | set(ctx.block_ids)
+    if keep_blocks:
+        removable = removable - set(ctx.block_ids)
+    # Floating cells of the range: removable, above the ground stack, high
+    # enough and not protected. Runs are read off row by row.
+    floating = tile_mask(tiles, removable)
+    floating &= np.arange(height)[:, None] < (height - heights)[None, :]
+    floating[max(0, height - above_height) :, :] = False
+    for row, col in ctx.protected:
+        floating[row, col] = False
+    window = floating[:, columns.start : columns.stop]
     edits: list[Edit] = []
-    for row in range(height):
-        if height - row <= above_height:
-            continue
+    for row in np.flatnonzero(window.any(axis=1)).tolist():
         run: list[tuple[int, int, int]] = []
-        for col in columns:
-            keep = (
-                (row, col) in ctx.protected
-                or int(tiles[row, col]) not in removable
-                or row >= height - heights[col]
-            )
-            if keep:
-                if run:
-                    edits.append(Edit(op="remove_platforms", cells=tuple(run)))
-                    run = []
-            else:
-                run.append((row, col, ctx.empty_id))
+        for offset, is_floating in enumerate(window[row].tolist()):
+            if is_floating:
+                run.append((row, columns.start + offset, ctx.empty_id))
+            elif run:
+                edits.append(Edit(op="remove_platforms", cells=tuple(run)))
+                run = []
         if run:
             edits.append(Edit(op="remove_platforms", cells=tuple(run)))
     edits.sort(key=lambda edit: -len(edit.cells))
@@ -514,7 +611,11 @@ def plan_remove_platforms(
 
 
 def plan_raise_blocks(
-    tiles: np.ndarray, ctx: RefineContext, *, min_height_above: int, columns: range
+    tiles: np.ndarray,
+    ctx: RefineContext,
+    *,
+    min_height_above: int,
+    columns: range,
 ) -> list[Edit]:
     """Lift mountable floating blocks out of the envelope's jump reach.
 
@@ -527,28 +628,24 @@ def plan_raise_blocks(
     height = tiles.shape[0]
     jump = ctx.config.validation.jump_height
     per_column: dict[int, list[tuple[int, int, int]]] = {}
-    for row in range(height):
-        for col in columns:
-            tile = int(tiles[row, col])
-            if tile not in ctx.block_ids or (row, col) in ctx.protected:
-                continue
-            if row >= height - heights[col]:
-                continue
-            surface_row = height - heights[col] - 1
-            above = surface_row - row
-            if above > jump:
-                continue
-            target_row = surface_row - min_height_above
-            writes = per_column.setdefault(col, [])
-            if (
-                target_row < 1
-                or int(tiles[target_row, col]) != ctx.empty_id
-                or (target_row, col) in ctx.protected
-            ):
-                writes.append((row, col, ctx.empty_id))
-            else:
-                writes.append((row, col, ctx.empty_id))
-                writes.append((target_row, col, tile))
+    window = tile_mask(tiles[:, columns.start : columns.stop], ctx.block_ids)
+    for row, offset in np.argwhere(window).tolist():
+        col = columns.start + offset
+        if (row, col) in ctx.protected or row >= height - heights[col]:
+            continue
+        surface_row = height - heights[col] - 1
+        if surface_row - row > jump:
+            continue
+        tile = int(tiles[row, col])
+        target_row = surface_row - min_height_above
+        writes = per_column.setdefault(col, [])
+        writes.append((row, col, ctx.empty_id))
+        if (
+            target_row >= 1
+            and int(tiles[target_row, col]) == ctx.empty_id
+            and (target_row, col) not in ctx.protected
+        ):
+            writes.append((target_row, col, tile))
     # One edit per column: lifting a whole walkway at once can sever the
     # flood path, so each column is gated (and revertible) independently;
     # blocks with no head-room are dropped and re-added by the block loop.
@@ -726,13 +823,14 @@ def plan_add_pipe(
     min_gap = spacing if spacing is not None else ctx.config.validation.pipe_min_gap
     existing = [cluster[0][1] for cluster in pipe_clusters(tiles, ctx)]
     height = tiles.shape[0]
+    fallback: list[Edit] = []
     for col in terrain_columns(tiles, ctx, columns):
         if col + 1 >= ctx.width or (col + 1) in ctx.protected_columns:
             continue
         if _column_has_pipe(tiles, ctx, col + 1):
             continue
         left_h, right_h = heights[col], heights[col + 1]
-        if min(left_h, right_h) < 2 or abs(left_h - right_h) > 2:
+        if min(left_h, right_h) < ctx.base_height or abs(left_h - right_h) > 2:
             continue
         pad = min(left_h, right_h)
         if pad > max_surface_height:
@@ -759,25 +857,64 @@ def plan_add_pipe(
         for row in range(top_row + 1, surface + 1):
             cells.append((row, col, ctx.pipe_body_left))
             cells.append((row, col + 1, ctx.pipe_body_right))
-        return [Edit(op="add_pipe", cells=tuple(cells))]
-    return []
+        edit = [Edit(op="add_pipe", cells=tuple(cells))]
+        # The first pad whose footprint is free; one that covers content
+        # only when the range has no free pad.
+        if bool((tiles[top_row : surface + 1, col : col + 2] == ctx.empty_id).all()):
+            return edit
+        fallback = fallback or edit
+    return fallback
+
+
+def _clutter_above_ground(
+    tiles: np.ndarray,
+    ctx: RefineContext,
+    heights: list[int],
+    *,
+    below: int | None = None,
+    surface: bool = True,
+) -> list[int]:
+    """Per column, the cells a terrain rewrite would erase above the stack.
+
+    Counts what stands or floats over the ground stack, up to ``below`` rows
+    from the floor when given. ``surface=False`` leaves out the cell right
+    on the stack, for rewrites that carry its decoration along.
+    """
+    grid_height = tiles.shape[0]
+    occupied = tiles != ctx.empty_id
+    rows = np.arange(grid_height)[:, None]
+    stack_top = grid_height - np.asarray(heights)[None, :]
+    band = rows < (stack_top if surface else stack_top - 1)
+    if below is not None:
+        band &= rows >= grid_height - below
+    counts: list[int] = (occupied & band).sum(axis=0).tolist()
+    return counts
 
 
 def plan_dig_gap(
-    tiles: np.ndarray, ctx: RefineContext, *, gap_width: int, columns: range
+    tiles: np.ndarray,
+    ctx: RefineContext,
+    *,
+    gap_width: int,
+    columns: range,
+    alternatives: int = 1,
 ) -> list[Edit]:
     """Carve one flood-safe floor gap of ``gap_width`` columns.
 
     The span must be grounded on both shoulders, pipe-free, away from the
     endpoints and existing gaps, and within the configured maximum width, so
-    the jump physics can always cross it.
+    the jump physics can always cross it. With ``alternatives`` above one,
+    that many candidate spans are returned, best first, for a caller that
+    keeps the first one its gates accept.
     """
     heights = ground_heights(tiles, ctx)
     height = tiles.shape[0]
     gap_width = min(gap_width, ctx.config.validation.max_gap_width)
     eligible = set(terrain_columns(tiles, ctx, columns))
     spawn_col, flag_col = ctx.player[1], ctx.flagpole[1]
-    for start in range(columns.start, columns.stop - gap_width):
+    clutter = _clutter_above_ground(tiles, ctx, heights)
+    spans: list[tuple[int, int]] = []
+    for start in range(columns.start, columns.stop - gap_width + 1):
         span = range(start, start + gap_width)
         if any(col not in eligible for col in span):
             continue
@@ -793,13 +930,113 @@ def plan_dig_gap(
             continue
         if any(heights[col] == 0 for col in span):
             continue
+        # The pit takes everything in its columns with it, so it goes where
+        # the least content stands.
+        spans.append((sum(clutter[col] for col in span), start))
+    edits: list[Edit] = []
+    taken: list[int] = []
+    for _, start in sorted(spans):
+        if len(edits) >= alternatives:
+            break
+        if any(abs(start - other) < gap_width for other in taken):
+            continue
+        taken.append(start)
         cells: list[tuple[int, int, int]] = []
-        for col in span:
+        for col in range(start, start + gap_width):
             for row in range(height):
                 if int(tiles[row, col]) != ctx.empty_id:
                     cells.append((row, col, ctx.empty_id))
-        return [Edit(op="dig_gap", cells=tuple(cells))]
-    return []
+        edits.append(Edit(op="dig_gap", cells=tuple(cells)))
+    return edits
+
+
+def find_summit(
+    heights: list[int],
+    envelope: tuple[int | None, ...],
+    eligible: set[int],
+    columns: range,
+    *,
+    rows: int,
+    jump_height: int,
+    grid_height: int,
+) -> list[int] | None:
+    """Columns of the path's highest ground that can rise by ``rows`` rows.
+
+    Description:
+        The summit is a run of ground stacks where the path envelope peaks,
+        starting inside ``columns``. A run wider than one column keeps its
+        first column as a step, so the climb stays within jump height; a
+        single column must stay within jump height of its taller neighbour.
+
+    Returns:
+        The columns to raise, or ``None`` when the range holds no summit
+        that can take the rows.
+    """
+    reached = [height for height in envelope if height is not None]
+    if rows <= 0 or not reached:
+        return None
+    top = max(reached)
+    if top + rows + 2 > grid_height:
+        return None
+    width = len(heights)
+
+    def on_top(column: int) -> bool:
+        return heights[column] == top and envelope[column] == top
+
+    column = columns.start
+    while column < columns.stop:
+        if not on_top(column) or (column > 0 and on_top(column - 1)):
+            column += 1
+            continue
+        stop = column + 1
+        while stop < width and on_top(stop):
+            stop += 1
+        if stop - column > SMOOTH_MAX_WIDTH:
+            # A plateau that wide is the floor, not a summit.
+            column = stop
+            continue
+        if stop - column > 1:
+            raised, climb = list(range(column + 1, stop)), rows
+        else:
+            left = heights[column - 1] if column > 0 else 0
+            right = heights[stop] if stop < width else 0
+            raised, climb = [column], top + rows - max(left, right)
+        if climb <= jump_height and all(col in eligible for col in raised):
+            return raised
+        column = stop
+    return None
+
+
+def plan_raise_summit(
+    tiles: np.ndarray,
+    ctx: RefineContext,
+    *,
+    envelope: tuple[int | None, ...],
+    rows: int,
+    columns: range,
+) -> list[Edit]:
+    """Raise the highest ground the path stands on by ``rows`` rows.
+
+    The cheapest way to add envelope amplitude: a few tiles on top of the
+    summit the level already has (``find_summit``), instead of a new hill.
+    """
+    heights = ground_heights(tiles, ctx)
+    eligible = set(terrain_columns(tiles, ctx, range(columns.start, ctx.width)))
+    raised = find_summit(
+        heights,
+        envelope,
+        eligible,
+        columns,
+        rows=rows,
+        jump_height=ctx.config.validation.jump_height,
+        grid_height=tiles.shape[0],
+    )
+    if raised is None:
+        return []
+    cells: list[tuple[int, int, int]] = []
+    for column in raised:
+        cells.extend(rewrite_stack(tiles, ctx, column, heights[column] + rows))
+    return [Edit(op="raise_summit", cells=tuple(cells))] if cells else []
 
 
 def plan_raise_hill(
@@ -817,13 +1054,14 @@ def plan_raise_hill(
     over it in both directions.
     """
     heights = ground_heights(tiles, ctx)
-    base = 2
+    base = ctx.base_height
     climb = max(1, (peak_height - base + ramp_step - 1) // ramp_step)
     span_width = 2 * climb + 3
     eligible = set(terrain_columns(tiles, ctx, columns))
     spawn_col, flag_col = ctx.player[1], ctx.flagpole[1]
-    best_start = -1
-    for start in range(columns.start, columns.stop - span_width):
+    clutter = _clutter_above_ground(tiles, ctx, heights, below=peak_height, surface=False)
+    best: tuple[int, int] | None = None
+    for start in range(columns.start, columns.stop - span_width + 1):
         span = range(start, start + span_width)
         if any(
             col not in eligible
@@ -833,10 +1071,16 @@ def plan_raise_hill(
             for col in span
         ):
             continue
-        best_start = start
-        break
-    if best_start < 0:
+        # The hill buries what floats in its columns, so it rises where the
+        # least content stands.
+        cost = sum(clutter[col] for col in span)
+        if best is None or cost < best[0]:
+            best = (cost, start)
+        if cost == 0:
+            break
+    if best is None:
         return []
+    best_start = best[1]
     profile: list[int] = []
     for index in range(span_width):
         if index < climb:
@@ -852,6 +1096,48 @@ def plan_raise_hill(
     return [Edit(op="raise_hill", cells=tuple(cells))] if cells else []
 
 
+def roughen_columns(
+    heights: list[int],
+    terrain: set[int],
+    columns: range,
+    *,
+    amplitude: int,
+    base_height: int,
+    max_height: int | None = None,
+    path: tuple[int | None, ...] | None = None,
+) -> list[int]:
+    """Ground columns that become a clean step when raised by ``amplitude``.
+
+    Description:
+        A column qualifies when it is rewritable ground level with both of
+        its neighbours, so raising it adds exactly two steps to the path.
+        With ``path`` the three columns must be where the path walks on the
+        ground: a step under a platform changes nothing the path sees.
+
+    Args:
+        heights: Ground stack height per column.
+        terrain: Columns terrain ops may rewrite.
+        columns: Column range searched.
+        amplitude: Rows the column would rise.
+        base_height: Floor height; lower stacks are pits.
+        max_height: Raised columns may not stand above this height.
+        path: Path envelope, when the steps must show on it.
+    """
+    found: list[int] = []
+    for column in columns:
+        if not 0 < column < len(heights) - 1 or column not in terrain:
+            continue
+        level = heights[column]
+        if level < base_height or heights[column - 1] != level or heights[column + 1] != level:
+            continue
+        if max_height is not None and level + amplitude > max_height:
+            continue
+        if path is not None and any(path[c] != level for c in (column - 1, column, column + 1)):
+            continue
+        found.append(column)
+    return found
+
+
 def plan_roughen(
     tiles: np.ndarray,
     ctx: RefineContext,
@@ -859,40 +1145,49 @@ def plan_roughen(
     amplitude: int,
     boundaries: int,
     columns: range,
+    max_height: int | None = None,
+    path: tuple[int | None, ...] | None = None,
 ) -> list[Edit]:
-    """Modulate stack heights into a sawtooth to lower path smoothness.
+    """Raise single ground columns into steps to lower path smoothness.
+
+    Each raised column stands between two columns of its own height
+    (``roughen_columns``), so it adds two steps of ``amplitude`` rows. The
+    columns are spread over the range, never side by side, and every one is
+    its own edit.
 
     Args:
         tiles: Working tile array.
         ctx: Shared refine context.
-        amplitude: Half-height of the sawtooth in rows.
+        amplitude: Rows each step rises.
         boundaries: Number of height steps to introduce.
         columns: Column range searched.
+        max_height: Raised columns may not stand above this height, so
+            roughening never adds to the envelope amplitude.
+        path: Path envelope; when given the steps go where the path walks
+            on the ground.
     """
     if boundaries <= 0:
         return []
     heights = ground_heights(tiles, ctx)
-    eligible = [col for col in terrain_columns(tiles, ctx, columns) if heights[col] >= 2]
-    if len(eligible) < 4:
-        return []
-    edits: list[Edit] = []
-    made = 0
-    period = max(2, len(eligible) // max(1, boundaries))
-    block: list[tuple[int, int, int]] = []
-    for index, col in enumerate(eligible):
-        if made >= boundaries:
-            break
-        if (index // period) % 2 == 1:
-            base = heights[col]
-            block.extend(rewrite_stack(tiles, ctx, col, base + amplitude))
-            if index % period == 0:
-                made += 2
-        elif block:
-            edits.append(Edit(op="roughen", cells=tuple(block)))
-            block = []
-    if block:
-        edits.append(Edit(op="roughen", cells=tuple(block)))
-    return edits
+    candidates = roughen_columns(
+        heights,
+        set(terrain_columns(tiles, ctx, columns)),
+        columns,
+        amplitude=amplitude,
+        base_height=ctx.base_height,
+        max_height=max_height,
+        path=path,
+    )
+    wanted = -(-boundaries // 2)
+    stride = max(2, len(candidates) // max(1, wanted))
+    chosen = candidates[stride // 2 :: stride][:wanted] or candidates[:1]
+    return [
+        Edit(
+            op="roughen",
+            cells=tuple(rewrite_stack(tiles, ctx, column, heights[column] + amplitude)),
+        )
+        for column in chosen
+    ]
 
 
 def plan_add_platform(
@@ -903,6 +1198,7 @@ def plan_add_platform(
     height_above: int,
     columns: range,
     max_standing_height: int | None = None,
+    alternatives: int = 1,
 ) -> list[Edit]:
     """Add one mountable floating platform of solid tiles.
 
@@ -911,12 +1207,18 @@ def plan_add_platform(
     standing room. Gap columns may sit under the span — the SMB1 idiom of
     platforms bridging pits — as long as one grounded anchor column remains,
     so platform usage keeps climbing after gap difficulty has consumed the
-    floor.
+    floor. With ``alternatives`` above one, that many candidate spans are
+    returned, leftmost first, for a caller that keeps the first one its
+    gates accept.
     """
     heights = ground_heights(tiles, ctx)
     height = tiles.shape[0]
     eligible = set(terrain_columns(tiles, ctx, columns))
-    for start in range(columns.start, columns.stop - width):
+    edits: list[Edit] = []
+    next_start = columns.start
+    for start in range(columns.start, columns.stop - width + 1):
+        if start < next_start:
+            continue
         span = range(start, start + width)
         if any(col not in eligible for col in span):
             continue
@@ -939,5 +1241,8 @@ def plan_add_platform(
         if not clear:
             continue
         cells = tuple((platform_row, col, ctx.solid_id) for col in span)
-        return [Edit(op="add_platform", cells=cells)]
-    return []
+        edits.append(Edit(op="add_platform", cells=cells))
+        if len(edits) >= alternatives:
+            break
+        next_start = start + width
+    return edits

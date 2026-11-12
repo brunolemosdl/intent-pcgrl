@@ -14,14 +14,14 @@
     "measured": {
       "enemy_density": 0.12,
       "coin_density": 0.422,
-      "interactive_block_density": 0.481,
-      "pipe_density": 0.312,
-      "gap_difficulty": 0.395,
+      "interactive_block_density": 0.503,
+      "pipe_density": 0.26,
+      "gap_difficulty": 0.421,
       "verticality": 0.667,
-      "path_smoothness": 0.385,
-      "platform_usage": 0.548
+      "path_smoothness": 0.355,
+      "platform_usage": 0.539
     },
-    "intent_error_mean": 0.0139
+    "intent_error_mean": 0.0224
   },
   {
     "case": "high_enemy",
@@ -37,15 +37,15 @@
     },
     "measured": {
       "enemy_density": 0.917,
-      "coin_density": 0.362,
+      "coin_density": 0.422,
       "interactive_block_density": 0.503,
       "pipe_density": 0.312,
-      "gap_difficulty": 0.368,
+      "gap_difficulty": 0.395,
       "verticality": 0.667,
-      "path_smoothness": 0.4,
-      "platform_usage": 0.557
+      "path_smoothness": 0.366,
+      "platform_usage": 0.551
     },
-    "intent_error_mean": 0.0156
+    "intent_error_mean": 0.0138
   },
   {
     "case": "low_coin",
@@ -62,14 +62,14 @@
     "measured": {
       "enemy_density": 0.518,
       "coin_density": 0.121,
-      "interactive_block_density": 0.481,
-      "pipe_density": 0.312,
-      "gap_difficulty": 0.421,
+      "interactive_block_density": 0.503,
+      "pipe_density": 0.26,
+      "gap_difficulty": 0.395,
       "verticality": 0.667,
-      "path_smoothness": 0.392,
-      "platform_usage": 0.552
+      "path_smoothness": 0.404,
+      "platform_usage": 0.554
     },
-    "intent_error_mean": 0.0147
+    "intent_error_mean": 0.014
   },
   {
     "case": "high_coin",
@@ -87,13 +87,13 @@
       "enemy_density": 0.518,
       "coin_density": 0.905,
       "interactive_block_density": 0.503,
-      "pipe_density": 0.312,
+      "pipe_density": 0.26,
       "gap_difficulty": 0.395,
       "verticality": 0.667,
-      "path_smoothness": 0.399,
-      "platform_usage": 0.545
+      "path_smoothness": 0.373,
+      "platform_usage": 0.52
     },
-    "intent_error_mean": 0.0084
+    "intent_error_mean": 0.0182
   },
   {
     "case": "low_verticality",
@@ -112,12 +112,12 @@
       "coin_density": 0.422,
       "interactive_block_density": 0.503,
       "pipe_density": 0.312,
-      "gap_difficulty": 0.421,
+      "gap_difficulty": 0.395,
       "verticality": 0.176,
-      "path_smoothness": 0.373,
-      "platform_usage": 0.543
+      "path_smoothness": 0.406,
+      "platform_usage": 0.551
     },
-    "intent_error_mean": 0.0235
+    "intent_error_mean": 0.018
   },
   {
     "case": "high_verticality",
@@ -134,14 +134,14 @@
     "measured": {
       "enemy_density": 0.518,
       "coin_density": 0.422,
-      "interactive_block_density": 0.525,
-      "pipe_density": 0.312,
+      "interactive_block_density": 0.503,
+      "pipe_density": 0.286,
       "gap_difficulty": 0.395,
       "verticality": 0.83,
-      "path_smoothness": 0.399,
+      "path_smoothness": 0.36,
       "platform_usage": 0.577
     },
-    "intent_error_mean": 0.0226
+    "intent_error_mean": 0.0249
   },
   {
     "case": "low_platform_usage",
@@ -156,16 +156,16 @@
       "platform_usage": 0.1
     },
     "measured": {
-      "enemy_density": 0.478,
+      "enemy_density": 0.518,
       "coin_density": 0.422,
       "interactive_block_density": 0.503,
-      "pipe_density": 0.312,
-      "gap_difficulty": 0.395,
+      "pipe_density": 0.286,
+      "gap_difficulty": 0.368,
       "verticality": 0.667,
-      "path_smoothness": 0.373,
-      "platform_usage": 0.073
+      "path_smoothness": 0.429,
+      "platform_usage": 0.116
     },
-    "intent_error_mean": 0.0169
+    "intent_error_mean": 0.0189
   },
   {
     "case": "high_platform_usage",
@@ -182,14 +182,14 @@
     "measured": {
       "enemy_density": 0.518,
       "coin_density": 0.422,
-      "interactive_block_density": 0.481,
+      "interactive_block_density": 0.503,
       "pipe_density": 0.312,
-      "gap_difficulty": 0.395,
+      "gap_difficulty": 0.368,
       "verticality": 0.667,
-      "path_smoothness": 0.392,
-      "platform_usage": 0.918
+      "path_smoothness": 0.398,
+      "platform_usage": 0.9
     },
-    "intent_error_mean": 0.0149
+    "intent_error_mean": 0.0133
   },
   {
     "case": "easy_level",
@@ -205,15 +205,15 @@
     },
     "measured": {
       "enemy_density": 0.199,
-      "coin_density": 0.362,
+      "coin_density": 0.422,
       "interactive_block_density": 0.503,
       "pipe_density": 0.286,
-      "gap_difficulty": 0.079,
+      "gap_difficulty": 0.105,
       "verticality": 0.667,
-      "path_smoothness": 0.906,
-      "platform_usage": 0.571
+      "path_smoothness": 0.884,
+      "platform_usage": 0.539
     },
-    "intent_error_mean": 0.0151
+    "intent_error_mean": 0.0111
   },
   {
     "case": "hard_level",
@@ -231,13 +231,13 @@
       "enemy_density": 0.797,
       "coin_density": 0.422,
       "interactive_block_density": 0.503,
-      "pipe_density": 0.312,
+      "pipe_density": 0.286,
       "gap_difficulty": 0.789,
       "verticality": 0.667,
-      "path_smoothness": 0.423,
-      "platform_usage": 0.545
+      "path_smoothness": 0.416,
+      "platform_usage": 0.525
     },
-    "intent_error_mean": 0.012
+    "intent_error_mean": 0.0139
   },
   {
     "case": "balanced_level",
@@ -252,16 +252,16 @@
       "platform_usage": 0.5
     },
     "measured": {
-      "enemy_density": 0.478,
+      "enemy_density": 0.518,
       "coin_density": 0.483,
       "interactive_block_density": 0.503,
-      "pipe_density": 0.494,
-      "gap_difficulty": 0.474,
+      "pipe_density": 0.52,
+      "gap_difficulty": 0.5,
       "verticality": 0.503,
-      "path_smoothness": 0.526,
-      "platform_usage": 0.481
+      "path_smoothness": 0.502,
+      "platform_usage": 0.495
     },
-    "intent_error_mean": 0.0154
+    "intent_error_mean": 0.0086
   },
   {
     "case": "sparse_level",
@@ -278,13 +278,13 @@
     "measured": {
       "enemy_density": 0.12,
       "coin_density": 0.121,
-      "interactive_block_density": 0.175,
+      "interactive_block_density": 0.153,
       "pipe_density": 0.104,
       "gap_difficulty": 0.395,
       "verticality": 0.667,
-      "path_smoothness": 0.392,
-      "platform_usage": 0.139
+      "path_smoothness": 0.43,
+      "platform_usage": 0.188
     },
-    "intent_error_mean": 0.0139
+    "intent_error_mean": 0.0172
   }
 ]

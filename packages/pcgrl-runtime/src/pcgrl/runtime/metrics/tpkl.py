@@ -8,6 +8,9 @@ import numpy as np
 
 PATTERNS_FILENAME = "pattern_distributions.npz"
 _EPSILON = 1e-05
+# Windows of up to 15 cells with tile ids below 16 pack into one int64.
+_CODE_BASE = 16
+_CODE_DIGITS = 15
 
 
 def count_patterns(tiles: np.ndarray, size: int) -> Counter[bytes]:
@@ -29,6 +32,20 @@ def count_patterns(tiles: np.ndarray, size: int) -> Counter[bytes]:
     # Flatten every window into one contiguous row and dedupe in C instead of
     # one .tobytes() per window: same keys, ~10x fewer Python-level ops.
     flat = np.ascontiguousarray(windows.reshape(-1, size * size))
+    cells = size * size
+    if (
+        cells <= _CODE_DIGITS
+        and flat.size
+        and int(np.min(flat)) >= 0
+        and int(np.max(flat)) < _CODE_BASE
+    ):
+        # Tile ids are small, so a window packs into one integer and the
+        # dedupe becomes a 1-D sort instead of a row-wise one.
+        codes = flat.astype(np.int64) @ (_CODE_BASE ** np.arange(cells, dtype=np.int64))
+        _, first, occurrences = np.unique(codes, return_index=True, return_counts=True)
+        for index, count in zip(first, occurrences, strict=True):
+            counts[flat[index].tobytes()] = int(count)
+        return counts
     unique, occurrences = np.unique(flat, axis=0, return_counts=True)
     for row, count in zip(unique, occurrences, strict=True):
         counts[row.tobytes()] = int(count)

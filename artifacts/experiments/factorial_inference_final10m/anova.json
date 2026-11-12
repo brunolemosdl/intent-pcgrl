@@ -48,44 +48,44 @@
   "e2e_intent_error_mean": [
     {
       "name": "G_grounding",
-      "effect": 0.016325,
+      "effect": 0.0190875,
       "p_value": 0.0004997501249375312,
       "order": 1
     },
     {
       "name": "G_grounding:S_style",
-      "effect": 0.01050000000000001,
-      "p_value": 0.067,
-      "order": 2
-    },
-    {
-      "name": "N_best_of",
-      "effect": -0.0025000000000000022,
-      "p_value": 0.674,
-      "order": 1
-    },
-    {
-      "name": "S_style:N_best_of",
-      "effect": 0.0016249999999999876,
-      "p_value": 0.787,
+      "effect": 0.010762500000000001,
+      "p_value": 0.0785,
       "order": 2
     },
     {
       "name": "S_style",
-      "effect": 0.001350000000000004,
-      "p_value": 0.8,
+      "effect": -0.0059875,
+      "p_value": 0.322,
+      "order": 1
+    },
+    {
+      "name": "N_best_of",
+      "effect": -0.002212499999999999,
+      "p_value": 0.734,
       "order": 1
     },
     {
       "name": "G_grounding:S_style:N_best_of",
-      "effect": -0.0010249999999999981,
-      "p_value": 0.8645,
+      "effect": -0.0006374999999999992,
+      "p_value": 0.921,
       "order": 3
     },
     {
       "name": "G_grounding:N_best_of",
-      "effect": 0.0005499999999999949,
-      "p_value": 0.915,
+      "effect": -0.0005625000000000005,
+      "p_value": 0.917,
+      "order": 2
+    },
+    {
+      "name": "S_style:N_best_of",
+      "effect": -3.750000000000975e-05,
+      "p_value": 0.997,
       "order": 2
     }
   ]

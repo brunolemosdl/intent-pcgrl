@@ -3,84 +3,84 @@
     "a": "ppo",
     "b": "ppo_best_of_n",
     "metric": "terminal_reward",
-    "delta": -0.0532,
-    "p_value": 0.0773
+    "delta": -0.0631,
+    "p_value": 0.0279
   },
   {
     "a": "ppo",
     "b": "ppo_best_of_n",
     "metric": "intent_error_mean",
-    "delta": 0.0055,
-    "p_value": 0.0108
+    "delta": 0.0011,
+    "p_value": 0.3619
   },
   {
     "a": "ppo",
     "b": "ppo_best_of_n_polished",
     "metric": "terminal_reward",
-    "delta": 0.0366,
-    "p_value": 0.4204
+    "delta": -0.0649,
+    "p_value": 0.023
   },
   {
     "a": "ppo",
     "b": "ppo_best_of_n_polished",
     "metric": "intent_error_mean",
-    "delta": 0.0106,
-    "p_value": 0.0001
+    "delta": 0.0012,
+    "p_value": 0.2993
   },
   {
     "a": "ppo",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": 1.225,
+    "delta": 1.2485,
     "p_value": 0.0001
   },
   {
     "a": "ppo",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": -0.1014,
+    "delta": -0.1129,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n",
     "b": "ppo_best_of_n_polished",
     "metric": "terminal_reward",
-    "delta": 0.0898,
-    "p_value": 0.0399
+    "delta": -0.0019,
+    "p_value": 0.9423
   },
   {
     "a": "ppo_best_of_n",
     "b": "ppo_best_of_n_polished",
     "metric": "intent_error_mean",
-    "delta": 0.0051,
-    "p_value": 0.0033
+    "delta": 0.0001,
+    "p_value": 0.89
   },
   {
     "a": "ppo_best_of_n",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": 1.2783,
+    "delta": 1.3115,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": -0.1069,
+    "delta": -0.1139,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n_polished",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": 1.1885,
+    "delta": 1.3134,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n_polished",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": -0.112,
+    "delta": -0.1141,
     "p_value": 0.0001
   }
 ]

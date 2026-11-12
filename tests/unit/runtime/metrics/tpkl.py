@@ -107,3 +107,22 @@ def test_pattern_reference_unknown_size_raises() -> None:
     reference = _reference(3)
     with pytest.raises(KeyError, match="k=4"):
         tile_pattern_kl(_corpus_like_tiles(), reference, 4)
+
+
+@pytest.mark.parametrize("size", [2, 3])
+def test_count_patterns_matches_row_wise_dedupe(size: int) -> None:
+    """The packed-integer dedupe yields the same windows and counts."""
+    tiles = _confetti_tiles()
+    windows = np.lib.stride_tricks.sliding_window_view(tiles, (size, size))
+    flat = np.ascontiguousarray(windows.reshape(-1, size * size))
+    unique, occurrences = np.unique(flat, axis=0, return_counts=True)
+    expected = {row.tobytes(): int(count) for row, count in zip(unique, occurrences, strict=True)}
+    assert dict(count_patterns(tiles, size)) == expected
+
+
+def test_count_patterns_handles_ids_too_large_to_pack() -> None:
+    """Grids with large tile ids fall back to the row-wise dedupe."""
+    tiles = _corpus_like_tiles()
+    tiles[0, 0] = 900
+    counts = count_patterns(tiles, 3)
+    assert sum(counts.values()) == (tiles.shape[0] - 2) * (tiles.shape[1] - 2)

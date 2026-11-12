@@ -130,7 +130,7 @@ def write_generation_summary(
         "max_target_error",
         "intent_dimensions",
         "attempts_total",
-        "attempts_playable",
+        "attempts_judged",
         "selected_attempt",
         "failure_reasons",
         "bridge_checked",

@@ -167,7 +167,9 @@ def composer_baseline_generate_fn(
     return generate
 
 
-def composer_policy_polished_generate_fn(config: RuntimeConfig, checkpoint: Path) -> GenerateFn:
+def composer_policy_polished_generate_fn(
+    config: RuntimeConfig, checkpoint: Path, *, edits: str = "policy", bounded: bool = True
+) -> GenerateFn:
     """Single policy rollout followed by the deterministic polish stage.
 
     Description:
@@ -179,18 +181,22 @@ def composer_policy_polished_generate_fn(config: RuntimeConfig, checkpoint: Path
     Args:
         config: Runtime settings.
         checkpoint: Trained policy archive.
+        edits: Who picks the edits of the rollout (see
+            ``composer_policy_generate_fn``).
+        bounded: Keep the polish inside ``generation.polish.max_tiles``;
+            unbounded, the planner runs until no edit helps.
 
     Returns:
         Callable ``(target, seed) -> LevelGrid``.
     """
     from pcgrl.runtime.refine import IntentRefiner
 
-    raw = composer_policy_generate_fn(config, checkpoint)
+    raw = composer_policy_generate_fn(config, checkpoint, edits=edits)
     refiner = IntentRefiner(
         config,
         load_catalog(config),
         tolerance=config.generation.polish.tolerance,
-        max_passes=config.generation.polish.max_passes,
+        max_tiles=config.generation.polish.max_tiles if bounded else None,
     )
 
     def generate(target: np.ndarray, seed: int) -> LevelGrid:
@@ -200,24 +206,41 @@ def composer_policy_polished_generate_fn(config: RuntimeConfig, checkpoint: Path
     return generate
 
 
-def composer_policy_generate_fn(config: RuntimeConfig, checkpoint: Path) -> GenerateFn:
+EDIT_SOURCES = ("policy", "random", "none")
+
+
+def composer_policy_generate_fn(
+    config: RuntimeConfig, checkpoint: Path, *, edits: str = "policy"
+) -> GenerateFn:
     """Build a controllability generator backed by a trained composer policy.
 
     Args:
         config: Runtime settings for the composer environment.
         checkpoint: Trained ``MaskablePPO`` policy archive.
+        edits: Who picks the edits once the policy has composed the level:
+            ``policy`` (the trained policy), ``random`` (uniformly among the
+            edits the masks still offer, stopping only when none is left) or
+            ``none`` (stop at the first edit decision).
 
     Returns:
         Callable ``(target, seed) -> LevelGrid`` using a single rollout.
 
+    Raises:
+        ValueError: For an unknown ``edits`` source.
+
     Description:
         Uses a direct environment rollout without best-of-N selection so
-        controllability measures the raw policy response.
+        controllability measures the raw policy response. The scripted edit
+        sources keep the environment, the masks and the undo rule and take
+        only the choice away from the policy, which isolates what the
+        learned edit selection adds.
     """
     from sb3_contrib import MaskablePPO
 
     from pcgrl.learning.env_factory import build_env_context, make_env
 
+    if edits not in EDIT_SOURCES:
+        raise ValueError(f"unknown edit source {edits!r} (choose from {EDIT_SOURCES})")
     context = build_env_context(config)
     model = MaskablePPO.load(str(checkpoint), device="cpu")
 
@@ -227,12 +250,30 @@ def composer_policy_generate_fn(config: RuntimeConfig, checkpoint: Path) -> Gene
         # The sampler restarts from the episode seed: the level depends only
         # on (policy, target, seed), like the search baselines.
         model.set_random_seed(seed)
+        rng = np.random.default_rng(seed)
         obs, _ = env.reset(seed=seed, options={"target": target})
         terminated = truncated = False
         while not (terminated or truncated):
             mask = env.action_masks()
-            action, _ = model.predict(obs, action_masks=mask, deterministic=False)
-            obs, _, terminated, truncated, _ = env.step(int(action))
+            if env.in_edit_phase and edits != "policy":
+                action = _scripted_edit(mask, rng, stop=edits == "none")
+            else:
+                action = int(model.predict(obs, action_masks=mask, deterministic=False)[0])
+            obs, _, terminated, truncated, _ = env.step(action)
         return env.get_level()
 
     return generate
+
+
+def _scripted_edit(mask: np.ndarray, rng: np.random.Generator, *, stop: bool) -> int:
+    """An edit action chosen without the policy.
+
+    STOP is the last action. With ``stop`` it is taken at once; otherwise the
+    choice is uniform among the offered edits and falls to STOP only when
+    none is left.
+    """
+    stop_action = mask.size - 1
+    offered = np.flatnonzero(mask[:stop_action])
+    if stop or offered.size == 0:
+        return stop_action
+    return int(rng.choice(offered))

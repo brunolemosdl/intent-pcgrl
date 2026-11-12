@@ -168,11 +168,10 @@ generation:
   require_bridge_win: true
   bridge_num_runs: 3
   minimum_completion_ratio: 0.95
-  bridge_validation_start_fraction: 0.0
   polish:
     enabled: true
     tolerance: 0.05
-    max_passes: 3
+    max_tiles: 32
 evaluation:
   agents:
   - robinBaumgarten

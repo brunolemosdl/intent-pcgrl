@@ -189,6 +189,48 @@ def test_run_generate_selects_best_terminal_reward(config, catalog, tmp_path) ->
     assert diagnostics["terminal_reward"] == pytest.approx(5.0)
 
 
+def test_run_generate_plays_candidates_in_reward_order(config, catalog, tmp_path) -> None:
+    """The A* judge stops at the best-rewarded candidate it finishes.
+
+    With every candidate winnable only the top one is played; the others are
+    reported as ranked below the selection."""
+    rewards = [1.0, 5.0, 2.0, 0.5, 3.0]
+    bridge_cls = _stub_bridge_cls()
+    out = _run(config, catalog, tmp_path, [_episode(r) for r in rewards], bridge_cls=bridge_cls)
+    diagnostics = json.loads(out.read_text(encoding="utf-8"))["diagnostics"]
+    assert bridge_cls.return_value.evaluate.call_count == 1
+    assert diagnostics["attempts_judged"] == 1
+    assert diagnostics["selected_attempt"] == 1
+    skipped = [a for a in diagnostics["all_attempts"] if a["attempt"] != 1]
+    assert all(a["bridge_checked"] is False for a in skipped)
+    assert {a["bridge_skipped_reason"] for a in skipped} == {"ranked_below_selection"}
+
+
+def test_run_generate_falls_through_to_the_next_candidate(config, catalog, tmp_path) -> None:
+    """A candidate the judge cannot finish hands the selection to the next one."""
+    rewards = [1.0, 5.0, 2.0, 0.5, 3.0]
+    bridge_cls = _stub_bridge_cls()
+    lost = SimpleNamespace(
+        won=False,
+        completion_ratio=0.3,
+        bridge_win_rate=0.0,
+        bridge_runs=3,
+        bridge_completion_std=0.0,
+        game_status="LOSE",
+    )
+    won = bridge_cls.return_value.evaluate.return_value
+    bridge_cls.return_value.evaluate.side_effect = [lost, won]
+    out = _run(config, catalog, tmp_path, [_episode(r) for r in rewards], bridge_cls=bridge_cls)
+    diagnostics = json.loads(out.read_text(encoding="utf-8"))["diagnostics"]
+    assert bridge_cls.return_value.evaluate.call_count == 2
+    assert diagnostics["attempts_judged"] == 2
+    assert diagnostics["selected_attempt"] == 4
+    assert diagnostics["terminal_reward"] == pytest.approx(3.0)
+    top = next(a for a in diagnostics["all_attempts"] if a["attempt"] == 1)
+    assert top["failure_reasons"] == ["FAIL_BRIDGE_NOT_WON"]
+    assert top["final_playable"] is False
+
+
 def test_run_generate_recomputes_reward_on_truncation(config, catalog, tmp_path) -> None:
     """Truncated episodes re-score the stitched level instead of reading 0."""
     terminal = MagicMock()

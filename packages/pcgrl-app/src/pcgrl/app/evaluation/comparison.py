@@ -17,12 +17,13 @@ from pcgrl.app.evaluation.census import census_distance, merge_censuses, structu
 from pcgrl.app.evaluation.controllability import (
     GenerateFn,
     composer_policy_generate_fn,
+    composer_policy_polished_generate_fn,
 )
 from pcgrl.core.domain.level import AreaType, LevelGrid
 from pcgrl.core.helpers.path import ensure_dir, resolve_path
 from pcgrl.core.settings.schema import RuntimeConfig
 from pcgrl.core.tiles.catalog import TileCatalog, load_catalog
-from pcgrl.runtime.metrics.intent import INTENT_KEYS, compute_intent_vector
+from pcgrl.runtime.metrics.intent import INTENT_KEYS, compute_intent_vector, effective_target
 from pcgrl.runtime.metrics.tpkl import (
     PatternReference,
     empty_pattern_key,
@@ -36,6 +37,8 @@ SYSTEM_NAMES = (
     "ppo",
     "ppo_best_of_n",
     "ppo_best_of_n_polished",
+    "ppo_random_edits",
+    "ppo_planner_edits",
     "random_legal",
     "greedy_intent",
     "beam_search",
@@ -44,6 +47,13 @@ SYSTEM_NAMES = (
 )
 
 _BASELINE_SYSTEMS = ("random_legal", "greedy_intent", "beam_search", "markov")
+_POLICY_SYSTEMS = (
+    "ppo",
+    "ppo_best_of_n",
+    "ppo_best_of_n_polished",
+    "ppo_random_edits",
+    "ppo_planner_edits",
+)
 _SUMMARY_METRICS = (
     "terminal_reward",
     "intent_error_mean",
@@ -78,11 +88,20 @@ def build_generate_fn(
         return _baseline_generate_fn(config, system)
     if system == "corpus_replay":
         return lambda target, seed: corpus_replay_level(config, seed)
-    if system in ("ppo", "ppo_best_of_n", "ppo_best_of_n_polished"):
+    if system in _POLICY_SYSTEMS:
         if checkpoint is None:
             raise ValueError(f"system {system!r} requires --checkpoint")
         if system == "ppo":
             return composer_policy_generate_fn(config, checkpoint)
+        # The edit-selection ablations keep the policy's composition and take
+        # the edit choice away from it: uniformly random legal edits, or no
+        # edit phase at all with the planner run to convergence instead.
+        if system == "ppo_random_edits":
+            return composer_policy_generate_fn(config, checkpoint, edits="random")
+        if system == "ppo_planner_edits":
+            return composer_policy_polished_generate_fn(
+                config, checkpoint, edits="none", bounded=False
+            )
         # The plain best-of-N system measures the raw two-phase policy: the
         # polish stage is pinned OFF regardless of the product config default,
         # and ON only for the explicit ablation system.
@@ -330,10 +349,12 @@ def _score_level(
     Description:
         ``requested`` is what the system is conditioned on (the translated
         vector under an llm/fake target source); errors and the terminal
-        reward are always scored against ``target`` (the oracle reference),
-        so the oracle-vs-llm gap on the same system is exactly the
-        translation stage's end-to-end cost.
+        reward are always scored against ``target`` (the oracle reference,
+        read through ``effective_target`` like every generator input), so the
+        oracle-vs-llm gap on the same system is exactly the translation
+        stage's end-to-end cost.
     """
+    target = effective_target(target)
     start = time.perf_counter()
     level = generate_fn(requested, seed)
     wall_time = time.perf_counter() - start

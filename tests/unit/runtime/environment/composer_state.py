@@ -97,16 +97,79 @@ def test_seam_height_rule(core) -> None:
 
 
 def test_seam_gap_rule(core, config) -> None:
-    """Verify seam gap rule."""
+    """Nothing may follow a chunk that exits into a gap the flood cannot cross."""
     state = core.apply_chunk(ComposeState(), 0)
     state = core.apply_chunk(state, 3)  # trailing gap of 6
     mask = core.legal_chunk_mask(state)
-    # 6 (trailing) + 3 (leading of chunk 4) = 9 > jump_reach 5 -> illegal;
-    # grounded entries are also illegal because the seam gap is uncrossable
-    # only when the entry is grounded... the grounded rule applies instead:
-    # entry 2 vs exit 0 is not grounded-jumpable, so only gap seams <= 5 pass.
-    assert not mask[4]
-    assert not mask[1] or config.validation.jump_reach >= 6
+    assert config.validation.jump_reach == 5
+    assert not mask[4]  # 6 trailing + 3 leading
+    assert not mask[1]  # 6 trailing, grounded entry
+
+
+def _library(catalog, chunks) -> ChunkLibrary:
+    return ChunkLibrary(
+        chunks,
+        train_level_ids=["1-1"],
+        heldout_level_ids=["8-1"],
+        tile_names=[t.name for t in catalog.tiles],
+    )
+
+
+@pytest.mark.parametrize(("gap", "legal"), [(4, True), (5, False)])
+def test_gap_seam_is_as_wide_as_the_flood_can_jump(catalog, config, gap, legal) -> None:
+    """A seam gap is legal exactly when the flood crosses it.
+
+    The flood lands at most ``jump_reach`` columns away and one of them is
+    the far shoulder, so a gap of ``jump_reach`` columns is one too many."""
+    from pcgrl.runtime.refine.gates import RefineGate
+
+    core2 = ComposerCore(
+        _library(
+            catalog,
+            [
+                _chunk(0, catalog, family=ChunkFamily.START),
+                _chunk(1, catalog, gap_cols=range(16 - gap, 16)),
+                _chunk(2, catalog),
+                _chunk(3, catalog, family=ChunkFamily.ENDING),
+            ],
+        ),
+        config,
+        catalog,
+    )
+    state = core2.apply_chunk(core2.apply_chunk(ComposeState(), 0), 1)
+    assert bool(core2.legal_chunk_mask(state)[2]) is legal
+    level = core2.stitch_level(core2.apply_chunk(state, 2))
+    reach = RefineGate(config, catalog).reach(level.tiles.astype(np.int16))
+    assert (reach >= 32) is legal
+
+
+@pytest.mark.parametrize(("floor", "legal"), [(6, True), (7, False)])
+def test_gap_seam_checks_the_ground_on_both_sides(catalog, config, floor, legal) -> None:
+    """Across a gap the far ground must still be within jump height.
+
+    The chunk before ends in a two-column gap over a floor of two rows; a
+    floor of six rows beyond it can be climbed, one of seven cannot."""
+    from pcgrl.runtime.refine.gates import RefineGate
+
+    core2 = ComposerCore(
+        _library(
+            catalog,
+            [
+                _chunk(0, catalog, family=ChunkFamily.START),
+                _chunk(1, catalog, gap_cols=range(14, 16)),
+                _chunk(2, catalog, floor_height=floor),
+                _chunk(3, catalog, family=ChunkFamily.ENDING, floor_height=floor),
+            ],
+        ),
+        config,
+        catalog,
+    )
+    assert config.validation.jump_height == 4
+    state = core2.apply_chunk(core2.apply_chunk(ComposeState(), 0), 1)
+    assert bool(core2.legal_chunk_mask(state)[2]) is legal
+    level = core2.stitch_level(core2.apply_chunk(state, 2))
+    reach = RefineGate(config, catalog).reach(level.tiles.astype(np.int16))
+    assert (reach >= 32) is legal
 
 
 def test_gap_seam_within_reach_is_legal(core, catalog, config) -> None:

@@ -16,7 +16,7 @@ from pcgrl.core.tiles.catalog import TileCatalog
 from pcgrl.learning.env_factory import build_env_context, make_env
 from pcgrl.rendering.ascii import level_to_ascii
 from pcgrl.rendering.png import PngRenderer
-from pcgrl.runtime.metrics.intent import compute_intent_vector
+from pcgrl.runtime.metrics.intent import compute_intent_vector, effective_target
 from pcgrl.runtime.refine import IntentRefiner, intent_objective
 from pcgrl.runtime.validators.runner import ValidatorRunner
 
@@ -192,13 +192,13 @@ def _polish_selected(
         config,
         context.catalog,
         tolerance=polish_cfg.tolerance,
-        max_passes=polish_cfg.max_passes,
+        max_tiles=polish_cfg.max_tiles,
     )
     result = refiner.refine(selected["level"], target_vector)
     block.update(
         {
             "converged": result.converged,
-            "passes": result.passes,
+            "tiles_changed": result.tiles_changed,
             "edits_accepted": sum(1 for e in result.edits if e.accepted),
             "edits_rejected": sum(1 for e in result.edits if not e.accepted),
             "measured_before": list(result.measured_before),
@@ -214,9 +214,8 @@ def _polish_selected(
     if not result.applied:
         block["fallback_reason"] = "no_edits_applied"
         return block
-    effective = refiner.effective_target(target_vector)
-    if intent_objective(np.asarray(result.measured_after), effective) > intent_objective(
-        np.asarray(result.measured_before), effective
+    if intent_objective(np.asarray(result.measured_after), target_vector) > intent_objective(
+        np.asarray(result.measured_before), target_vector
     ):
         block["fallback_reason"] = "no_improvement_after_polish"
         return block
@@ -274,14 +273,15 @@ def run_generate(
     """Generate a level from a trained composer policy with best-of-N selection.
 
     Description:
-        Each attempt rolls one masked episode and is gated on the composer's
-        own quality criteria: structural validity, flood reachability to the
-        flag (the terminal reward's playability term at 1.0), and — when the
-        bridge is required — an A* win / completion check. Candidates are
-        ranked by the composer terminal reward, the training objective, so
-        selection optimizes exactly what the policy was trained on. Truncated
-        episodes have their reward recomputed from the stitched level because
-        the final env step pays 0 in that case.
+        Each attempt rolls one masked episode and is checked on the cheap
+        gates: structural validity and flood reachability to the flag (the
+        terminal reward's playability term at 1.0). Candidates are ranked by
+        the composer terminal reward, the training objective, so selection
+        optimizes exactly what the policy was trained on; when the bridge is
+        required the A* agent then plays them in that order and the first
+        one it finishes is selected. Truncated episodes have their reward
+        recomputed from the stitched level because the final env step pays 0
+        in that case.
 
     Args:
         config: Runtime settings for environment, gates, and bridge evaluation.
@@ -320,7 +320,9 @@ def run_generate(
             "run the 'prepare' and 'library' stages first"
         )
     model = MaskablePPO.load(str(checkpoint), device="cpu")
-    target_vector = (
+    # One reading of the request for the policy, the gates, polish and the
+    # report: count targets in the "none" band are zero.
+    target_vector = effective_target(
         target if target is not None else np.array(config.default_target_vector(), dtype=np.float32)
     )
     base_seed = seed if seed is not None else config.experiment.seed
@@ -356,10 +358,6 @@ def run_generate(
                 f"Generation failed ({FAIL_BRIDGE_UNAVAILABLE}). See diagnostics at {out}"
             ) from exc
 
-    bridge_start_attempt = max(
-        0,
-        int(np.floor(gen_cfg.max_attempts * gen_cfg.bridge_validation_start_fraction)),
-    )
     candidates: list[dict[str, Any]] = []
     for attempt in range(gen_cfg.max_attempts):
         attempt_seed = candidate_seed(base_seed, attempt)
@@ -387,52 +385,18 @@ def run_generate(
             float(abs(m - t))
             for m, t in zip(measured.tolist(), target_vector.tolist(), strict=True)
         ]
-        bridge_checked = bool(
-            gen_cfg.require_gameplay_bridge
-            and attempt >= bridge_start_attempt
-            and validation.is_valid
-            and flood_reachable
-        )
         bridge_skipped_reason: str | None = None
-        if not bridge_checked:
-            if not gen_cfg.require_gameplay_bridge:
-                bridge_skipped_reason = "bridge_not_required"
-            elif not validation.is_valid:
-                bridge_skipped_reason = "structural_invalid"
-            elif not flood_reachable:
-                bridge_skipped_reason = "heuristic_unreachable"
-            else:
-                bridge_skipped_reason = "attempt_below_start_fraction"
-        bridge_fields: dict[str, Any] = {
-            "bridge_won": None,
-            "bridge_completion_ratio": None,
-            "bridge_win_rate": 0.0,
-            "bridge_runs": 0,
-            "bridge_completion_std": 0.0,
-            "bridge_game_status": None,
-        }
-        bridge_ok = not gen_cfg.require_gameplay_bridge
-        if bridge_checked:
-            bridge_fields = _bridge_stats(bridge, level, config)
-            completion_ok = (
-                float(bridge_fields["bridge_completion_ratio"]) >= gen_cfg.minimum_completion_ratio
-            )
-            win_ok = bool(bridge_fields["bridge_won"]) if gen_cfg.require_bridge_win else True
-            bridge_ok = completion_ok and win_ok
+        if not gen_cfg.require_gameplay_bridge:
+            bridge_skipped_reason = "bridge_not_required"
+        elif not validation.is_valid:
+            bridge_skipped_reason = "structural_invalid"
+        elif not flood_reachable:
+            bridge_skipped_reason = "heuristic_unreachable"
         failure_reasons: list[str] = []
         if not validation.is_valid:
             failure_reasons.append(FAIL_STRUCTURAL_INVALID)
         if not flood_reachable:
             failure_reasons.append(FAIL_HEURISTIC_UNREACHABLE)
-        if bridge_checked and not bridge_ok:
-            failure_reasons.append(FAIL_BRIDGE_NOT_WON)
-        failure_reasons = _sort_failures(failure_reasons)
-        final_playable = (
-            bool(validation.is_valid)
-            and flood_reachable
-            and (bridge_ok if gen_cfg.require_gameplay_bridge else True)
-            and (bridge_checked or not gen_cfg.require_gameplay_bridge)
-        )
         candidates.append(
             {
                 "attempt": attempt,
@@ -451,18 +415,46 @@ def run_generate(
                 "per_dimension_error": per_dimension_error,
                 "mean_target_error": float(np.mean(per_dimension_error)),
                 "max_target_error": float(np.max(per_dimension_error)),
-                "bridge_checked": bridge_checked,
+                "bridge_checked": False,
                 "bridge_skipped_reason": bridge_skipped_reason,
-                "failure_reasons": failure_reasons,
-                "final_playable": bool(final_playable),
+                "failure_reasons": _sort_failures(failure_reasons),
+                "final_playable": False,
                 "edit_log": list(step_info.get("edit_log", [])),
-                **bridge_fields,
+                "bridge_won": None,
+                "bridge_completion_ratio": None,
+                "bridge_win_rate": 0.0,
+                "bridge_runs": 0,
+                "bridge_completion_std": 0.0,
+                "bridge_game_status": None,
             }
         )
-    playable_candidates = [
-        candidate for candidate in candidates if bool(candidate["final_playable"])
-    ]
-    if not playable_candidates:
+    # The A* judge is the expensive gate, so it plays candidates in reward
+    # order and stops at the first one it finishes: the selection is the
+    # best-rewarded candidate that passes every gate, and candidates ranked
+    # below it are never played.
+    ranked = sorted(
+        (c for c in candidates if c["structural_valid"] and c["heuristic_reachable"]),
+        key=lambda item: -float(item["terminal_reward"]),
+    )
+    selected: dict[str, Any] | None = None
+    for candidate in ranked:
+        if selected is not None:
+            candidate["bridge_skipped_reason"] = "ranked_below_selection"
+            continue
+        if gen_cfg.require_gameplay_bridge:
+            candidate.update(_bridge_stats(bridge, candidate["level"], config))
+            candidate["bridge_checked"] = True
+            completion_ok = (
+                float(candidate["bridge_completion_ratio"]) >= gen_cfg.minimum_completion_ratio
+            )
+            win_ok = bool(candidate["bridge_won"]) if gen_cfg.require_bridge_win else True
+            if not (completion_ok and win_ok):
+                candidate["failure_reasons"] = [FAIL_BRIDGE_NOT_WON]
+                continue
+        candidate["final_playable"] = True
+        selected = candidate
+    judged = sum(1 for candidate in candidates if candidate["bridge_checked"])
+    if selected is None:
         # Prefer a structurally valid + reachable level for the diagnostic
         # report even when no candidate cleared the bridge; fall back to the
         # full pool only when nothing is reachable at all.
@@ -479,7 +471,7 @@ def run_generate(
             "status": status,
             "generation_status": status,
             "attempts_total": len(candidates),
-            "attempts_playable": 0,
+            "attempts_judged": judged,
             "selection_mode": f"best_of_{gen_cfg.max_attempts}",
             "selected_attempt": int(best["attempt"]),
             "selected_seed": int(best["seed"]),
@@ -504,7 +496,6 @@ def run_generate(
             tile_size_px=config.game.tile_size_px,
         )
         raise RuntimeError(f"Generation failed ({status}). See diagnostics at {out}")
-    selected = max(playable_candidates, key=lambda item: float(item["terminal_reward"]))
     polish_block = _polish_selected(
         selected,
         config=config,
@@ -519,7 +510,7 @@ def run_generate(
         "status": SUCCESS_PLAYABLE,
         "generation_status": SUCCESS_PLAYABLE,
         "attempts_total": len(candidates),
-        "attempts_playable": len(playable_candidates),
+        "attempts_judged": judged,
         "selection_mode": f"best_of_{gen_cfg.max_attempts}",
         "selected_attempt": int(selected["attempt"]),
         "selected_seed": int(selected["seed"]),

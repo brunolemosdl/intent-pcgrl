@@ -48,6 +48,8 @@ class _ChunkData:
     exit_heights: np.ndarray
     leading_gaps: np.ndarray
     trailing_gaps: np.ndarray
+    entry_shoulders: np.ndarray
+    exit_shoulders: np.ndarray
     is_start: np.ndarray
     is_ending: np.ndarray
     counts: np.ndarray
@@ -72,6 +74,27 @@ def _edge_gap_width(
     return gap
 
 
+def _shoulder_height(
+    tiles: np.ndarray,
+    ground_categories: frozenset[str],
+    *,
+    from_left: bool,
+    catalog: TileCatalog,
+) -> int:
+    """Ground stack height of the first grounded column from one edge (0 if none)."""
+    height, width = tiles.shape
+    columns = range(width) if from_left else range(width - 1, -1, -1)
+    for column in columns:
+        stack = 0
+        for row in range(height - 1, -1, -1):
+            if catalog.tile_for_id(int(tiles[row, column])).category.value not in ground_categories:
+                break
+            stack += 1
+        if stack:
+            return stack
+    return 0
+
+
 class ComposerCore:
     """Library + config bound together; owns masks, transitions and stitching.
 
@@ -83,9 +106,10 @@ class ComposerCore:
         - width arithmetic: chunks fill ``game.width_tiles`` left to right; the
           level must close with an ENDING leaving at most ``width_slack_tiles``
           of padding.
-        - seam physics: |exit_height - entry_height| <= ``validation.jump_height``
-          for grounded seams; a gap spanning the seam must be at most
-          ``validation.jump_reach`` columns wide.
+        - seam physics: the ground on the two sides of a seam is within
+          ``validation.jump_height`` rows, and a gap spanning the seam is
+          narrower than ``validation.jump_reach`` columns, so the flood can
+          always cross from one chunk to the next.
         - families: episodes start with START and end with ENDING when required.
         - the anti-duplicate window and intent budgets are SOFT rules, dropped in
           that order if they would empty the mask, because the episode must always
@@ -127,6 +151,8 @@ class ComposerCore:
         exit_ = np.zeros(size, dtype=np.int64)
         lead = np.zeros(size, dtype=np.int64)
         trail = np.zeros(size, dtype=np.int64)
+        entry_shoulder = np.zeros(size, dtype=np.int64)
+        exit_shoulder = np.zeros(size, dtype=np.int64)
         starts = np.zeros(size, dtype=bool)
         endings = np.zeros(size, dtype=bool)
         counts = np.zeros((size, len(_BUDGET_KEYS)), dtype=np.float64)
@@ -145,6 +171,12 @@ class ComposerCore:
             trail[index] = _edge_gap_width(
                 chunk.tiles, self._ground_categories, from_left=False, catalog=catalog
             )
+            entry_shoulder[index] = _shoulder_height(
+                chunk.tiles, self._ground_categories, from_left=True, catalog=catalog
+            )
+            exit_shoulder[index] = _shoulder_height(
+                chunk.tiles, self._ground_categories, from_left=False, catalog=catalog
+            )
             starts[index] = chunk.family == ChunkFamily.START
             endings[index] = chunk.family == ChunkFamily.ENDING
             counts[index, 0] = chunk.category_counts.get("enemy", 0)
@@ -157,6 +189,8 @@ class ComposerCore:
             exit_heights=exit_,
             leading_gaps=lead,
             trailing_gaps=trail,
+            entry_shoulders=entry_shoulder,
+            exit_shoulders=exit_shoulder,
             is_start=starts,
             is_ending=endings,
             counts=counts,
@@ -189,9 +223,11 @@ class ComposerCore:
         """Hard rules: width arithmetic, families and seam physics.
 
         Non-ending chunks must leave room for some ending afterwards; endings
-        must close the level within the padding slack. Grounded seams obey the
-        jump-height rule; gap seams (either side bottomless) obey the combined
-        gap-width-vs-jump-reach rule.
+        must close the level within the padding slack. At every seam the
+        ground heights nearest to it on the two sides (across the gap, when
+        an edge is bottomless) obey the jump-height rule, and the gap must be
+        narrower than the jump reach: the flood lands at most ``jump_reach``
+        columns away, one of which is the far shoulder.
         """
         data = self._data
         if state.closed:
@@ -209,17 +245,11 @@ class ComposerCore:
                 mask &= data.is_start
             return mask
         mask &= ~data.is_start
-        previous = self.library[state.chunk_ids[-1]]
+        previous = state.chunk_ids[-1]
         physics = self.config.validation
-        prev_exit = previous.exit_height
-        prev_trail = int(self._data.trailing_gaps[state.chunk_ids[-1]])
-        grounded = (data.entry_heights > 0) & (prev_exit > 0)
-        jumpable = np.abs(data.entry_heights - prev_exit) <= physics.jump_height
-        seam_gap = prev_trail + data.leading_gaps
-        gap_seam_ok = (seam_gap <= physics.jump_reach) & (
-            (data.entry_heights == 0) | (prev_exit == 0)
-        )
-        mask &= (grounded & jumpable) | gap_seam_ok
+        rise = np.abs(data.entry_shoulders - int(data.exit_shoulders[previous]))
+        seam_gap = int(data.trailing_gaps[previous]) + data.leading_gaps
+        mask &= (rise <= physics.jump_height) & (seam_gap < physics.jump_reach)
         return mask
 
     def _duplicate_mask(self, state: ComposeState) -> np.ndarray:
@@ -311,10 +341,11 @@ class ComposerCore:
                 :, :chunk_width
             ]
             cursor += chunk_width
+        resolved = resolve_layout(config.layout, height=height, width=width)
         if cursor < width:
-            tiles[height - 2 :, cursor:] = solid_id
+            # Pad the slack with plain ground at the corpus floor level.
+            tiles[resolved.ground_row :, cursor:] = solid_id
         if place_endpoints:
-            resolved = resolve_layout(config.layout, height=height, width=width)
             for y, x in resolved.reserved:
                 if y == resolved.ground_row:
                     tiles[y, x] = solid_id

@@ -84,7 +84,6 @@ def test_load_config_generation_renamed_fields(config) -> None:
     assert config.generation.max_attempts >= 1
     assert config.generation.require_gameplay_bridge is True
     assert config.generation.require_bridge_win is True
-    assert 0.0 <= config.generation.bridge_validation_start_fraction <= 1.0
     assert 0.0 <= config.generation.minimum_completion_ratio <= 1.0
     assert config.generation.bridge_num_runs >= 1
 

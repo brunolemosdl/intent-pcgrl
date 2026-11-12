@@ -6,10 +6,10 @@ translation_error_mean,N_best_of,0.0,1.0,1
 translation_error_mean,G_grounding:N_best_of,0.0,1.0,2
 translation_error_mean,S_style:N_best_of,0.0,1.0,2
 translation_error_mean,G_grounding:S_style:N_best_of,0.0,1.0,3
-e2e_intent_error_mean,G_grounding,0.016325,0.0004997501249375312,1
-e2e_intent_error_mean,G_grounding:S_style,0.01050000000000001,0.067,2
-e2e_intent_error_mean,N_best_of,-0.0025000000000000022,0.674,1
-e2e_intent_error_mean,S_style:N_best_of,0.0016249999999999876,0.787,2
-e2e_intent_error_mean,S_style,0.001350000000000004,0.8,1
-e2e_intent_error_mean,G_grounding:S_style:N_best_of,-0.0010249999999999981,0.8645,3
-e2e_intent_error_mean,G_grounding:N_best_of,0.0005499999999999949,0.915,2
+e2e_intent_error_mean,G_grounding,0.0190875,0.0004997501249375312,1
+e2e_intent_error_mean,G_grounding:S_style,0.010762500000000001,0.0785,2
+e2e_intent_error_mean,S_style,-0.0059875,0.322,1
+e2e_intent_error_mean,N_best_of,-0.002212499999999999,0.734,1
+e2e_intent_error_mean,G_grounding:S_style:N_best_of,-0.0006374999999999992,0.921,3
+e2e_intent_error_mean,G_grounding:N_best_of,-0.0005625000000000005,0.917,2
+e2e_intent_error_mean,S_style:N_best_of,-3.750000000000975e-05,0.997,2

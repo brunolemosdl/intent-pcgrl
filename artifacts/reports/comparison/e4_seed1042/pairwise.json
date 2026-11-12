@@ -3,42 +3,42 @@
     "a": "ppo",
     "b": "ppo_best_of_n",
     "metric": "terminal_reward",
-    "delta": -0.077,
-    "p_value": 0.0621
+    "delta": -0.1299,
+    "p_value": 0.0001
   },
   {
     "a": "ppo",
     "b": "ppo_best_of_n",
     "metric": "intent_error_mean",
-    "delta": 0.0076,
-    "p_value": 0.1426
+    "delta": 0.0007,
+    "p_value": 0.6424
   },
   {
     "a": "ppo",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": 0.8788,
+    "delta": 1.2055,
     "p_value": 0.0001
   },
   {
     "a": "ppo",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": -0.0573,
+    "delta": -0.1174,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n",
     "b": "beam_search",
     "metric": "terminal_reward",
-    "delta": 0.9557,
+    "delta": 1.3354,
     "p_value": 0.0001
   },
   {
     "a": "ppo_best_of_n",
     "b": "beam_search",
     "metric": "intent_error_mean",
-    "delta": -0.0648,
+    "delta": -0.1181,
     "p_value": 0.0001
   }
 ]

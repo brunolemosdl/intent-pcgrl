@@ -170,3 +170,26 @@ def test_compute_verticality_band_renormalisation() -> None:
     # Below the band floor reads as flat; above the ceiling saturates.
     assert compute_verticality([2, 2, 4, 4], 14, band_min=0.41, band_max=0.92) == 0.0
     assert compute_verticality([0, 12], 14, band_min=0.41, band_max=0.92) == 1.0
+
+
+def test_effective_target_reads_the_none_band_as_zero() -> None:
+    """Count targets at or below 0.05 become zero; the rest is untouched."""
+    from pcgrl.runtime.metrics.intent import effective_target
+
+    target = np.array([0.05, 0.04, 0.06, 0.05, 0.0, 0.05, 0.95, 0.05], dtype=np.float32)
+    effective = effective_target(target)
+    assert effective.tolist() == pytest.approx([0.0, 0.0, 0.06, 0.0, 0.0, 0.05, 0.95, 0.05])
+    assert target[0] == pytest.approx(0.05), "the input must not be modified"
+    assert effective_target(effective).tolist() == effective.tolist()
+
+
+def test_measure_intent_exposes_the_path_geometry(catalog, config) -> None:
+    """The measurement carries the envelope the vector was derived from."""
+    from pcgrl.runtime.metrics.intent import measure_intent
+
+    level = _flat_level(catalog)
+    state = measure_intent(level, catalog, config)
+    assert np.array_equal(state.vector, compute_intent_vector(level, catalog, config))
+    assert len(state.envelope) == level.width_tiles == len(state.ground)
+    assert state.amplitude == 0
+    assert state.path_columns == sum(1 for height in state.envelope if height is not None)

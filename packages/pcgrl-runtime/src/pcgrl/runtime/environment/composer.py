@@ -15,15 +15,23 @@ from pcgrl.runtime.environment.composer_obs import (
 from pcgrl.runtime.environment.composer_state import ComposerCore, ComposeState
 from pcgrl.runtime.environment.context import EnvContext
 from pcgrl.runtime.environment.edit_actions import (
+    N_SEGMENTS,
     decode_edit_action,
     edit_action_count,
     edit_action_masks,
     plan_edit_action,
 )
-from pcgrl.runtime.metrics.intent import compute_intent_vector
+from pcgrl.runtime.metrics.intent import IntentMeasurement, effective_target, measure_intent
 from pcgrl.runtime.refine.context import build_context
+from pcgrl.runtime.refine.corrections import (
+    SINGLE_PLACEMENT,
+    correction_needed,
+    raw_gap,
+    reads_literally,
+    relief_fraction,
+)
 from pcgrl.runtime.refine.gates import RefineGate, grid_from_tiles
-from pcgrl.runtime.refine.ops import apply_edit, revert_edit
+from pcgrl.runtime.refine.ops import apply_edit, plan_repair_pipes, revert_edit
 
 
 def sample_training_target(
@@ -70,10 +78,14 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         episode composes until an ENDING chunk closes the level, then edits
         the stitched tiles under per-edit structural+flood gating (failed
         edits revert and consume budget) until STOP or the edit budget runs
-        out. The terminal-only reward is computed on the edited level, so
-        the policy learns when chunk material suffices and when targeted
-        edits are needed — extremes included. ``gamma = 1.0`` still applies
-        (one terminal reward over ~10-40 decisions).
+        out. Each edit moves one intent dimension in one segment by what the
+        target still needs, only edits that can still help are unmasked, and
+        an edit that leaves its dimension no closer to the target is undone
+        like a gated one, so the policy decides what to fix, where and in
+        which order. The terminal-only reward is computed on the edited
+        level, so the policy learns when chunk material suffices and when
+        targeted edits are needed — extremes included. ``gamma = 1.0`` still
+        applies (one terminal reward over ~10-40 decisions).
     """
 
     def __init__(self, context: EnvContext, seed: int | None = None) -> None:
@@ -102,18 +114,23 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         widths = self._core.library.widths()
         self._max_decisions = context.config.game.width_tiles // max(1, min(widths)) + 2
         self._edit_budget = context.config.environment.composer.edit_budget
+        self._edit_tolerance = context.config.environment.composer.edit_tolerance
         self._num_chunks = len(self._core.library)
         self._state = ComposeState()
         self._tiles: np.ndarray | None = None
         self._edits_left = 0
         self._edit_log: list[dict[str, Any]] = []
         self._gate_baseline: frozenset[str] = frozenset()
+        self._reach = -1
         # Rejected edits revert the tiles, so measured intent and the edit
         # mask stay valid across no-op steps; the dirty flag is the single
         # invalidation point (set on accepted edits and phase entry).
         self._edit_cache_dirty = True
-        self._cached_measured: np.ndarray | None = None
+        self._cached_state: IntentMeasurement | None = None
         self._cached_edit_mask: np.ndarray | None = None
+        # Edit actions that changed nothing, by segment: they stay masked
+        # until an accepted edit touches that segment again.
+        self._void_edits: dict[int, int] = {}
         self._intent_target = self._sample_target()
         self.observation_space = spaces.Box(
             low=-1.0,
@@ -135,9 +152,10 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         """Condition the episode on an explicit intent vector.
 
         Args:
-            target: Intent vector of shape ``(target_vector_dim,)``.
+            target: Intent vector of shape ``(target_vector_dim,)``; count
+                dimensions in the "none" band are read as zero.
         """
-        self._intent_target = np.asarray(target, dtype=np.float32)
+        self._intent_target = effective_target(target)
 
     def action_masks(self) -> np.ndarray:
         """Legal-action mask over chunks + edits for the current phase.
@@ -149,9 +167,18 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         if self._tiles is None:
             mask[: self._num_chunks] = self._core.legal_chunk_mask(self._state, self._intent_target)
         else:
-            if self._edit_cache_dirty or self._cached_edit_mask is None:
-                self._cached_edit_mask = edit_action_masks(self._tiles, self._refine_ctx)
+            state = self._measurement()
+            if self._cached_edit_mask is None:
+                self._cached_edit_mask = edit_action_masks(
+                    self._tiles,
+                    self._refine_ctx,
+                    self._intent_target,
+                    state,
+                    tolerance=self._edit_tolerance,
+                )
             mask[self._num_chunks :] = self._cached_edit_mask
+            for index in self._void_edits:
+                mask[self._num_chunks + index] = False
         return mask
 
     def get_level(self) -> LevelGrid:
@@ -188,8 +215,9 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         self._edit_log = []
         self._gate_baseline = frozenset()
         self._edit_cache_dirty = True
-        self._cached_measured = None
+        self._cached_state = None
         self._cached_edit_mask = None
+        self._void_edits = {}
         observation = self._build_observation()
         return observation, {"action_mask": self.action_masks()}
 
@@ -242,18 +270,67 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         assert self._tiles is not None
         decoded = decode_edit_action(action - self._num_chunks)
         if decoded is not None:
-            edits = plan_edit_action(self._tiles, self._refine_ctx, decoded)
+            before = (self._tiles.copy(), self._reach, self._progress(decoded.dim))
+            edits = plan_edit_action(
+                self._tiles,
+                self._refine_ctx,
+                decoded,
+                self._intent_target,
+                self._measurement(),
+                tolerance=self._edit_tolerance,
+            )
             accepted = False
+            touched: set[int] = set()
+            per_segment = max(1, self._refine_ctx.width // N_SEGMENTS)
+            # A correction that places one structure plans alternatives for
+            # it: the first one the gates accept and that helps is kept.
+            single = (decoded.dim, decoded.direction) in SINGLE_PLACEMENT
             for edit in edits:
                 if not edit.cells:
                     continue
                 snapshot = apply_edit(self._tiles, edit)
-                ok, _ = self._gate.check(self._tiles, baseline=self._gate_baseline)
-                if ok:
-                    accepted = True
+                ok, _ = self._gate.check(
+                    self._tiles, baseline=self._gate_baseline, min_reach=self._reach
+                )
+                if ok and single:
                     self._edit_cache_dirty = True
-                else:
+                    ok = self._closer(decoded.dim, before[2])
+                if not ok:
                     revert_edit(self._tiles, snapshot)
+                    self._edit_cache_dirty = True
+                    continue
+                accepted = True
+                self._edit_cache_dirty = True
+                self._reach = self._gate.reach(self._tiles)
+                touched.update(min(N_SEGMENTS - 1, col // per_segment) for _, col, _ in edit.cells)
+                if single:
+                    break
+                # A multi-edit plan stops as soon as its dimension is served.
+                if len(edits) > 1 and not correction_needed(
+                    self._tiles,
+                    self._refine_ctx,
+                    self._intent_target,
+                    self._measurement(),
+                    decoded.dim,
+                    decoded.direction,
+                    tolerance=self._edit_tolerance,
+                ):
+                    break
+            if accepted and not self._closer(decoded.dim, before[2]):
+                # The action changed tiles without bringing its dimension
+                # closer to the target: it is undone as a whole.
+                self._tiles[...] = before[0]
+                self._reach = before[1]
+                self._edit_cache_dirty = True
+                accepted = False
+            if accepted:
+                self._void_edits = {
+                    index: segment
+                    for index, segment in self._void_edits.items()
+                    if segment not in touched
+                }
+            else:
+                self._void_edits[action - self._num_chunks] = decoded.segment
             self._edit_log.append(
                 {
                     "op": decoded.op,
@@ -275,12 +352,32 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
         return observation, reward, terminated, False, info
 
     def _enter_edit_phase(self) -> None:
-        """Stitch once and switch the episode to the edit phase."""
+        """Stitch once, clear seam-clipped pipes and switch to the edit phase.
+
+        Chunk seams can clip or merge corpus pipes into shapes the pipe
+        validator rejects; removing them here means every edit starts from,
+        and is gated against, a structurally sound level. A clipped pipe the
+        path climbs on cannot go, so it becomes plain ground. Edits are also
+        gated against how far the flood gets, so a composition that cannot
+        be finished yet can still be repaired.
+        """
         level = self._core.stitch_level(self._state)
         self._tiles = level.tiles.astype(np.int16).copy()
+        self._gate_baseline = self._gate.hard_rules(self._tiles)
+        self._reach = self._gate.reach(self._tiles)
+        for solid in (False, True):
+            for edit in plan_repair_pipes(self._tiles, self._refine_ctx, solid=solid):
+                snapshot = apply_edit(self._tiles, edit)
+                ok, _ = self._gate.check(
+                    self._tiles, baseline=self._gate_baseline, min_reach=self._reach
+                )
+                if ok:
+                    self._reach = self._gate.reach(self._tiles)
+                else:
+                    revert_edit(self._tiles, snapshot)
+        self._gate_baseline = self._gate.hard_rules(self._tiles)
         self._edits_left = self._edit_budget
         self._edit_log = []
-        self._gate_baseline = self._gate.hard_rules(self._tiles)
         self._edit_cache_dirty = True
 
     def _level_from_tiles(self) -> LevelGrid:
@@ -301,12 +398,53 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
 
     def _sample_target(self) -> np.ndarray:
         """Sample a training target from the configured mixture."""
-        return sample_training_target(
-            self._context.config.target_vector_dim,
-            self._context.config.environment.composer.target_mix,
-            self._context.viability_map,
-            self._rng,
+        return effective_target(
+            sample_training_target(
+                self._context.config.target_vector_dim,
+                self._context.config.environment.composer.target_mix,
+                self._context.viability_map,
+                self._rng,
+            )
         )
+
+    def _measurement(self) -> IntentMeasurement:
+        """Measurement of the edited tiles, recomputed only after a change."""
+        assert self._tiles is not None
+        if self._edit_cache_dirty or self._cached_state is None:
+            self._cached_state = measure_intent(
+                grid_from_tiles(self._tiles, self._context.config),
+                self._context.catalog,
+                self._context.config,
+            )
+            self._cached_edit_mask = None
+            self._edit_cache_dirty = False
+        return self._cached_state
+
+    def _progress(self, dim: str) -> tuple[float, float]:
+        """Where one dimension stands against its target.
+
+        Returns:
+            The distance in the metric's own units (``raw_gap``; a request
+            read literally, flat and smooth, also counts the relief the
+            banded values cannot see) and the error of the banded value.
+        """
+        assert self._tiles is not None
+        state = self._measurement()
+        gap = raw_gap(self._tiles, self._refine_ctx, self._intent_target, state, dim)
+        if reads_literally(self._intent_target, dim):
+            gap += relief_fraction(self._tiles, self._refine_ctx)
+        index = self._context.config.target_vector_field_names().index(dim)
+        return gap, abs(float(state.vector[index]) - float(self._intent_target[index]))
+
+    def _closer(self, dim: str, before: tuple[float, float]) -> bool:
+        """Whether the dimension moved toward its target since ``before``.
+
+        The distance in the metric's own units must shrink, which also sees
+        progress below a band or past its saturation, and the banded error
+        must not grow.
+        """
+        gap, error = self._progress(dim)
+        return gap < before[0] - 1e-9 and error <= before[1] + 1e-9
 
     def _terminal_reward(self) -> tuple[float, dict[str, float]]:
         """Compute the terminal reward for the current (possibly edited) level."""
@@ -318,14 +456,7 @@ class MarioComposerEnv(gym.Env[np.ndarray, int]):
     def _build_observation(self) -> np.ndarray:
         """Pack the current state into the flat observation vector."""
         if self._tiles is not None:
-            if self._edit_cache_dirty or self._cached_measured is None:
-                self._cached_measured = compute_intent_vector(
-                    grid_from_tiles(self._tiles, self._context.config),
-                    self._context.catalog,
-                    self._context.config,
-                )
-                self._edit_cache_dirty = False
-            measured = self._cached_measured
+            measured = self._measurement().vector
             budget_fraction = self._edits_left / max(1, self._edit_budget)
         else:
             measured = measured_partial_intent(self._core, self._state)

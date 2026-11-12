@@ -4,4 +4,4 @@ corpus_replay carries no chunk ids, so its duplicate component is 0 by construct
 
 | system | terminal_reward (95% CI) | intent_error_mean | duplicate_rate | wall_time_s |
 |---|---|---|---|---|
-| ppo_best_of_n | 7.487 [7.277, 7.680] | 0.111 | 0.043 | 30.35 |
+| ppo_best_of_n | 7.482 [7.264, 7.681] | 0.107 | 0.032 | 10.41 |

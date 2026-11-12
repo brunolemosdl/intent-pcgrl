@@ -74,7 +74,7 @@ def harness(config, catalog, corpus_levels, reference):
     confetti = _as_grid(confetti_tiles, config, catalog)
 
     empty_tiles = np.full_like(corpus_levels[0].tiles, catalog.id_for_name("empty"))
-    empty_tiles[-2:, :] = catalog.id_for_name("solid")
+    empty_tiles[-1:, :] = catalog.id_for_name("solid")
     empty = _as_grid(empty_tiles, config, catalog)
 
     shuffled_tiles = corpus_levels[0].tiles.copy()

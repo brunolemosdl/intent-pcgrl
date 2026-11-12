@@ -1,26 +1,26 @@
 {
   "enemy_density": {
-    "spearman_rho": 0.9918,
-    "slope": 0.8064,
-    "r2": 0.9876,
+    "spearman_rho": 1.0,
+    "slope": 0.9187,
+    "r2": 0.9938,
     "n": 15
   },
   "coin_density": {
-    "spearman_rho": 0.9694,
-    "slope": 0.5453,
-    "r2": 0.9079,
+    "spearman_rho": 0.9747,
+    "slope": 0.6854,
+    "r2": 0.8884,
     "n": 15
   },
   "interactive_block_density": {
-    "spearman_rho": 0.9936,
-    "slope": 0.9547,
-    "r2": 0.9947,
+    "spearman_rho": 0.9972,
+    "slope": 0.9927,
+    "r2": 0.9997,
     "n": 15
   },
   "pipe_density": {
-    "spearman_rho": 0.9667,
-    "slope": 0.6273,
-    "r2": 0.945,
+    "spearman_rho": 0.9733,
+    "slope": 0.8225,
+    "r2": 0.9378,
     "n": 15
   }
 }

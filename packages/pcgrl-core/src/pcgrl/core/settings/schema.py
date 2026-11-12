@@ -569,29 +569,31 @@ class PolishConfig(StrictModel):
     """Deterministic post-selection refinement toward the intent target.
 
     Description:
-        The generation pipeline's hard-tolerance safety net: after best-of-N
-        selection the ``IntentRefiner`` closes any residual measured-vs-target
-        gap the learned edit phase left, re-gated by the structural chain,
-        flood, and bridge with fallback to the unpolished level. Evaluation
-        harnesses disable it explicitly to measure the raw policy.
+        The generation pipeline's final touch-up: after best-of-N selection
+        the ``IntentRefiner`` closes small residual measured-vs-target gaps
+        the learned edit phase left, within a budget of tile writes, re-gated
+        by the structural chain, flood, and bridge with fallback to the
+        unpolished level. Evaluation harnesses disable it explicitly to
+        measure the raw policy.
 
     Attributes:
         enabled: Whether generation polishes the selected candidate.
         tolerance: Per-dimension absolute error target.
-        max_passes: Refiner passes before accepting the residual.
+        max_tiles: Most tile writes the touch-up may keep, so it adjusts a
+            level but never reshapes it.
     """
 
     enabled: bool = True
     tolerance: float = 0.05
-    max_passes: int = 3
+    max_tiles: int = 32
 
     @model_validator(mode="after")
     def validate_polish(self) -> PolishConfig:
-        """Validate tolerance and pass bounds."""
+        """Validate the tolerance and the tile budget."""
         if not 0.0 < self.tolerance < 1.0:
             raise ValueError("generation.polish.tolerance must be in (0, 1)")
-        if self.max_passes < 1:
-            raise ValueError("generation.polish.max_passes must be >= 1")
+        if self.max_tiles < 1:
+            raise ValueError("generation.polish.max_tiles must be >= 1")
         return self
 
 
@@ -645,6 +647,9 @@ class ComposerEnvConfig(StrictModel):
         width_slack_tiles: Allowed width mismatch during stitching.
         edit_budget: Maximum edit-phase actions per episode (0 skips the
             phase — an experiment-only ablation cell, not a product mode).
+        edit_tolerance: Per-dimension absolute error below which the edit
+            phase treats smoothness and platform usage as satisfied (count
+            dimensions and verticality are compared in whole objects/rows).
         target_mix: Training-target sampling shares.
     """
 
@@ -658,6 +663,7 @@ class ComposerEnvConfig(StrictModel):
     # the final column count is padded/clamped during stitching.
     width_slack_tiles: int = 8
     edit_budget: int = 24
+    edit_tolerance: float = 0.05
     target_mix: TargetMixConfig = Field(default_factory=lambda: TargetMixConfig())
 
     @model_validator(mode="after")
@@ -669,6 +675,8 @@ class ComposerEnvConfig(StrictModel):
             raise ValueError("environment.composer.width_slack_tiles must be >= 0")
         if self.edit_budget < 0:
             raise ValueError("environment.composer.edit_budget must be >= 0")
+        if not 0.0 < self.edit_tolerance < 1.0:
+            raise ValueError("environment.composer.edit_tolerance must be in (0, 1)")
         return self
 
 
@@ -690,14 +698,15 @@ class GenerationConfig(StrictModel):
     Description:
         Candidate ranking uses the composer terminal reward itself, so the only
         knobs left are the attempt budget and the bridge win/completion gate.
+        The bridge plays candidates in ranking order and stops at the first
+        one it finishes.
 
     Attributes:
         max_attempts: Maximum generation attempts per target.
         require_gameplay_bridge: Whether bridge evaluation is required.
         require_bridge_win: Whether at least one bridge run must win.
-        bridge_num_runs: Stochastic bridge runs per candidate.
+        bridge_num_runs: Stochastic bridge runs per judged candidate.
         minimum_completion_ratio: Minimum mean completion ratio to accept.
-        bridge_validation_start_fraction: Fraction of attempts before bridge gating.
         polish: Deterministic post-selection refinement settings.
     """
 
@@ -706,14 +715,11 @@ class GenerationConfig(StrictModel):
     require_bridge_win: bool = True
     bridge_num_runs: int = 3
     minimum_completion_ratio: float = 0.95
-    bridge_validation_start_fraction: float = 0.0
     polish: PolishConfig = Field(default_factory=PolishConfig)
 
     @model_validator(mode="after")
     def validate_generation(self) -> GenerationConfig:
         """Validate generation gate numeric ranges."""
-        if not 0.0 <= self.bridge_validation_start_fraction <= 1.0:
-            raise ValueError("generation.bridge_validation_start_fraction must be in [0, 1]")
         if not 0.0 <= self.minimum_completion_ratio <= 1.0:
             raise ValueError("generation.minimum_completion_ratio must be in [0, 1]")
         if self.bridge_num_runs < 1:

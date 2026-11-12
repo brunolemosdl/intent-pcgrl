@@ -107,21 +107,44 @@ class RefineGate:
             violation.rule for violation in result.violations if violation.severity == "hard"
         )
 
+    def reach(self, tiles: np.ndarray) -> int:
+        """Rightmost column the flood stands on, capped at the flag column.
+
+        ``-1`` when nothing is reachable; the flag column means the level
+        can be finished.
+        """
+        start, flag_column = self._anchors
+        standable = reachable_cells(
+            tiles,
+            self._catalog,
+            jump_height=self._config.validation.jump_height,
+            jump_reach=self._config.validation.jump_reach,
+            start=start,
+        ).standable
+        return min(flag_column, max((column for _, column in standable), default=-1))
+
     def check(
-        self, tiles: np.ndarray, *, baseline: frozenset[str] = frozenset()
+        self,
+        tiles: np.ndarray,
+        *,
+        baseline: frozenset[str] = frozenset(),
+        min_reach: int | None = None,
     ) -> tuple[bool, str | None]:
-        """Validate one working tile array against a violation baseline.
+        """Validate one working tile array against the state before the edit.
 
         Description:
-            Composed levels can arrive with pre-existing hard violations
-            (e.g. seam-merged pipes); an edit is acceptable when it
-            introduces no NEW hard rule beyond the baseline and keeps the
-            flag reachable, so refinement never makes a level worse and is
-            never paralysed by damage it did not cause.
+            Composed levels can arrive with pre-existing damage: hard
+            violations (e.g. seam-merged pipes) or a flag the flood cannot
+            reach. An edit is acceptable when it introduces no NEW hard rule
+            beyond the baseline and the flood gets at least as far as before,
+            so refinement never makes a level worse and is never paralysed by
+            damage it did not cause.
 
         Args:
             tiles: Tile-id array after applying a candidate edit.
             baseline: Hard rules already violated before the edit.
+            min_reach: Column the flood reached before the edit (see
+                ``reach``); ``None`` requires the flag column.
 
         Returns:
             ``(ok, reason)`` where ``reason`` names the first failure
@@ -132,6 +155,7 @@ class RefineGate:
         for violation in result.violations:
             if violation.severity == "hard" and violation.rule not in baseline:
                 return False, f"structural:{violation.rule}"
-        if not flood_reaches_flag(tiles, self._catalog, self._config, anchors=self._anchors):
+        required = self._anchors[1] if min_reach is None else min_reach
+        if self.reach(tiles) < required:
             return False, "flood_unreachable"
         return True, None

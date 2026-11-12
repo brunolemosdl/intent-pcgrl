@@ -174,8 +174,9 @@ def compare(
         typer.Option(
             "--systems",
             help=(
-                "Comma-separated systems: ppo | ppo_best_of_n | random_legal | "
-                "greedy_intent | beam_search | markov | corpus_replay"
+                "Comma-separated systems: ppo | ppo_best_of_n | ppo_best_of_n_polished | "
+                "ppo_random_edits | ppo_planner_edits | random_legal | greedy_intent | "
+                "beam_search | markov | corpus_replay"
             ),
         ),
     ] = "random_legal,greedy_intent,beam_search,markov",
